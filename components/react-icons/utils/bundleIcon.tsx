@@ -1,0 +1,46 @@
+import * as React from "react";
+import { iconFilledClassName, iconRegularClassName } from "./constants";
+import { FluentIconsProps } from "./FluentIconsProps.types";
+import { makeStyles, mergeClasses } from "@fluentui/react-components";
+
+const useBundledIconStyles = makeStyles({
+    root: { display: "none" },
+    visible: { display: "inline" }
+});
+
+const bundleIcon = (FilledIcon: React.FC<FluentIconsProps>, RegularIcon: React.FC<FluentIconsProps>) => {
+    const Component: React.FC<FluentIconsProps> = (props) => {
+        const { className, primaryFill = 'currentColor', filled } = props;
+        const styles = useBundledIconStyles();
+
+        const retVal =  (
+            <React.Fragment>
+                <FilledIcon
+                    {...props}
+                    className={mergeClasses(
+                        styles.root,
+                        filled && styles.visible,
+                        iconFilledClassName,
+                        className
+                    )}
+                    fill={primaryFill}
+                />
+                <RegularIcon
+                    {...props}
+                    className={mergeClasses(
+                      styles.root,
+                      !filled && styles.visible,
+                      iconRegularClassName,
+                      className
+                    )}
+                    fill={primaryFill}
+                />
+            </React.Fragment>
+        );
+        return retVal;
+    }
+    Component.displayName = "CompoundIcon";
+    return Component;
+}
+
+export default bundleIcon;
