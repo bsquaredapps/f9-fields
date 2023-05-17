@@ -105,7 +105,7 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
         {
             multiselect
             ? 
-                (controlProps) => (
+                (controlProps: any) => (
                     <div 
                         {...controlProps} 
                         className={mergeClasses(styles.root, layout === "vertical" && styles.vertical )}>
