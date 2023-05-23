@@ -69,18 +69,6 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     } = props;
 
     const inputRef = React.useRef<HTMLInputElement>(null);
-    /*const onDefaultValueChanged = React.useCallback((newValue?: string[])=>{
-        inputRef.current && onChange?.(
-            {type: "change", target: {...inputRef.current}} as any as React.ChangeEvent<HTMLElement>, 
-            {optionValue: "", selectedOptions: newValue || []}
-        )
-
-    },[inputRef, inputRef.current, onChange]);
-    const [selectedOptions, setSelectedOptions] = useDefaultState({
-        defaultState: defaultSelectedOptions,
-        onDefaultChange: onDefaultValueChanged
-    });*/
-
     
     const onOptionSelect: F9ComboboxFieldOnChangeEventHandler = ( ev, data ) => {
         const event = {...ev};
@@ -97,8 +85,6 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                     selectedOptions?.includes(optionValue)
                     ? []
                     : [optionValue]
-            console.log(data);
-            //setSelectedOptions(newSelectionOptions);
             onChange?.(event, data);
         }
     };
@@ -113,8 +99,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         if(!data.open) setSearchText('');
     }
     const onInputChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback((e)=>{
-        console.log({e, from:"inputChange", allowSearch, isOpen, target: {...e.target}});
-        if(allowSearch && isOpen){
+        if(allowSearch /*&& isOpen*/){
             const value = e.target.value || '';
             setSearchText(value);
             onSearch?.(e, {value})

@@ -12,7 +12,6 @@ import {
     CheckboxProps,
     RadioProps
 } from '@fluentui/react-components';
-import { useDefaultState } from '../utils/useDefaultState';
 import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type?: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
@@ -28,14 +27,9 @@ export interface F9ChoiceGroupFieldProps extends Omit<RadioGroupProps, "onClick"
     isControlDisabled?: boolean;
     multiselect?: boolean;
     options?: F9Option<CheckboxProps & RadioProps>[];
-    defaultSelectedOptions?: string[];
+    selectedOptions?: string[];
     onChange?: (ev: React.FormEvent<HTMLDivElement>, selectedOptions: string[]) => void;
 }
-
-export type SelectionEvents =
-  | React.ChangeEvent<HTMLElement>
-  | React.KeyboardEvent<HTMLElement>
-  | React.MouseEvent<HTMLElement>;
 
 export type OptionOnSelectData = { optionValue: string | undefined; selectedOptions: string[] }
 
@@ -58,28 +52,15 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
         multiselect,
         layout,
         options: rawOptions,
-        defaultSelectedOptions,
+        selectedOptions,
         onChange,
         ...restProps
     } = props;
 
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const onDefaultValueChanged = React.useCallback((newValue?: string[])=>{
-        inputRef.current && onChange?.(
-            {type: "change", target: {...inputRef.current}} as any as React.ChangeEvent<HTMLDivElement>, 
-            newValue || []
-        )
-
-    },[inputRef, inputRef.current, onChange]);
-    
-    const [selectedOptions, setSelectedOptions] = useDefaultState({
-        defaultState: defaultSelectedOptions,
-        onDefaultChange: onDefaultValueChanged
-    });
-
     const onSelectionChange = ( ev: React.FormEvent<HTMLDivElement>, selectedValue: string ) => {
         if(isRead || isControlDisabled){
-            setSelectedOptions([...(selectedOptions || [])]);
+            ev.preventDefault();
         } else {
             const event = {...ev};
             const newSelectedOptions = 
@@ -92,7 +73,7 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                     selectedOptions?.includes(selectedValue)
                     ? []
                     : [selectedValue]
-            setSelectedOptions(newSelectedOptions);
+                    
             onChange?.(event, newSelectedOptions);
         }
     };
@@ -128,7 +109,7 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                 <RadioGroup
                     {...restProps}
                     value={selectedOptions?.[0]}
-                    onChange={(ev, data)=>{onSelectionChange(ev, data.value)}}
+                    onChange={(ev, data)=>{ onSelectionChange(ev, data.value)}}
                     disabled={isControlDisabled}
                     ref={inputRef}
                     layout={layout}

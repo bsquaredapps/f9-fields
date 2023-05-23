@@ -5,9 +5,9 @@ import {
     TextProps, 
     InputOnChangeData, 
     Input, 
-    InputProps
-} from '@fluentui/react-components'
-import { useDefaultState } from '../utils/useDefaultState';
+    InputProps,
+    makeStyles
+} from '@fluentui/react-components';
 import { useTimeout } from '../utils/useTimeout';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
@@ -23,16 +23,20 @@ export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "c
 }
 
 
-
+const inputFieldStyles = makeStyles({
+    root: {
+        flexGrow: "1"
+    }
+})
 export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=>{
 
     const {
         size,
         isControlDisabled,
         isRead,
+        defaultValue,
         contentBefore,
         contentAfter,
-        defaultValue,
         delayOutput,
         delayTimeout,
         onChange,
@@ -41,18 +45,27 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     } = props;
 
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const onDefaultValueChanged = React.useCallback((newValue?: string)=>{
-        inputRef.current && onChange?.(
-            {type: "change", target: {...inputRef.current, value: newValue || ''}}, 
-            {value: newValue || ''}
-        )
-
-    },[inputRef, inputRef.current, onChange]);
-
-    const [value, setValue] = useDefaultState<string | undefined>({
-        defaultState: defaultValue,
-        onDefaultChange: onDefaultValueChanged
-    });
+    const isTyping = React.useRef(false);
+    const [value, setValue] = React.useState(defaultValue);
+    const [setDefaultValueTimeout, clearDefaultValueTimeout] = useTimeout();
+    React.useEffect(()=>{
+        clearDefaultValueTimeout();
+        setDefaultValueTimeout(()=>{
+                setValue(defaultValue);
+                inputRef.current && onChange?.(
+                    {type: "change", target: {...inputRef.current, value: defaultValue || ''}}, 
+                    {value: defaultValue || ''}
+                )
+            }, delayTimeout || 300
+        );/*
+        if(!isTyping.current){
+            setValue(defaultValue);
+            inputRef.current && onChange?.(
+                {type: "change", target: {...inputRef.current, value: defaultValue || ''}}, 
+                {value: defaultValue || ''}
+            )
+        }*/
+    },[defaultValue])
 
     const inputSlot = React.useMemo(()=>{
         return isRead 
@@ -67,10 +80,15 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     const contentBeforeSlot = React.useMemo(()=>renderSlotAsHtml(contentBefore, 'span'),[contentBefore]);
     const contentAfterSlot = React.useMemo(()=>renderSlotAsHtml(contentAfter, 'span'),[contentAfter]);
     
+    const [setIsTypingTimeout, clearIsTypingTimeout] = useTimeout();
     const [setInputTimeout, clearInputTimeout] = useTimeout();
     const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData)=>{
+        /*isTyping.current = true
+        clearIsTypingTimeout();
+        setIsTypingTimeout(()=>{isTyping.current = false}, 300);
+        */
+        clearDefaultValueTimeout();
         setValue(data.value);
-        
         const event = {...ev};
         switch(delayOutput){
             case "onblur":

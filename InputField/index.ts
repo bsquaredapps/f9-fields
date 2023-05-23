@@ -18,23 +18,23 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     private required: IOutputs["Required"];
     private validationMessage: IOutputs["ValidationMessage"];
     private validationState: IInputs["ValidationState"]["raw"];
-    private notifyOnChange?: ()=>void;
-    private notifyOnSelect?: ()=>void;
-    private notifyOnResize?: ()=>void;
+    private dispatchOnChange: boolean = false;
+    private dispatchOnSelect: boolean = false;
+    private dispatchOnResize: boolean = false;
 
     private onChange: F9InputFieldOnChangeEventHandler = (ev, data) => {
         if(data?.value && ev){
             this.event = getPAEvent(ev as PASourceEvent);
             this.value = data.value;
+            this.dispatchOnChange = true;
             this.notifyOutputChanged();
-            this.notifyOnChange?.();
         }
     }
     
     private onSelect: React.MouseEventHandler<any> = (ev): void => {
         this.event = getPAEvent(ev as PASourceEvent);
+        this.dispatchOnSelect = true;
         this.notifyOutputChanged();
-        this.notifyOnSelect?.();
     }
 
     private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
@@ -45,8 +45,8 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.event = getPAEvent(resizeEvent);
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
+        this.dispatchOnResize = true;
         this.notifyOutputChanged();
-        this.notifyOnResize?.();
     }
     /**
      * Empty constructor.
@@ -75,11 +75,21 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //attach event notifiers
-        this.notifyOnChange = (context as any).events.OnChange;
-        this.notifyOnSelect = (context as any).events.OnSelect;
-        this.notifyOnResize = (context as any).events.OnResize;
+        //dispatch events
+        if(this.dispatchOnChange){
+            (context as any).events.OnChange?.();
+            this.dispatchOnChange = false;
+        }
+        if(this.dispatchOnSelect){
+            (context as any).events.OnSelect?.();
+            this.dispatchOnSelect = false;
+        }
+        if(this.dispatchOnResize){
+            (context as any).events.OnResize?.();
+            this.dispatchOnResize = false;
+        }
         
+        //initialize outputs
         if(!this.contentHeight || !this.contentWidth || (!this.value && this.value !="")){            
             if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
             if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;

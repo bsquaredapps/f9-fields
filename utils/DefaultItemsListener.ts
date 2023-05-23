@@ -22,6 +22,7 @@ export const injectListener = (rawData: any, controlId: string, callback: ()=>vo
 }
 
 const getBsqaRules = (rawData: any) => {
+    console.log({rawData});
     const appDataSourceName = Object.getOwnPropertyNames(rawData).find(name => name.indexOf("AppDataSource") != -1);
     if(!appDataSourceName){
         console.log("unable to find app data source");

@@ -28,7 +28,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     private optionsDataSet?: ComponentFramework.PropertyTypes.DataSet;
     private optionsValueColumn?: string;
     private options: F9Option<OptionProps>[];
-    private selectedOptions: F9Option<OptionProps>[];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
@@ -108,7 +107,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         this.notifyOnChange = (context as any).events.OnChange;
         this.notifyOnSelect = (context as any).events.OnSelect;
         this.notifyOnResize = (context as any).events.OnResize;
-        this.notifyOnResize = (context as any).events.OnSearch;
+        this.notifyOnSearch = (context as any).events.OnSearch;
         this.optionsDataSet = context.parameters.Items;
         if(!this.defaultItemsListener && (context.parameters as any).DefaultSelectedItems?.raw){
             injectListener(
@@ -176,13 +175,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
      */
     public getOutputs(): IOutputs {
-        const _selectedOptions = 
-            this.selectedOptions
-                .map(option => ({
-                    Value: option.value, 
-                    Text: option.text, 
-                    Group: option.group
-                }));
         return { 
             SearchText: this.searchText,
             ContentHeight: this.contentHeight,

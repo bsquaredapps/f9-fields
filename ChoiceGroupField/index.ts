@@ -14,7 +14,6 @@ import { PAEvent, PASourceEvent, PASourceTarget, getPAEvent, PAEventSchema } fro
 import { ElementSize } from '../utils/useElementSize';
 import * as React from "react";
 import { CheckboxProps, RadioProps } from "@fluentui/react-components";
-import { injectListener } from "../utils/DefaultItemsListener";
 
 export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -25,6 +24,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     private options: F9Option<CheckboxProps & RadioProps>[];
     private optionsDataSet?: ComponentFramework.PropertyTypes.DataSet;
     private optionsValueColumn?: string;
+    private defaultSelectedItems: any[];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
@@ -35,6 +35,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     private notifyOnSelect?: ()=>void;
     private notifyOnResize?: ()=>void;
     private defaultItemsListener?: ()=>any;
+    private resetSelectedRecords: boolean = false;
 
     private onChange = (ev: React.FormEvent<HTMLDivElement>, newSelectedOptions?: string[]) => {
         if(newSelectedOptions && ev){
@@ -94,15 +95,25 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.notifyOnChange = (context as any).events.OnChange;
         this.notifyOnSelect = (context as any).events.OnSelect;
         this.notifyOnResize = (context as any).events.OnResize;
-
         this.optionsDataSet = context.parameters.Items;
-        if(!this.defaultItemsListener && (context.parameters as any).DefaultSelectedItems?.raw){
-            injectListener(
-                (context.parameters as any).DefaultSelectedItems.raw,
-                context.mode.label,
-                ()=>{this.optionsDataSet?.refresh()}
-            );
+        
+        //logic to handle when default selected items gets emptied
+        if(this.resetSelectedRecords){
+            context.parameters.Items.setSelectedRecordIds([]);
+            this.resetSelectedRecords = false;
         }
+
+        if(
+            this.defaultSelectedItems?.length > 0 && 
+            (
+                !(context.parameters as any).DefaultSelectedItems.raw
+                || (context.parameters as any).DefaultSelectedItems.raw.length == 0
+            )
+        ){
+            this.resetSelectedRecords = true;
+            context.parameters.Items.refresh();
+        }
+        this.defaultSelectedItems = (context.parameters as any).DefaultSelectedItems.raw;
 
         //convert options and default selected options
         this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
@@ -138,7 +149,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
             },
             /* control specific props */
             options: this.options,
-            defaultSelectedOptions: getSelectedOptionsFromRecords(this.optionsDataSet, this.optionsValueColumn),
+            selectedOptions: getSelectedOptionsFromRecords(this.optionsDataSet, this.optionsValueColumn),
             multiselect: context.parameters.Multiselect.raw,
             layout: context.parameters.Layout.raw || "vertical",
             isRead: (context.mode as any).isRead,

@@ -11,7 +11,9 @@
     "rebuild": "pcf-scripts rebuild",
     "start": "pcf-scripts start",
     "refreshTypes": "pcf-scripts refreshTypes",
-    "test": "echo 'test complete'"
+    "test": "echo 'test complete'",
+    "buildRelease": "cd Solution && dotnet build /p:configuration=Release",
+    "buildSolution": "cd Solution && dotnet build"
   },
   "dependencies": {
     "@fluentui/react-components": "9.5.2",

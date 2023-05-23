@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { F9Field, F9FieldProps, renderSlotAsHtml } from '../Field/F9Field'
+import { F9Field, F9FieldProps } from '../Field/F9Field'
 import { 
     Text, 
     TextProps, 
@@ -7,7 +7,6 @@ import {
     Textarea, 
     TextareaProps
 } from '@fluentui/react-components'
-import { useDefaultState } from '../utils/useDefaultState';
 import { useTimeout } from '../utils/useTimeout';
 
 export type F9TextareaFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLTextAreaElement}, data?: InputOnChangeData) => void;
@@ -19,8 +18,6 @@ export interface F9TextareaFieldProps extends Omit<TextareaProps, "contentBefore
     delayTimeout?: number;
     onChange: F9TextareaFieldOnChangeEventHandler
 }
-
-
 
 export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (props)=>{
 
@@ -38,18 +35,18 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
     } = props;
 
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-    const onDefaultValueChanged = React.useCallback((newValue?: string)=>{
-        textareaRef.current && onChange?.(
-            {type: "change", target: {...textareaRef.current, value: newValue || ''}}, 
-            {value: newValue || ''}
-        )
-
-    },[textareaRef, textareaRef.current, onChange]);
-
-    const [value, setValue] = useDefaultState<string | undefined>({
-        defaultState: defaultValue,
-        onDefaultChange: onDefaultValueChanged
-    });
+    
+    const isTyping = React.useRef(false);
+    const [value, setValue] = React.useState(defaultValue)
+    React.useEffect(()=>{
+        if(!isTyping.current){
+            setValue(defaultValue);
+            textareaRef.current && onChange?.(
+                {type: "change", target: {...textareaRef.current, value: defaultValue || ''}}, 
+                {value: defaultValue || ''}
+            );
+        }
+    },[defaultValue]);
 
     const textareaSlot = React.useMemo(()=>{
         return isRead 
@@ -61,8 +58,13 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
         : undefined
     }, [isRead, value]);
 
+    const [setIsTypingTimeout, clearIsTypingTimeout] = useTimeout();
     const [setInputTimeout, clearInputTimeout] = useTimeout();
     const onInputChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: InputOnChangeData)=>{
+        isTyping.current = true
+        clearIsTypingTimeout();
+        setIsTypingTimeout(()=>{isTyping.current = false}, 300);
+
         setValue(data.value);
         
         const event = {...ev};
@@ -86,16 +88,20 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
 
     return <F9Field {...fieldProps}
     >
-        <Textarea
-            {...restProps}
-            resize={resize}
-            textarea={textareaSlot}
-            onChange={onInputChange}
-            onBlur={onInputBlur}
-            value={value}
-            disabled={isControlDisabled}
-            size={size}
-            ref={textareaRef}
-        ></Textarea>
+        {
+            isRead 
+            ? (props) => <Text {...props}>{value}</Text>
+            : <Textarea
+                {...restProps}
+                resize={resize}
+                textarea={textareaSlot}
+                onChange={onInputChange}
+                onBlur={onInputBlur}
+                value={value}
+                disabled={isControlDisabled}
+                size={size}
+                ref={textareaRef}
+            ></Textarea>
+        }
     </F9Field>
 }

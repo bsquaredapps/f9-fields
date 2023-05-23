@@ -49,24 +49,24 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
     private required: IOutputs["Required"];
     private validationMessage: IOutputs["ValidationMessage"];
     private validationState: IInputs["ValidationState"]["raw"];
-    private notifyOnChange?: ()=>void;
-    private notifyOnSelect?: ()=>void;
-    private notifyOnResize?: ()=>void;
-    private notifyOnError?: ()=>void;
+    private dispatchOnChange: boolean = false;
+    private dispatchOnSelect: boolean = false;
+    private dispatchOnResize: boolean = false;
+    private dispatchOnError: boolean = false;
 
     private onChange = (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles?: F9FilePickerFile[]) => {
         if(newFiles && ev){
             this.event = getPAEvent(ev as PASourceEvent);
             this.files = newFiles;
+            this.dispatchOnChange = true;
             this.notifyOutputChanged();
-            this.notifyOnChange?.();
         }
     }
     
     private onSelect: React.MouseEventHandler<any> = (ev): void => {
         this.event = getPAEvent(ev as PASourceEvent);
+        this.dispatchOnSelect = true;
         this.notifyOutputChanged();
-        this.notifyOnSelect?.();
     }
 
     private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
@@ -77,8 +77,8 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         this.event = getPAEvent(resizeEvent);
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
+        this.dispatchOnResize = true;
         this.notifyOutputChanged();
-        this.notifyOnResize?.();
     }
 
     private onFileSizeError = (error: {errorCode: string; param: number}) =>{
@@ -88,8 +88,8 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         };
         
         this.event = getPAEvent(fileSizeErrorEvent);
+        this.dispatchOnError = true;
         this.notifyOutputChanged();
-        this.notifyOnError?.();
     }
 
     /**
@@ -119,11 +119,23 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //attach event notifiers
-        this.notifyOnChange = (context as any).events.OnChange;
-        this.notifyOnSelect = (context as any).events.OnSelect;
-        this.notifyOnResize = (context as any).events.OnResize;
-        this.notifyOnError = (context as any).events.OnError;
+        //dispatch events
+        if(this.dispatchOnChange){
+            (context as any).events.OnChange;
+            this.dispatchOnChange = false;
+        }
+        if(this.dispatchOnSelect){
+            (context as any).events.OnSelect;
+            this.dispatchOnSelect = false;
+        }
+        if(this.dispatchOnResize){
+            (context as any).events.OnResize;
+            this.dispatchOnResize = false;
+        }
+        if(this.dispatchOnError){
+            (context as any).events.OnError;
+            this.dispatchOnError = false;
+        }
 
         //convert options and default selected options
         this.defaultFiles = getFilesFromDataSet(context.parameters.DefaultFiles);
