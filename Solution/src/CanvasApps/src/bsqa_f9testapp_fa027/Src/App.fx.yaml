@@ -1,0 +1,61 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |-
+        =Set(_Boolean, 
+        { Yes: {Value: "1", Text:"Yes"}, No: {Value: "0", Text:"No"}});
+        Set(_Booleans, Table(_Boolean.Yes, _Boolean.No));
+        
+        Set(SelfEmploymentType,{
+            Legal: {
+                Text: "Legal",
+                Value: "945780000"
+            },
+            Medical: {
+                Text: "Medical (Nursing, Physician, or other Medical Practice",
+                Value: "945780001"
+            },
+            Accounting: {
+                Text: "Accounting",
+                Value: "945780002"
+            },
+            Sales: {
+                Text: "Sales",
+                Value: "945780003"
+            },
+            Veterinary: {
+                Text: "Veterinary Medicine",
+                Value: "945780004"
+            },
+            IT: {
+                Text: "Information Technology/Telec ommunications",
+                Value: "945780005"
+            },
+            Pharmacy: {
+                Text: "Pharmacy",
+                Value: "945780006"
+            },
+            RealEstate: {
+                Text: "Real Estate",
+                Value: "945780007"
+            },
+            Other: {
+                Text: "Other",
+                Value: "945780008"
+            }
+        });
+        Set(SelfEmploymentTypes,
+        With(
+            SelfEmploymentType,
+            Table(
+                Legal,
+                Medical,
+                Accounting,
+                Sales,
+                Veterinary,
+                IT,
+                Pharmacy,
+                RealEstate,
+                Other
+            )
+        ));
+

@@ -37,15 +37,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\f9-fields.pcfproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)\**" Exclude="@(ExcludeDirectories)" />
     <Content Include="$(SolutionPackageZipFilePath)">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   
-  <ItemGroup>
-    <ProjectReference Include="..\f9-fields.pcfproj" />
-  </ItemGroup>
 
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <Import Project="$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Solution.targets" Condition="Exists('$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Solution.targets')" />

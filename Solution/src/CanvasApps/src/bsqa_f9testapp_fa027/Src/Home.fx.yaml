@@ -1,0 +1,57 @@
+Home As screen:
+
+    btnChoiceGroup As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =32
+        OnSelect: =Navigate('ChoiceGroupField Test Harness')
+        Text: ="Choice Group Field"
+        Width: =159
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnCombobox As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =28
+        OnSelect: =Navigate('ComboboxField Test Harness')
+        Text: ="Combobox Field"
+        Width: =159
+        X: =40
+        Y: =96
+        ZIndex: =2
+
+    Label5 As label:
+        Text: ="v23"
+        X: =305
+        ZIndex: =3
+
+    btnInput As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =28
+        OnSelect: =Navigate('InputField Test Harness')
+        Text: ="Input Field"
+        Width: =159
+        X: =40
+        Y: =136
+        ZIndex: =4
+
+    btnInput_1 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =28
+        OnSelect: =Navigate('Textarea Test Harness')
+        Text: ="Textarea Field"
+        Width: =159
+        X: =40
+        Y: =179
+        ZIndex: =5
+
+    btnInput_2 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =28
+        OnSelect: =Navigate('FilePickerField Test Harness')
+        Text: ="FilePicker Field"
+        Width: =159
+        X: =40
+        Y: =222
+        ZIndex: =6
+

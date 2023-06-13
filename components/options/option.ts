@@ -1,4 +1,4 @@
-import { PersonaProps } from '@fluentui/react-components/unstable';
+import { PersonaProps } from '@fluentui/react-components';
 
 export const F9OptionDefaultColumns = [
     { name: "Value", displayName: "Value", dataType: "string" },
@@ -64,8 +64,7 @@ export const getSelectedRecordsFromOptions = <T>(
         return [];
     const currentSelectedRecords: { [key: string]: string} = {};
     dataSet
-        .getSelectedRecordIds()
-        .forEach((recordId) => { 
+        .getSelectedRecordIds()?.forEach((recordId) => { 
             currentSelectedRecords[dataSet.records[recordId].getValue(column).toString()] = recordId;
         });
 

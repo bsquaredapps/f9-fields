@@ -13,22 +13,29 @@ import {
     RadioProps
 } from '@fluentui/react-components';
 import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
+import { arrayDifference } from '../utils/arrayDifference';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type?: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
 
 export type F9ChoiceGroupFieldOnChangeEventHandler = (
-    ev: React.ChangeEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>, 
-    data: OptionOnSelectData
+    ev: {type: string; target?: HTMLDivElement}, 
+    newSelectedOptions: string[]
 ) => void;
 
 export interface F9ChoiceGroupFieldProps extends Omit<RadioGroupProps, "onClick" | "onChange" | "value" > {
     fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
+    validate?: "onchange" | "always" | "never";
+    pendingValidation: {
+        validationMessage?: F9FieldProps["validationMessage"];
+        validationState?: F9FieldProps["validationState"];
+    };
     multiselect?: boolean;
     options?: F9Option<CheckboxProps & RadioProps>[];
     selectedOptions?: string[];
-    onChange?: (ev: React.FormEvent<HTMLDivElement>, selectedOptions: string[]) => void;
+    onChange?: F9ChoiceGroupFieldOnChangeEventHandler;
+    onValidate?: F9FieldProps["onValidate"];
 }
 
 export type OptionOnSelectData = { optionValue: string | undefined; selectedOptions: string[] }
@@ -49,20 +56,38 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
         fieldProps,
         isRead,
         isControlDisabled,
+        validate,
+        pendingValidation,
         multiselect,
         layout,
         options: rawOptions,
-        selectedOptions,
         onChange,
+        onValidate,
         ...restProps
     } = props;
 
-    const inputRef = React.useRef<HTMLInputElement>(null);
+    const inputRef = React.useRef<HTMLDivElement>(null);
+    const [selectedOptions, setSelectedOptions] = React.useState(props.selectedOptions);
+    const valueChangedFromDefault = React.useRef(false);
+    const defaultSelectedOptions = useDeepEqualMemo(props.selectedOptions);
+    React.useEffect(()=>{
+        
+        if(arrayDifference(defaultSelectedOptions, selectedOptions)?.length !== 0){
+            valueChangedFromDefault.current = false;
+            setSelectedOptions(defaultSelectedOptions);
+            inputRef.current 
+            && onChange?.(
+                {type: "change", target: inputRef.current}, 
+                defaultSelectedOptions || []
+            );
+        }
+    }, [defaultSelectedOptions]);
+
     const onSelectionChange = ( ev: React.FormEvent<HTMLDivElement>, selectedValue: string ) => {
         if(isRead || isControlDisabled){
             ev.preventDefault();
         } else {
-            const event = {...ev};
+            const event = { type: ev.type, target: {...ev.currentTarget}};
             const newSelectedOptions = 
                 multiselect 
                 ?
@@ -72,16 +97,49 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                 :
                     selectedOptions?.includes(selectedValue)
                     ? []
-                    : [selectedValue]
-                    
+                    : [selectedValue];
+            valueChangedFromDefault.current = true;
+            setSelectedOptions(newSelectedOptions);
             onChange?.(event, newSelectedOptions);
         }
     };
+    
+    const validation = React.useMemo(()=>{
+        if(
+            validate == "always" ||
+            (validate == "onchange" && valueChangedFromDefault.current)
+        ){
+            if(!pendingValidation.validationMessage){
+                pendingValidation.validationState = "none"
+            }
+            if(!pendingValidation.validationState){
+                pendingValidation.validationState = "error"
+            }
+            return pendingValidation;
+        } else {
+            return {
+                validationMessage: "",
+                validationState: "none"
+            } as typeof pendingValidation
+        }
+    }, [
+        pendingValidation.validationMessage,
+        pendingValidation.validationState,
+        valueChangedFromDefault.current, 
+        validate
+    ]);
+
+    React.useEffect(()=>{
+        inputRef.current 
+        && onValidate?.({type: "validate", target: inputRef.current}, validation)
+    },[validation]);
 
     const options = useDeepEqualMemo(rawOptions);
     const styles = useStyles();
-
-    return <F9Field {...fieldProps}
+    
+    return <F9Field
+        {...fieldProps}
+        {...validation}
     >
         {
             multiselect

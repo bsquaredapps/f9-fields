@@ -1,8 +1,10 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9TextareaField, F9TextareaFieldOnChangeEventHandler, F9TextareaFieldProps } from "./F9TextareaField";
-import { PAEvent, PASourceEvent, PASourceTarget, getPAEvent, PAEventSchema } from "../utils/PAEvent";
+import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
 import { ElementSize } from '../utils/useElementSize';
 import * as React from "react";
+import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
+import { ValidationSchema } from "../utils/ValidationSchema";
 
 
 export class TextareaField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
@@ -11,42 +13,89 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     private value?: string;
     private contentHeight?: number;
     private contentWidth?: number;
-    private event: PAEvent;
+    private events: PAEvent[] = [];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private validationMessage: IOutputs["ValidationMessage"];
-    private validationState: IInputs["ValidationState"]["raw"];
+    private pendingValidation: {
+        validationMessage:F9FieldProps["validationMessage"];
+        validationState: F9FieldProps["validationState"];
+    };
+    private validation: {
+        Message: string;
+        State: string;  
+    };
     private dispatchOnChange: boolean = false;
     private dispatchOnSelect: boolean = false;
     private dispatchOnResize: boolean = false;
+    private dispatchOnValidate: boolean = false;
+    private debounceTimeoutId?: number;
+    private debounceTimeout: number = 300;
+    private debounce: IInputs["DelayOutput"]["raw"];
+
+    private maybeDebounceNotifyOutputChanged = ()=>{
+        window.clearTimeout(this.debounceTimeoutId);
+        switch(this.debounce){
+            case "debounce":
+                this.debounceTimeoutId = window.setTimeout(() => {
+                    this.notifyOutputChanged();
+                }, this.debounceTimeout);
+                break;
+            case "onblur":
+                break;
+            default:
+                this.notifyOutputChanged();
+        }
+    };
+
+    private onBlur: React.FocusEventHandler<HTMLTextAreaElement> = (ev) =>{
+        if(this.debounce === "onblur"){
+            this.maybeDebounceNotifyOutputChanged();
+        }
+    }
 
     private onChange: F9TextareaFieldOnChangeEventHandler = (ev, data) => {
         if(data?.value && ev){
-            this.event = getPAEvent(ev as PASourceEvent);
+            //this.events.push(getPAEvent(ev as PASourceEvent));
             this.value = data.value;
             this.dispatchOnChange = true;
-            this.notifyOutputChanged();
+            this.maybeDebounceNotifyOutputChanged();
         }
     }
     
     private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        this.event = getPAEvent(ev as PASourceEvent);
+        this.events.push(getPAEvent(ev as PASourceEvent));
         this.dispatchOnSelect = true;
-        this.notifyOutputChanged();
+        this.maybeDebounceNotifyOutputChanged();
     }
 
     private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
-        const resizeEvent: PASourceEvent = {
+        /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
         };
-        this.event = getPAEvent(resizeEvent);
+        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
         this.dispatchOnResize = true;
-        this.notifyOutputChanged();
+        this.maybeDebounceNotifyOutputChanged();
+    }
+
+    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
+        const event = getPAEvent(
+            {
+                ...ev, 
+                value: JSON.stringify(validationData)
+            } as PASourceEvent
+        );
+        this.events.push(event);
+        this.validation = {
+            Message: validationData.validationMessage ?? "",
+            State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
+        };
+        this.dispatchOnValidate = true;
+        this.maybeDebounceNotifyOutputChanged();
     }
     /**
      * Empty constructor.
@@ -66,6 +115,15 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
+        this.pendingValidation = { 
+            validationMessage: context.parameters.ValidationMessage.raw || undefined,
+            validationState: context.parameters.ValidationState.raw || "none"
+        };
+        this.value = context.parameters.Value.raw ?? context.parameters.DefaultValue.raw ?? undefined;
+        this.validation = {
+            Message: "",
+            State: "none"
+        };
         context.mode.trackContainerResize(true);
     }
 
@@ -88,6 +146,22 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             (context as any).events.OnResize?.();
             this.dispatchOnResize = false;
         }
+        if(this.dispatchOnValidate){
+            (context as any).events.OnValidate?.();
+            this.dispatchOnValidate = false;
+        }
+        //clear events
+        this.events.length = 0;
+
+        //grab raw props
+        this.debounceTimeout = context.parameters.DelayTimeout.raw || 300;
+        this.debounce = context.parameters.DelayOutput.raw;
+        this.label =  context.parameters.Label.raw || undefined;
+        this.hint = context.parameters.Hint.raw || undefined;
+        this.info = context.parameters.Info.raw || undefined;
+        this.required = context.parameters.Required.raw;
+        
+        //initialize content height & width
 
         if(!this.contentHeight || !this.contentWidth || (!this.value && this.value !="")){            
             if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
@@ -96,13 +170,30 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             this.notifyOutputChanged();
         }
 
-        this.label =  context.parameters.Label.raw || undefined;
-        this.hint = context.parameters.Hint.raw || undefined;
-        this.info = context.parameters.Info.raw || undefined;
-        this.required = context.parameters.Required.raw;
-        this.validationMessage = context.parameters.ValidationMessage.raw || undefined;
-        this.validationState = context.parameters.ValidationState.raw || "error";
+        //update validation
+        if(
+            context.updatedProperties.includes("ValidationMessage") 
+            || context.updatedProperties.includes("ValidationState")
+        ){
+           const pendingValidation = { 
+                validationMessage: context.parameters.ValidationMessage.raw ?? '',
+                validationState: 
+                    context.parameters.ValidationState.raw 
+                    ?? (context.parameters.ValidationMessage.raw ? "error" : "none"),
+            };
+            if(
+                this.pendingValidation.validationMessage != pendingValidation.validationMessage
+                || this.pendingValidation.validationState != pendingValidation.validationState
+            ){
+                this.pendingValidation = pendingValidation;
+            }
+        }
         
+        //handle input value change from powerapps
+        const valueInputField = context.parameters.DefaultValue.raw ? "DefaultValue" : "Value";
+        const inputValue = context.parameters[valueInputField].raw || "";
+        const inputValueUpdated = context.updatedProperties.includes(valueInputField);
+
         const props: F9TextareaFieldProps = { 
             /* field props */
             fieldProps: {
@@ -110,8 +201,6 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
                 hint: this.hint,
                 info: this.info,
                 required: this.required,
-                validationMessage: this.validationMessage,
-                validationState: this.validationState,
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
@@ -119,15 +208,20 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             },
 
             /* control specific props */
-            defaultValue: context.parameters.DefaultValue.raw || "",
+            value: inputValue,
+            valueUpdated: inputValueUpdated,
             placeholder: context.parameters.Placeholder.raw || undefined,
             appearance: context.parameters.Appearance.raw || "outline",
             resize: context.parameters.AllowResize.raw,
             delayOutput: context.parameters.DelayOutput.raw || "none",
             delayTimeout: context.parameters.DelayTimeout.raw || 300,
+            validate: context.parameters.Validate.raw,
+            pendingValidation: this.pendingValidation,
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,
-            onChange: this.onChange
+            onBlur: this.onBlur,
+            onChange: this.onChange,
+            onValidate: this.onValidate
         };
         return React.createElement(
             F9TextareaField, props
@@ -141,14 +235,14 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     public getOutputs(): IOutputs {
         return { 
             Value: this.value,
+            Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            Event: this.event,
+            Events: [...this.events],
             Label: this.label,
             Hint: this.hint,
             Info: this.info,
-            ValidationMessage: this.validationMessage,
-            ValidationState: this.validationState
+            Required: this.required
         };
     }
 
@@ -159,7 +253,8 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
      */
     public async getOutputSchema(context: ComponentFramework.Context<IInputs>): Promise<Record<string, unknown>> {
         return Promise.resolve({
-            Event: PAEventSchema
+            Events: PAEventsSchema,
+            Validation: ValidationSchema
         });
     }
 

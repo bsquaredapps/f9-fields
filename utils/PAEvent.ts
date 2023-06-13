@@ -1,5 +1,4 @@
-export const PAEventSchema = {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+const PAEventSchemaNode = {
   "type": "object",
   "properties": {
     "type": {
@@ -37,8 +36,19 @@ export const PAEventSchema = {
       }
     }
   }
+}
+export const PAEventSchema = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  ...PAEventSchemaNode
 };
 
+export const PAEventsSchema ={
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    ...PAEventSchemaNode
+  }
+}
 export interface PAEventTargetAttribute {
   name: string;
   value?: string | number | null
@@ -90,24 +100,24 @@ export const getPAEvent = <T extends HTMLInputElement & {name?: string}>(event?:
       }
     }
     return {
-        type: event.type,
+        type: event.type || "",
         target: {
-            name: target?.name,
-            tagName: target?.tagName,
+            name: target?.name || "",
+            tagName: target?.tagName || "",
             classList: classList,
             attributes: attributes,
-            value: target?.value ?? target?.attributes?.getNamedItem("href")?.value
+            value: target?.value ?? target?.attributes?.getNamedItem("href")?.value ?? ""
         }
     }
   }
   return {
-    type: undefined,
+    type: "",
     target: {
-      name: undefined,
-      tagName: undefined,
+      name: "",
+      tagName: "",
       classList: [],
       attributes: [],
-      value: undefined
+      value: ""
     }
   };
 }

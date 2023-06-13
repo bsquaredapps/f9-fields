@@ -5,67 +5,89 @@ import {
     TextProps, 
     InputOnChangeData, 
     Input, 
-    InputProps,
-    makeStyles
+    InputProps
 } from '@fluentui/react-components';
-import { useTimeout } from '../utils/useTimeout';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
-export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "contentAfter" | "onClick" | "onChange" | "value"> {
+export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "contentAfter" | "onClick" | "onChange"> {
     fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
     contentBefore?: string;
     contentAfter?: string;
-    delayOutput?: "none" | "debounce" | "onblur";
-    delayTimeout?: number;
+    validate?: "onchange" | "always" | "never";
+    valueUpdated: boolean;
+    pendingValidation: {
+        validationMessage?: F9FieldProps["validationMessage"];
+        validationState?: F9FieldProps["validationState"];
+    };
+    onValidate?: F9FieldProps["onValidate"];
     onChange: F9InputFieldOnChangeEventHandler
 }
 
-
-const inputFieldStyles = makeStyles({
-    root: {
-        flexGrow: "1"
-    }
-})
 export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=>{
 
     const {
         size,
         isControlDisabled,
         isRead,
-        defaultValue,
+        valueUpdated,
         contentBefore,
         contentAfter,
-        delayOutput,
-        delayTimeout,
+        onBlur,
         onChange,
+        onValidate,
         fieldProps,
+        validate,
+        pendingValidation,
         ...restProps
     } = props;
-
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const isTyping = React.useRef(false);
-    const [value, setValue] = React.useState(defaultValue);
-    const [setDefaultValueTimeout, clearDefaultValueTimeout] = useTimeout();
+    
+    const [value, setValue] = React.useState(props.value);
+    const valueChangedFromDefault = React.useRef(false);
+    
     React.useEffect(()=>{
-        clearDefaultValueTimeout();
-        setDefaultValueTimeout(()=>{
-                setValue(defaultValue);
-                inputRef.current && onChange?.(
-                    {type: "change", target: {...inputRef.current, value: defaultValue || ''}}, 
-                    {value: defaultValue || ''}
-                )
-            }, delayTimeout || 300
-        );/*
-        if(!isTyping.current){
-            setValue(defaultValue);
-            inputRef.current && onChange?.(
-                {type: "change", target: {...inputRef.current, value: defaultValue || ''}}, 
-                {value: defaultValue || ''}
-            )
-        }*/
-    },[defaultValue])
+        if(valueUpdated && props.value !== value){
+            valueChangedFromDefault.current = false;
+            setValue(props.value);
+            inputRef.current &&
+            onChange?.(
+                {type: "change", target: inputRef.current}, 
+                {value: props.value || ''}
+            );
+        }
+    },[props.value, valueUpdated, setValue]);
+
+    const validation = React.useMemo(()=>{
+        if(
+            validate == "always" ||
+            (validate == "onchange" && valueChangedFromDefault.current)
+        ){
+            if(!pendingValidation.validationMessage){
+                pendingValidation.validationState = "none"
+            }
+            if(!pendingValidation.validationState){
+                pendingValidation.validationState = "error"
+            }
+            return pendingValidation;
+        } else {
+            return {
+                validationMessage: "",
+                validationState: "none"
+            } as typeof pendingValidation
+        }
+    }, [
+        pendingValidation.validationMessage,
+        pendingValidation.validationState,
+        valueChangedFromDefault.current, 
+        validate
+    ]);
+
+    React.useEffect(()=>{
+        inputRef.current 
+        && onValidate?.({type: "validate", target: inputRef.current}, validation)
+    },[validation]);
 
     const inputSlot = React.useMemo(()=>{
         return isRead 
@@ -80,41 +102,22 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     const contentBeforeSlot = React.useMemo(()=>renderSlotAsHtml(contentBefore, 'span'),[contentBefore]);
     const contentAfterSlot = React.useMemo(()=>renderSlotAsHtml(contentAfter, 'span'),[contentAfter]);
     
-    const [setIsTypingTimeout, clearIsTypingTimeout] = useTimeout();
-    const [setInputTimeout, clearInputTimeout] = useTimeout();
     const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData)=>{
-        /*isTyping.current = true
-        clearIsTypingTimeout();
-        setIsTypingTimeout(()=>{isTyping.current = false}, 300);
-        */
-        clearDefaultValueTimeout();
         setValue(data.value);
         const event = {...ev};
-        switch(delayOutput){
-            case "onblur":
-                break;
-            case "debounce":
-                clearInputTimeout();
-                setInputTimeout(()=>onChange?.(event, data), delayTimeout || 0);
-                break;
-            default:
-                onChange?.(ev, data);
-        }
+        valueChangedFromDefault.current = data.value != props.value;
+        onChange?.(event, data);
     };
 
-    const onInputBlur: React.FocusEventHandler<HTMLInputElement> = React.useCallback((ev)=>{
-        if(delayOutput == "onblur"){
-            onChange?.(ev, {value: value ?? ""})
-        }
-    },[delayOutput, value]);
-
-    return <F9Field {...fieldProps}
+    return <F9Field 
+        {...fieldProps}
+        {...validation}
     >
         <Input
             {...restProps}
             input={inputSlot}
             onChange={onInputChange}
-            onBlur={onInputBlur}
+            onBlur={onBlur}
             value={value}
             contentBefore={contentBeforeSlot}
             contentAfter={contentAfterSlot}

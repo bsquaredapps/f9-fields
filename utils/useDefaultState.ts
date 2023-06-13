@@ -32,7 +32,7 @@ export const useDefaultState: UseDefaultState = (props) => {
     const defaultStateRef = React.useRef<typeof defaultState>(undefined);
     React.useEffect(()=>{
         if(!isDeepEqual(defaultState, defaultStateRef.current)){
-            console.log({prevDefaultState: defaultStateRef.current, newDefaultState: defaultState});
+            
             defaultStateRef.current = defaultState;
             setState(defaultState);
             onDefaultChangeRef.current?.(defaultState);

@@ -12,11 +12,11 @@
     "start": "pcf-scripts start",
     "refreshTypes": "pcf-scripts refreshTypes",
     "test": "echo 'test complete'",
-    "buildRelease": "cd Solution && dotnet build /p:configuration=Release",
-    "buildSolution": "cd Solution && dotnet build"
+    "buildRelease": "cd Solution && pac solution pack --folder .\\src --zipFile \".\\bin\\Debug\\Solution.zip\" --processCanvasApps && dotnet build /p:configuration=Release",
+    "buildSolution": "cd Solution && pac solution pack --folder .\\src --zipFile \".\\bin\\Debug\\Solution.zip\" --processCanvasApps && dotnet build"
   },
   "dependencies": {
-    "@fluentui/react-components": "9.5.2",
+    "@fluentui/react-components": "9.19.1",
     "@fluentui/react-file-type-icons": "^8.8.16",
     "@react-hook/resize-observer": "^1.2.6",
     "dompurify": "^3.0.2",

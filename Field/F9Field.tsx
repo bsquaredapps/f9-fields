@@ -1,16 +1,28 @@
 import * as React from 'react';
-import { LabelProps } from '@fluentui/react-components';
-import { Field, FieldProps } from '../components/react-field';
-import { InfoLabel } from '../components/react-infobutton/InfoLabel';
+import { Field, FieldProps, LabelProps } from '@fluentui/react-components';
+import { InfoLabel } from '@fluentui/react-components/unstable';
+//import { Field, FieldProps } from '../components/react-field';
+//import { InfoLabel } from '../components/react-infobutton/InfoLabel';
 import * as DOMPurify from 'dompurify';
 import { ElementSize, useElementSize } from '../utils/useElementSize';
+
+export interface F9FieldOnValidateData {
+    validationMessage?: string;
+    validationState?: "error" | "success" | "none" | "warning";
+}
+
+export type F9FieldOnValidateEventHandler = (
+    event: {type: "validate", target: HTMLElement},
+    validationData: F9FieldOnValidateData
+) => void;
 
 export interface F9FieldProps extends Omit<FieldProps, "validationMessage" | "hint" | "label" | "info"> {
     info?: string;
     label?: string;
     hint?: string;
     validationMessage?: string;
-    onResize: (size?: ElementSize, fieldRef?: React.MutableRefObject<null>) => void
+    onResize: (size?: ElementSize, fieldRef?: React.MutableRefObject<null>) => void,
+    onValidate?: F9FieldOnValidateEventHandler
 }
 
 export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") =>
@@ -29,6 +41,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
         size,
         onResize,
         onClick,
+        onValidate,
         ...restProps
     } = props;
 
@@ -49,6 +62,16 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
 
     const fieldRef = React.useRef(null);
     const contentSize = useElementSize(fieldRef);
+
+    React.useEffect(()=>{
+        const validationData = {
+            validationMessage: validationMessage,
+            validationState: validationState
+        };
+        if(fieldRef.current){
+            onValidate?.({type: "validate", target: fieldRef.current}, validationData)
+        }
+    }, [validationMessage, validationState]);
 
     React.useEffect(()=>{
         fieldRef && contentSize?.height && contentSize?.width && onResize?.(contentSize, fieldRef);

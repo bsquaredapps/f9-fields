@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { F9Field, F9FieldProps } from '../Field/F9Field';
 import { F9Option } from '../components/options/option';
+/* import { 
+    
+} from '@fluentui/react-components/unstable'; */
 import { 
     Combobox,
     ComboboxOpenChangeData,
@@ -8,19 +11,17 @@ import {
     Option,
     OptionGroup,
     Persona,
-    OptionProps
-} from '@fluentui/react-components/unstable';
-import { 
+    OptionProps,
     InputOnChangeData,
     Text
 } from '@fluentui/react-components';
-import { useDefaultState } from '../utils/useDefaultState';
 import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
+import { arrayDifference } from '../utils/arrayDifference';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type?: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
 
 export type F9ComboboxFieldOnChangeEventHandler = (
-    ev: React.ChangeEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>, 
+    ev: {type?: string; target?: HTMLInputElement}, 
     data: OptionOnSelectData
 ) => void;
 
@@ -28,14 +29,19 @@ export interface F9ComboboxFieldProps extends Omit<ComboboxProps, "contentBefore
     fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
+    validate?: "onchange" | "always" | "never";
+    pendingValidation: {
+        validationMessage?: F9FieldProps["validationMessage"];
+        validationState?: F9FieldProps["validationState"];
+    };
+    searchTextUpdated: boolean;
     allowSearch?: boolean;
-    defaultSearchText?: string;
-    delayOutput?: "none" | "debounce" | "onblur";
-    delayTimeout?: number;
+    searchText?: string;
     options?: F9Option<OptionProps>[];
     defaultSelectedOptions?: string[];
-    onSearch: F9InputFieldOnChangeEventHandler;
     onChange: F9ComboboxFieldOnChangeEventHandler;
+    onValidate?: F9FieldProps["onValidate"];
+    onSearch: F9InputFieldOnChangeEventHandler;
 }
 
 export type OptionOnSelectData = { optionValue: string | undefined; selectedOptions: string[] }
@@ -56,26 +62,60 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         fieldProps,
         isRead,
         isControlDisabled,
+        validate,
+        pendingValidation,
         allowSearch,
-        defaultSearchText,
         placeholder,
-        delayOutput,
-        delayTimeout,
         options: rawOptions,
-        selectedOptions,
+        searchTextUpdated,
+        onBlur,
         onChange,
+        onValidate,
         onSearch,
         ...restProps
     } = props;
 
     const inputRef = React.useRef<HTMLInputElement>(null);
     
-    const onOptionSelect: F9ComboboxFieldOnChangeEventHandler = ( ev, data ) => {
-        const event = {...ev};
+    const [searchText, setSearchText] = React.useState(props.searchText);
+
+    React.useEffect(()=>{
+        if(searchTextUpdated && props.searchText !== searchText){
+            setSearchText(props.searchText);
+            inputRef.current &&
+            onSearch?.(
+                {type: "change", target: inputRef.current}, 
+                {value: props.searchText || ''}
+            );
+        }
+    },[props.searchText, searchTextUpdated, setSearchText]);
+
+    const defaultSelectedOptions = useDeepEqualMemo(props.selectedOptions);
+    const [selectedOptions, setSelectedOptions] = React.useState(defaultSelectedOptions);
+    const valueChangedFromDefault = React.useRef(false);
+
+    React.useEffect(()=>{
+        if(arrayDifference(defaultSelectedOptions, selectedOptions)?.length !== 0){
+            valueChangedFromDefault.current = false;
+            setSelectedOptions(defaultSelectedOptions);
+            inputRef.current 
+            && onChange?.(
+                {type: "change", target: inputRef.current}, 
+                { optionValue: '', selectedOptions: defaultSelectedOptions || [] }
+            );
+        }
+    }, [defaultSelectedOptions]);
+
+    const onOptionSelect: ComboboxProps["onOptionSelect"] = ( ev, data ) => {
+        const event = {
+            type: ev.type,
+            target: {...ev.target} as HTMLInputElement
+        };
         const { optionValue } = data;
 
-        if(optionValue){            
-            const newSelectionOptions = 
+        if(optionValue){
+            valueChangedFromDefault.current = true;      
+            /* const newSelectedOptions = 
                 props.multiselect 
                 ?
                     selectedOptions?.includes(optionValue) 
@@ -84,27 +124,56 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                 :
                     selectedOptions?.includes(optionValue)
                     ? []
-                    : [optionValue]
+                    : [optionValue]; */
+            setSelectedOptions(data.selectedOptions);
             onChange?.(event, data);
         }
     };
-
-    const [searchText, setSearchText] = useDefaultState({
-        defaultState: defaultSearchText
-    });
 
     const [isOpen, setIsOpen] = React.useState(false);
     const onOpenChange = (e: React.SyntheticEvent, data: ComboboxOpenChangeData)=>{
         setIsOpen(data.open);
         if(!data.open) setSearchText('');
     }
-    const onInputChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback((e)=>{
+    const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (e)=>{
         if(allowSearch /*&& isOpen*/){
             const value = e.target.value || '';
             setSearchText(value);
-            onSearch?.(e, {value})
-        } 
-    },[allowSearch, isOpen])
+            const event = {...e};
+            valueChangedFromDefault.current = value != props.searchText;
+            onSearch?.(event, {value})
+        }
+    }
+
+    const validation = React.useMemo(()=>{
+        if(
+            validate == "always" ||
+            (validate == "onchange" && valueChangedFromDefault.current)
+        ){
+            if(!pendingValidation.validationMessage){
+                pendingValidation.validationState = "none"
+            }
+            if(!pendingValidation.validationState){
+                pendingValidation.validationState = "error"
+            }
+            return pendingValidation;
+        } else {
+            return {
+                validationMessage: "",
+                validationState: "none"
+            } as typeof pendingValidation
+        }
+    }, [
+        pendingValidation.validationMessage,
+        pendingValidation.validationState,
+        valueChangedFromDefault.current, 
+        validate
+    ]);
+
+    React.useEffect(()=>{
+        inputRef.current 
+        && onValidate?.({type: "validate", target: inputRef.current}, validation)
+    },[validation]);
 
     const options = useDeepEqualMemo(rawOptions);
     const groupedOptions = React.useMemo(()=>{
@@ -125,7 +194,10 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         return groups;
     },[options, allowSearch, isOpen, searchText]);
 
-    return <F9Field {...fieldProps}>
+    return <F9Field 
+        {...fieldProps}
+        {...validation}
+    >
         {
             isRead
 

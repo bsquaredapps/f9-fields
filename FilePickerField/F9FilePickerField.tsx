@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { F9Field, F9FieldProps } from '../Field/F9Field';
 import { getFileTypeIconAsHTMLString, initializeFileTypeIcons } from '@fluentui/react-file-type-icons';
-import { DocumentAddRegular, DocumentAddFilled, MoreHorizontalRegular, MoreHorizontalFilled } from '../components/react-icons';
+import { DocumentAddRegular, DocumentAddFilled } from '../components/react-icons/icons/chunk-2';
+import { MoreHorizontalRegular, MoreHorizontalFilled } from '../components/react-icons/icons/chunk-4';
 import bundleIcon from '../components/react-icons/utils/bundleIcon';
 import wrapIcon from '../components/react-icons/utils/wrapIcon';
 import {
@@ -20,11 +21,10 @@ import {
     SplitButtonProps,
     CompoundButtonProps
 } from '@fluentui/react-components';
-import { useDefaultState } from '../utils/useDefaultState';
 import { saveAs } from 'file-saver';
 
 export const F9FilePickerDefaultColumns = [
-    { name: "File", displayName: "Value", dataType: "string" },
+    { name: "File", displayName: "File", dataType: "string" },
     { name: "Description", displayName: "Description", dataType: "string" },
     { name: "Props", displayName: "Props", dataType: "object" }
 ]
@@ -39,6 +39,12 @@ export interface F9FilePickerFieldProps {
     fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
+    validate?: "onchange" | "always" | "never";
+    valueUpdated: boolean;
+    pendingValidation: {
+        validationMessage?: F9FieldProps["validationMessage"];
+        validationState?: F9FieldProps["validationState"];
+    };
     defaultFiles?: F9FilePickerFile[];
     maxFiles?: number;
     maxFileSize?: number;
@@ -49,6 +55,7 @@ export interface F9FilePickerFieldProps {
     allocatedHeight?: number;
     allocatedWidth?: number;
     pickFile: () => Promise<ComponentFramework.FileObject[]>;
+    onValidate?: F9FieldProps["onValidate"];
     onChange?: (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles: F9FilePickerFile[]) => void;
 }
 
@@ -145,8 +152,12 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         isControlDisabled,
         layout,
         defaultFiles,
+        valueUpdated,
         pickFile,
         onChange,
+        validate,
+        pendingValidation,
+        onValidate,
         addFileLabel,
         removeFileLabel,
         downloadFileLabel,
@@ -154,29 +165,62 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         allocatedWidth
     } = props;
 
-    
     const inputRef = React.useRef<HTMLDivElement>(null);
-    const onDefaultValueChanged = React.useCallback((newValue?: F9FilePickerFile[])=>{
-        inputRef.current && onChange?.(
-            {type: "change", target: {...inputRef.current}} as any as React.ChangeEvent<HTMLDivElement>, 
-            newValue || []
-        )
-
-    },[inputRef, inputRef.current, onChange]);
     
-    const [files, setFiles] = useDefaultState({
-        defaultState: defaultFiles,
-        onDefaultChange: onDefaultValueChanged
-    });
+    const [files, setFiles] = React.useState(defaultFiles);
+    const valueChangedFromDefault = React.useRef(false);
+    React.useEffect(()=>{
+        if(valueUpdated){
+            valueChangedFromDefault.current = false;
+            setFiles(defaultFiles);
+            inputRef.current && 
+            onChange?.(
+                {type: "change", target: {...inputRef.current}} as any as React.ChangeEvent<HTMLDivElement>, 
+                defaultFiles || []
+            )
+        }
+    }, [valueUpdated, defaultFiles, setFiles]);
+
+    const validation = React.useMemo(()=>{
+        if(
+            validate == "always" ||
+            (validate == "onchange" && valueChangedFromDefault.current)
+        ){
+            if(!pendingValidation.validationMessage){
+                pendingValidation.validationState = "none"
+            }
+            if(!pendingValidation.validationState){
+                pendingValidation.validationState = "error"
+            }
+            return pendingValidation;
+        } else {
+            return {
+                validationMessage: "",
+                validationState: "none"
+            } as typeof pendingValidation
+        }
+    }, [
+        pendingValidation.validationMessage,
+        pendingValidation.validationState,
+        valueChangedFromDefault.current, 
+        validate
+    ]);
+
+    React.useEffect(()=>{
+        inputRef.current 
+        && onValidate?.({type: "validate", target: inputRef.current}, validation)
+    },[validation]);
 
     const onRemove = (ev: React.FormEvent<HTMLDivElement>, selectedFile: F9FilePickerFile) => {
         if (isRead || isControlDisabled) return;
         const newFiles = files?.filter((currentFile) => {
             return currentFile.file.fileName !== selectedFile.file.fileName
         }) || [];
+        valueChangedFromDefault.current = true;
         setFiles(newFiles);
         onChange?.(ev, newFiles);
     }
+
     const onDownload = (ev: React.FormEvent<HTMLDivElement>, file: F9FilePickerFile) => {
         saveAs(file.file.fileContent, file.file.fileName);
     }
@@ -191,6 +235,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
             const files: F9FilePickerFile[] = fileObjs.map((file) => ({ file }));
             const existingFiles = filesRef.current?.filter((oldfile)=>!files.find((newFile)=>newFile.file.fileName === oldfile.file.fileName));
             const newFiles = existingFiles ? [...existingFiles, ...files] : files;
+            valueChangedFromDefault.current = true;
             setFiles(newFiles);
             onChange?.(ev, newFiles);
         }
@@ -252,7 +297,10 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         </li>
     },[styles, iconStyles, onRemove, onDownload, fieldProps.size]);
 
-    return <F9Field {...fieldProps}>
+    return <F9Field 
+        {...fieldProps}
+        {...validation}
+    >
         <div
             ref={inputRef} 
             className={mergeClasses(styles.root)} 

@@ -1,0 +1,217 @@
+"'ChoiceGroupField Test Harness' As screen":
+    OnVisible: |-
+        =With({ parsedJson: ParseJSON(CG_ItemsJSON.Text)}, IfError(parsedJson, Clear(CG_Items), ClearCollect(CG_Items, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))));
+        ClearCollect(CG_DefaultItems, ForAll(ParseJSON(CG_DefaultItemsJSON.Text) As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))
+
+    CG_ItemsJSON As text:
+        Default: |-
+            ="[{""Value"":""1"",""Text"":""Option 1""},{""Value"":""2"",""Text"":""Option 2""},{""Value"":""3"",""Text"":""Option 3""}]"
+        Height: =115
+        Mode: =TextMode.MultiLine
+        OnChange: |-
+            =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(CG_Items), ClearCollect(CG_Items, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))))
+        X: =367
+        ZIndex: =3
+
+    CG_Layout As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
+        Items: =['F9Fields.ChoiceGroupField.Layout'.Horizontal,'F9Fields.ChoiceGroupField.Layout'.Vertical,'F9Fields.ChoiceGroupField.Layout'.HorizontalStacked]
+        X: =367
+        Y: =232
+        ZIndex: =4
+
+    CG_Hint As text:
+        Default: =""
+        HintText: ="Hint"
+        X: =367
+        Y: =324
+        ZIndex: =5
+
+    CG_Info As text:
+        Default: =""
+        HintText: ="Info"
+        X: =367
+        Y: =370
+        ZIndex: =6
+
+    CG_Label As text:
+        Default: =""
+        HintText: ="Label"
+        X: =367
+        Y: =278
+        ZIndex: =7
+
+    CG_Multiselect As toggleSwitch:
+        FalseText: ="Single Select"
+        Height: =25
+        TrueText: ="Multiselect"
+        Width: =173
+        X: =367
+        Y: =447
+        ZIndex: =8
+
+    CG_Required As toggleSwitch:
+        FalseText: ="Not Required"
+        Height: =25
+        TrueText: ="Required"
+        Width: =173
+        X: =367
+        Y: =416
+        ZIndex: =9
+
+    CG_ValidationMessage As text:
+        Default: =""
+        HintText: ="Validation Message"
+        X: =367
+        Y: =478
+        ZIndex: =10
+
+    CG_ValidationState As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
+        Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
+        X: =367
+        Y: =524
+        ZIndex: =11
+
+    CG_Orientation As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
+        Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
+        X: =367
+        Y: =616
+        ZIndex: =12
+
+    CG_Size As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Size'.Medium
+        Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
+        X: =367
+        Y: =671
+        ZIndex: =13
+
+    CG_DisplayMode As dropdown:
+        Default: =DisplayMode.Edit
+        Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
+        X: =367
+        Y: =728
+        ZIndex: =14
+
+    CG_DefaultItemsJSON As text:
+        Default: |-
+            ="[{""Value"":""4"",""Text"":""Option 2""}]"
+        Height: =105
+        Mode: =TextMode.MultiLine
+        OnChange: |-
+            =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(CG_DefaultItems), ClearCollect(CG_DefaultItems, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))))
+        X: =367
+        Y: =121
+        ZIndex: =15
+
+    Label4 As label:
+        Height: =768
+        Overflow: =Overflow.Scroll
+        Text: |-
+            =$"Version: 3,
+            Label: {ChoiceGroupField1.Label}
+            Hint: {ChoiceGroupField1.Hint}
+            Info: {ChoiceGroupField1.Info}
+            Validation Message: {ChoiceGroupField1.Validation.Message}
+            Validation State: {ChoiceGroupField1.Validation.State}
+            Content Height: {ChoiceGroupField1.ContentHeight}
+            Content Width: {ChoiceGroupField1.ContentWidth}
+            Display Mode: {ChoiceGroupField1.DisplayMode}
+            Event Type: {CountRows(ChoiceGroupField1.Events)}
+            Required: {ChoiceGroupField1.Required}
+            Selected Value: {ChoiceGroupField1.Selected.Value}
+            Selected Values: {Concat(ChoiceGroupField1.SelectedItems, Value, ",")}
+            Label: {ChoiceGroupField1.Visible}"
+        Width: =643
+        X: =723
+        ZIndex: =16
+
+    Button2 As button:
+        OnSelect: =Set(CG_Value, "");
+        Text: |-
+            ="Clear
+            "
+        X: =80
+        Y: =541
+        ZIndex: =17
+
+    Button3 As button:
+        OnSelect: =Set(CG_Value, "1")
+        Text: ="Set Yes"
+        X: =80
+        Y: =593
+        ZIndex: =18
+
+    Button4 As button:
+        OnSelect: =Set(CG_Value, "0")
+        Text: ="Set No"
+        X: =80
+        Y: =653
+        ZIndex: =19
+
+    ButtonCanvas4 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =32
+        OnSelect: =Navigate(Home)
+        Text: ="Home"
+        Width: =96
+        X: =0
+        Y: =0
+        ZIndex: =20
+
+    CG_Validate As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Validate'.OnChange
+        Items: =['F9Fields.ChoiceGroupField.Validate'.OnChange,'F9Fields.ChoiceGroupField.Validate'.Always,'F9Fields.ChoiceGroupField.Validate'.Never]
+        X: =367
+        Y: =570
+        ZIndex: =22
+
+    "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: |-
+            =//Filter(_Booleans, Value = CG_Value)//ForAll(ParseJSON(CG_DefaultItemsJSON.Text) As Item, {Value: Item.Value, Text: Item.Text})
+            //Filter(SelfEmploymentTypes, Value in Trim(Split(SelfEmploymentSectionData.ocoo_selfemploymenttype, ",")))
+            
+            //Filter(CG_Items, Value in CG_DefaultItems.Value)
+            
+            ForAll(ParseJSON(Coalesce(CG_DefaultItemsJSON.Text,"[]")) As Item, {Value: Item.Value, Text: Item.Text})
+            //CG_DefaultItems
+        DisplayMode: =CG_DisplayMode.Selected.Value
+        Height: =200
+        Hint: =CG_Hint.Text
+        Info: =CG_Info.Text
+        Items: |-
+            =ForAll(ParseJSON(CG_ItemsJSON.Text) As Item, {Value: Item.Value, Text: Item.Text})//CG_Items//SelfEmploymentTypes//_Booleans//
+        Label: =CG_Label.Text
+        Layout: =CG_Layout.Selected.Value
+        Multiselect: =CG_Multiselect.Value
+        OnChange: |-
+            =//Set(SelfEmploymentSectionData, Patch(SelfEmploymentSectionData, { ocoo_selfemploymenttype: Concat(Self.SelectedItems, Value, ",")}));
+            /*Set(
+                SelfEmploymentSectionData,
+                Patch( 
+                    { 
+                            ocoo_selfemploymenttype: Concat(Self.SelectedItems, Value, ",")
+                    },     
+                    If(
+                        Not(SelfEmploymentType.Other.Value in Self.SelectedItems.Value),
+                        { ocoo_otherselfemploymenttype: Blank() },
+                        {}
+                    ),     
+                    If(
+                        Not(SelfEmploymentType.Sales.Value in Self.SelectedItems.Value),
+                        { ocoo_salessector: Blank() },
+                        {}
+                    )
+                )
+            );*/
+        Orientation: =CG_Orientation.Selected.Value
+        Required: =CG_Required.Value
+        Size: =CG_Size.Selected.Value
+        ValidationMessage: =CG_ValidationMessage.Text
+        ValidationState: =CG_ValidationState.Selected.Value
+        Width: =200
+        X: =40
+        Y: =40
+        ZIndex: =23
+

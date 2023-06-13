@@ -65,7 +65,7 @@ const findFiles = async (fileName, dir = cwd(), recursive = false,) =>{
     
     for(const file of files){
         if(file.name == fileName){
-            console.log(`Found ${path.relative(workingPath, path.resolve(dir, file.name))}`);
+            
             file.path = dir;
             foundFiles.push(file);
         }
@@ -85,7 +85,7 @@ const getReferencedResources = (manifest, localizationCode) =>{
 };
 
 const getStringKeys = (parsedXmlObject, existingKeys) => {
-    //console.log({parsedXmlObject, isArray: Object.prototype.toString.call(parsedXmlObject) === '[object Array]', isObject: typeof parsedXmlObject === 'object'})
+    //
     
     if(Object.prototype.toString.call(parsedXmlObject) === '[object Array]')
         return parsedXmlObject.flatMap((obj)=>getStringKeys(obj, existingKeys)).filter((key) => key && key != '');
@@ -129,7 +129,7 @@ const workingPath = path.resolve(cwd(), argsv.path || "");
 const localizationCode = argsv.loc ?? '1033';
 
 
-console.log(`Searching for ${MANIFEST_FILE_NAME}`);
+
 const controlManifests = await findFiles(MANIFEST_FILE_NAME, workingPath, true);
 
 for(const controlManifest of controlManifests){
@@ -158,7 +158,7 @@ for(const controlManifest of controlManifests){
     //find all unset keys in manifest
     const newKeys = getStringKeys(manifest, existingStringKeys); 
     if(newKeys.length == 0) {
-        console.log(`${path.basename(controlManifest.path)}: No new keys detected`);
+        
         continue;
     }
     
@@ -174,7 +174,7 @@ for(const controlManifest of controlManifests){
         );
 
     const defaultResxFileName = path.resolve(controlManifest.path, defaultResxRelativeFileName);
-    console.log(`Updating ${path.relative(workingPath, defaultResxFileName)} with ${newKeys.length} new key entries`);
+    
 
     const defaultResxFile = await readXmlFile( 
         existsSync(defaultResxFileName) 
@@ -192,7 +192,7 @@ for(const controlManifest of controlManifests){
     if(resxReferences.find((resxRef) => path.resolve(controlManifest.path, resxRef) === path.resolve(controlManifest.path, defaultResxRelativeFileName)))
         continue;
     
-    console.log(`Updating ${path.relative(workingPath, controlManifestAbsolutePath)} with 1 new resx resource`);
+    
     findXmlNodes(manifestObj, "manifest", "control", "resources")[0].resources
         .push(createResourceNode(defaultResxRelativeFileName));
     

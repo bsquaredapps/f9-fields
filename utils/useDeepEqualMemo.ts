@@ -7,5 +7,6 @@ export function useDeepEqualMemo<T>(value: T extends any ? T | (() => T) : never
   if (!isDeepEqual(ref.current, newValue)) {
     ref.current = newValue
   }
+  
   return ref.current
 }
