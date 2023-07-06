@@ -195,7 +195,8 @@
         AllowSearch: =CB_AllowSearch
         Appearance: =CB_Appearance.Selected.Value
         DefaultSearchText: =
-        DefaultSelectedItems: =_selectedPeople
+        DefaultSelectedItems: |-
+            ={Text: Blank(), Value: Blank()}//_selectedPeople
         DelayOutput: =CB_DelayOutput.Selected.Value
         DelayTimeout: =CB_DebounceTimeout.Text
         DisplayMode: =CB_DisplayMode.Selected.Value

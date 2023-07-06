@@ -10,7 +10,7 @@ export const useElementSize = (target: React.RefObject<HTMLElement>) => {
   const [size, setSize] = React.useState<ElementSize | undefined>()
 
   React.useLayoutEffect(() => {
-    setSize(target.current?.getBoundingClientRect())
+    setSize({height: target.current?.scrollHeight ?? 0, width: target.current?.scrollWidth ?? 0})
   }, [target]);
 
   // Where the magic happens

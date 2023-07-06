@@ -18,14 +18,26 @@ import * as React from "react";
 import { OptionProps } from "@fluentui/react-components";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
-import PropertyListener from "../utils/PropertyListenter";
+import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
+
+interface F9Context extends ComponentFramework.Context<IInputs> { 
+    events: { 
+        OnChange: ()=>void; 
+        OnSelect: ()=>void; 
+        OnResize: ()=>void; 
+        OnValidate: ()=> void; 
+        OnSearch:()=>void
+    }
+}
 
 export class ComboboxField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
+    private context: F9Context;  
     private controlName: string;
     private controlId: string;
     private controlUniqueId: string; 
     private defaultSelectedItemsListener: PropertyListener;
+    private selectedItemsListener: PropertyListener;
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
@@ -63,6 +75,18 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             this.optionsDataSet?.refresh();
         }
     }
+
+    private onSelectedItemsChanged = (bindingContext: any)=>{
+        console.log({
+            bindingContext, 
+            lastValue: bindingContext.outputRow[this.controlName]?.SelectedItems?.lastValue?.map((item: any)=>({...item})),
+            lastValueString: JSON.stringify(bindingContext.outputRow[this.controlName]?.SelectedItems?.lastValue?.map((item: any)=>({...item}))),
+            nextValue: bindingContext.outputRow[this.controlName]?.SelectedItems?.ruleValue?.map((item: any)=>({...item})),
+            nextValueString: JSON.stringify(bindingContext.outputRow[this.controlName]?.SelectedItems?.ruleValue?.map((item: any)=>({...item})))
+        });
+        //this.optionsDataSet?.refresh();
+        //this.context.events.OnChange();
+    }
     
     private maybeDebounceNotifyOutputChanged = ()=>{
         window.clearTimeout(this.debounceTimeoutId);
@@ -89,11 +113,42 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     private onChange: F9ComboboxFieldOnChangeEventHandler = (ev, data) => {
         window.clearTimeout(this.debounceTimeoutId);
         if(data?.optionValue && ev){
-            //this.events.push(getPAEvent(ev as PASourceEvent));
             const selectedRecordIds = getSelectedRecordsFromOptions(this.optionsDataSet,data.selectedOptions, this.options, this.optionsValueColumn);
             this.optionsDataSet?.setSelectedRecordIds(selectedRecordIds);
-            this.dispatchOnChange = true;
+             
+            //this.dispatchOnChange = true;
             this.notifyOutputChanged();
+            /*let componentInstance;
+            let componentBindingContext: any;
+
+            (window as any).AppMagic
+                .AuthoringTool
+                .Runtime
+                .globalBindingContext
+                .componentBindingContexts
+                .forEach((cx: any) => {if(cx.controlContexts[this.controlName]?.instanceId == this.controlUniqueId.split('-')[1].trim()){componentBindingContext = cx; componentInstance = cx.id; }});
+            if(!componentBindingContext) componentBindingContext = (window as any).AppMagic.AuthoringTool.Runtime.globalBindingContext;
+            (window as any).AppMagic
+                .AuthoringTool
+                .Runtime
+                .waitForAsyncRuleExecutions(
+                    [componentInstance], 
+                    `${this.controlId}.Items`
+                ).then((...args: any)=>{
+                    console.log({args, componentBindingContext});
+                    let newBindingContext: any;
+
+                    (window as any).AppMagic
+                        .AuthoringTool
+                        .Runtime
+                        .globalBindingContext
+                        .componentBindingContexts
+                        .forEach((cx: any) => {if(cx.controlContexts[this.controlName]?.instanceId == this.controlUniqueId.split('-')[1].trim()){newBindingContext = cx;}});
+                    if(!newBindingContext) newBindingContext = (window as any).AppMagic.AuthoringTool.Runtime.globalBindingContext;
+
+                    console.log({selectedItems: componentBindingContext.controlContexts[this.controlName].modelProperties.SelectedItems.getValue()?.map((v:any) => ({...v}))});
+                    componentBindingContext.controlContexts[this.controlName].behaviors.OnChange();
+                })*/
         }
     }
 
@@ -171,7 +226,8 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
         this.controlUniqueId = (context as any).client._customControlProperties.controlId;
 
-        this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems");
+        this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems", PropertyType.Input);
+        this.selectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "SelectedItems", PropertyType.Output);
     }
 
     /**
@@ -180,11 +236,15 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
+        console.log('rendering');
+        this.context = context as F9Context;
+        (window as any)["ComboContexts"] = (window as any)["ComboContexts"] ?? {};
+        (window as any)["ComboContexts"][this.controlUniqueId] = context;
         //dispatch events
         if(this.dispatchOnChange){
             (context as any).events.OnChange?.();
             this.dispatchOnChange = false;
-        }
+        } 
         if(this.dispatchOnSelect){
             (context as any).events.OnSelect?.();
             this.dispatchOnSelect = false;
@@ -207,6 +267,8 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         //DefaultSelectedItems doesn't trigger a refresh when set to a collection, and doesn't reset when set to an empty array.
         //Property Listener fixes both of these.
         this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged);
+        this.selectedItemsListener.listen(this.onSelectedItemsChanged);
+
 
         //convert options and default selected options
         this.optionsDataSet = context.parameters.Items;
@@ -252,7 +314,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         const inputValue = context.parameters[valueInputField].raw || "";
         const inputValueUpdated = context.updatedProperties.includes(valueInputField);
         if(inputValueUpdated) this.searchText = inputValue;
-
+        
         const props: F9ComboboxFieldProps = { 
             /* field props */
             fieldProps: {

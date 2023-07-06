@@ -32,7 +32,7 @@ export const getOptionsFromDataSet = <T>(dataSet: ComponentFramework.PropertyTyp
 
         cols.forEach((column)=>{
             const colNameKey = column.name.trim().toLowerCase();
-            const value = record.getValue(column.name);
+            const value = record.getValue(column.name)?.toString();
             option[colNameKey as keyof F9Option<T>] = value as any;
             option["__recordId"] = record.getRecordId();
         });
@@ -49,8 +49,8 @@ export const getSelectedOptionsFromRecords = (
     column: string
 ) => {
     return dataSet?.getSelectedRecordIds()?.map((recordId) => { 
-            return dataSet.records[recordId].getValue(column ?? "Value").toString()
-        })
+        return dataSet.records[recordId].getValue(column ?? "Value")?.toString()
+    })
 }
 
 export const getSelectedRecordsFromOptions = <T>(

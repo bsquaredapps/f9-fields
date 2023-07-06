@@ -17,7 +17,7 @@ import * as React from "react";
 import { CheckboxProps, RadioProps } from "@fluentui/react-components";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
-import PropertyListener from "../utils/PropertyListenter";
+import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
 
 export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -132,7 +132,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
         this.controlUniqueId = (context as any).client._customControlProperties.controlId;
 
-        this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems");
+        this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems", PropertyType.Input);
     }
 
     /**

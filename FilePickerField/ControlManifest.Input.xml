@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="FilePickerField" version="0.0.11" display-name-key="FilePickerField_Disp_Key" description-key="FilePickerField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="FilePickerField" version="0.0.17" display-name-key="FilePickerField_Disp_Key" description-key="FilePickerField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -21,7 +21,6 @@
     <!-- props specific to this input -->
     <data-set name="DefaultFiles" display-name-key="Files_Disp_Key" description-key="Files_Desc_Key" cds-data-set-options="">
       <property-set name="File" display-name-key="Files_File_Display_Key" of-type="File" usage="bound" />
-      <property-set name="Description" display-name-key="Files_Description_Display_Key" of-type="SingleLine.Text" usage="bound" />
     </data-set>
     <property name="AllowMultipleFiles" display-name-key="AllowMultipleFiles_Display_Key" description-key="AllowMultipleFiles_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
     <property name="MaxFileSize" display-name-key="MaxFileSize_Display_Key" description-key="MaxFileSize_Desc_Key" of-type="Whole.None" usage="input" required="false" default-value="10485760" />

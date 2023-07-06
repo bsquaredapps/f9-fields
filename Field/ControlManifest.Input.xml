@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="Field" version="0.0.6" display-name-key="Field_Display_Key" description-key="Field_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="Field" version="0.0.17" display-name-key="Field_Display_Key" description-key="Field_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -38,9 +38,9 @@
       <value name="Error" display-name-key="ValidationState_Error_Display_Key">error</value>
     </property>
     <property name="Validate" display-name-key="Validate_Display_Key" description-key="Validate_Desc_Key" of-type="Enum" usage="bound" required="false" default-value="onchange">
-      <value name="OnChange" display-name-key="ValidationState_None_Display_Key">onchange</value>
-      <value name="Always" display-name-key="ValidationState_Success_Display_Key">always</value>
-      <value name="Never" display-name-key="ValidationState_Warning_Display_Key">never</value>
+      <value name="OnChange" display-name-key="Validate_OnChange_Display_Key">onchange</value>
+      <value name="Always" display-name-key="Validate_Always_Display_Key">always</value>
+      <value name="Never" display-name-key="Validate_Never_Display_Key">never</value>
     </property>
     <property name="Orientation" display-name-key="Orientation_Display_Key" description-key="Orientation_Desc_Key" of-type="Enum" usage="input" required="false" default-value="vertical">
       <value name="Horizontal" display-name-key="Orientation_Horizontal_Display_Key">horizontal</value>

@@ -277,9 +277,9 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         const _selectedFiles = 
             this.files
                 .map(file => ({
-                    File: file.file, 
-                    Description: file.description
+                    File: file.file
                 }));
+                
         return { 
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
