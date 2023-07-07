@@ -1,7 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9TextareaField, F9TextareaFieldOnChangeEventHandler, F9TextareaFieldProps } from "./F9TextareaField";
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
@@ -18,10 +18,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -70,7 +67,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
@@ -204,7 +201,10 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
-                onClick: this.onSelect
+                onClick: this.onSelect,
+                onValidate: this.onValidate,
+                validate: context.parameters.Validate.raw,
+                pendingValidation: this.pendingValidation
             },
 
             /* control specific props */
@@ -215,13 +215,10 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             resize: context.parameters.AllowResize.raw,
             delayOutput: context.parameters.DelayOutput.raw || "none",
             delayTimeout: context.parameters.DelayTimeout.raw || 300,
-            validate: context.parameters.Validate.raw,
-            pendingValidation: this.pendingValidation,
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,
             onBlur: this.onBlur,
-            onChange: this.onChange,
-            onValidate: this.onValidate
+            onChange: this.onChange
         };
         return React.createElement(
             F9TextareaField, props

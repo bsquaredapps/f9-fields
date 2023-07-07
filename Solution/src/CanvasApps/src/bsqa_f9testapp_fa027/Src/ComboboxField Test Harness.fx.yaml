@@ -136,7 +136,8 @@
 
     CB_Button3_1 As button:
         OnSelect: |-
-            =ClearCollect(_selectedPeople, AddColumns(Office365Users.SearchUserV2({searchTerm:"heidi.snyder@fda.hhs.gov", isSearchTermRequired:true, top:1}).value, "Text", DisplayName, "Value", Mail))
+            =ClearCollect(_selectedPeople, AddColumns(Office365Users.SearchUserV2({searchTerm:"heidi.snyder@fda.hhs.gov", isSearchTermRequired:true, top:1}).value, "Text", DisplayName, "Value", Mail));
+            Set(_selectedOption, {Value: "heidi@fda.gov", Text: "Heidi Snyder"});
         Text: ="Set Heidi"
         X: =80
         Y: =593
@@ -191,12 +192,24 @@
         Y: =420
         ZIndex: =25
 
+    Component1_1 As Component1:
+        Height: =392
+        X: =726
+        Y: =376
+        ZIndex: =27
+
+    Component1_2 As Component1:
+        Height: =175
+        Width: =476
+        X: =123
+        Y: =593
+        ZIndex: =28
+
     "ComboboxField1 As 'Combobox Field'.pcfdataset":
         AllowSearch: =CB_AllowSearch
         Appearance: =CB_Appearance.Selected.Value
         DefaultSearchText: =
-        DefaultSelectedItems: |-
-            ={Text: Blank(), Value: Blank()}//_selectedPeople
+        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
         DelayOutput: =CB_DelayOutput.Selected.Value
         DelayTimeout: =CB_DebounceTimeout.Text
         DisplayMode: =CB_DisplayMode.Selected.Value
@@ -208,9 +221,23 @@
         Label: =CB_Label.Text
         Multiselect: =CB_Multiselect.Value
         OnChange: |-
-            =ClearCollect(_selectedPeople, Self.SelectedItems);
+            =Set(_selectedOption, First(Self.SelectedItems));
+            ClearCollect(_selectedPeople, Self.SelectedItems);
             Set(_selectedPeopleJson, JSON(Self.SelectedItems));
-            Notify("Changed");
+            Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
+            /*
+            Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
+            Set(_Supervisor, First(Self.SelectedItems));
+            ClearCollect(_selectedPeople, Self.SelectedItems);
+            
+            /*Set(_SupervisorEmail,  First(Self.SelectedItems).Mail);
+            Set(_SupervisorName, First(Self.SelectedItems).DisplayName);
+            Set(_SupervisorPhone, First(Self.SelectedItems).TelephoneNumber);
+            Set(_SupervisorCell, First(Self.SelectedItems).mobilePhone);
+            
+            Set(_SupervisorJSON, JSON(Patch(_Supervisor, { _SupervisorEmail: _SupervisorEmail, _SupervisorName: _SupervisorName}), JSONFormat.IgnoreBinaryData));
+            
+            */
         Orientation: =CB_Orientation.Selected.Value
         Placeholder: =CB_Placeholder.Text
         Required: =CB_Required.Value
@@ -220,5 +247,5 @@
         Width: =200
         X: =60
         Y: =104
-        ZIndex: =26
+        ZIndex: =29
 

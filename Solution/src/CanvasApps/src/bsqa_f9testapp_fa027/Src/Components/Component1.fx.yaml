@@ -1,0 +1,48 @@
+Component1 As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Label1 As label:
+        Height: =469
+        OnSelect: =Copy(Self.Text)
+        Text: =_SupervisorJSON
+        Width: =255
+        X: =325
+        Y: =90
+        ZIndex: =2
+
+    "ComboboxField2 As 'Combobox Field'.pcfdataset":
+        DefaultSelectedItems: =_selectedPeople
+        DisplayMode: =DisplayMode.Edit
+        Height: =200
+        Items: |-
+            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired: false, top: 20}).value, "Value", Mail, "Text", $"{DisplayName} ({Mail})", "Photo", Office365Users.UserPhotoV2(Id))
+        OnChange: |-
+            =Set(_selectedOption, First(Self.SelectedItems));
+            ClearCollect(_selectedPeople, Self.SelectedItems);
+            Set(_selectedPeopleJson, JSON(Self.SelectedItems,  JSONFormat.IgnoreBinaryData));
+            Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
+            
+            Set(_Supervisor, First(Self.SelectedItems));
+            Set(_SupervisorJSON, JSON(_Supervisor, JSONFormat.IgnoreBinaryData));
+            /*
+            
+            Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
+            Set(_Supervisor, First(Self.SelectedItems));
+            ClearCollect(_selectedPeople, Self.SelectedItems);
+            /*
+            Set(_SupervisorEmail,  First(Self.SelectedItems).Mail);
+            Set(_SupervisorName, First(Self.SelectedItems).DisplayName);
+            Set(_SupervisorPhone, First(Self.SelectedItems).TelephoneNumber);
+            Set(_SupervisorCell, First(Self.SelectedItems).mobilePhone);
+            
+            Set(_SupervisorJSON, JSON(Patch(_Supervisor, { _SupervisorEmail: _SupervisorEmail, _SupervisorName: _SupervisorName}), JSONFormat.IgnoreBinaryData));*/
+        Width: =200
+        X: =40
+        Y: =40
+        ZIndex: =3
+

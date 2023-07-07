@@ -1,7 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9InputField, F9InputFieldOnChangeEventHandler, F9InputFieldProps } from "./F9InputField";
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
@@ -17,10 +17,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -69,7 +66,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
@@ -202,7 +199,10 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
-                onClick: this.onSelect
+                onClick: this.onSelect,
+                onValidate: this.onValidate,
+                validate: context.parameters.Validate.raw,
+                pendingValidation: this.pendingValidation
             },
 
             /* control specific props */
@@ -213,13 +213,10 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
             contentAfter: context.parameters.ContentAfter.raw || undefined,
             type: context.parameters.InputType.raw,
             appearance: context.parameters.Appearance.raw || "outline",
-            validate: context.parameters.Validate.raw,
-            pendingValidation: this.pendingValidation,
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,
             onBlur: this.onBlur,
-            onChange: this.onChange,
-            onValidate: this.onValidate
+            onChange: this.onChange
         };
         return React.createElement(
             F9InputField, props

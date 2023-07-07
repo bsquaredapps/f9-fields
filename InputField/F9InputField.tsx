@@ -10,18 +10,13 @@ import {
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
 export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "contentAfter" | "onClick" | "onChange"> {
-    fieldProps: F9FieldProps;
+    fieldProps: Omit<F9FieldProps, "valueChanged">;
     isRead?: boolean;
     isControlDisabled?: boolean;
     contentBefore?: string;
     contentAfter?: string;
     validate?: "onchange" | "always" | "never";
     valueUpdated: boolean;
-    pendingValidation: {
-        validationMessage?: F9FieldProps["validationMessage"];
-        validationState?: F9FieldProps["validationState"];
-    };
-    onValidate?: F9FieldProps["onValidate"];
     onChange: F9InputFieldOnChangeEventHandler
 }
 
@@ -36,10 +31,7 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
         contentAfter,
         onBlur,
         onChange,
-        onValidate,
         fieldProps,
-        validate,
-        pendingValidation,
         ...restProps
     } = props;
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -59,36 +51,6 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
         }
     },[props.value, valueUpdated, setValue]);
 
-    const validation = React.useMemo(()=>{
-        if(
-            validate == "always" ||
-            (validate == "onchange" && valueChangedFromDefault.current)
-        ){
-            if(!pendingValidation.validationMessage){
-                pendingValidation.validationState = "none"
-            }
-            if(!pendingValidation.validationState){
-                pendingValidation.validationState = "error"
-            }
-            return pendingValidation;
-        } else {
-            return {
-                validationMessage: "",
-                validationState: "none"
-            } as typeof pendingValidation
-        }
-    }, [
-        pendingValidation.validationMessage,
-        pendingValidation.validationState,
-        valueChangedFromDefault.current, 
-        validate
-    ]);
-
-    React.useEffect(()=>{
-        inputRef.current 
-        && onValidate?.({type: "validate", target: inputRef.current}, validation)
-    },[validation]);
-
     const inputSlot = React.useMemo(()=>{
         return isRead 
         ? {
@@ -103,15 +65,15 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     const contentAfterSlot = React.useMemo(()=>renderSlotAsHtml(contentAfter, 'span'),[contentAfter]);
     
     const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData)=>{
-        setValue(data.value);
         const event = {...ev};
         valueChangedFromDefault.current = data.value != props.value;
+        setValue(data.value);
         onChange?.(event, data);
     };
 
     return <F9Field 
         {...fieldProps}
-        {...validation}
+        valueChanged={valueChangedFromDefault.current}
     >
         <Input
             {...restProps}

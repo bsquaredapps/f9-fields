@@ -7,7 +7,7 @@ import {
 } from "./F9FilePickerField";
 import { SelectedFileSchema, SelectedFilesSchema } from "./SelectedFiles";
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import * as isDeepEqual from 'fast-deep-equal';
@@ -53,10 +53,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -82,7 +79,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         this.notifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
@@ -245,7 +242,10 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
-                onClick: this.onSelect
+                onClick: this.onSelect,
+                onValidate: this.onValidate,
+                validate: context.parameters.Validate.raw,
+                pendingValidation: this.pendingValidation,
             },
             /* control specific props */
             defaultFiles: this.defaultFiles,
@@ -258,10 +258,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
             removeFileLabel: "Remove file",
             allocatedHeight: context.mode.allocatedHeight,
             allocatedWidth: context.mode.allocatedWidth,
-            validate: context.parameters.Validate.raw,
-            pendingValidation: this.pendingValidation,
             onChange: this.onChange,
-            onValidate: this.onValidate,
             pickFile: this.pickFile(context)
         };
         return React.createElement(
@@ -279,17 +276,16 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 .map(file => ({
                     File: file.file
                 }));
-                
         return { 
+            SelectedFiles: _selectedFiles,
+            SelectedFile: _selectedFiles[0] || {File: null},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Validation: {...this.validation},
             Events: [...this.events],
-            Label: this.label,
-            Hint: this.hint,
-            Info: this.info,
-            SelectedFiles: _selectedFiles,
-            SelectedFile: _selectedFiles[0] || {File: null, Description: null},
+            Label: this.label ?? "",
+            Hint: this.hint ?? "",
+            Info: this.info ?? "",
         };
     }
 

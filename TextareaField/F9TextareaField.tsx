@@ -10,18 +10,12 @@ import {
 
 export type F9TextareaFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLTextAreaElement}, data?: InputOnChangeData) => void;
 export interface F9TextareaFieldProps extends Omit<TextareaProps, "contentBefore" | "contentAfter" | "onClick" | "onChange"> {
-    fieldProps: F9FieldProps;
+    fieldProps: Omit<F9FieldProps, "valueChanged">;
     isRead?: boolean;
     isControlDisabled?: boolean;
     delayOutput?: "none" | "debounce" | "onblur";
     delayTimeout?: number;
-    validate?: "onchange" | "always" | "never";
     valueUpdated: boolean;
-    pendingValidation: {
-        validationMessage?: F9FieldProps["validationMessage"];
-        validationState?: F9FieldProps["validationState"];
-    };
-    onValidate?: F9FieldProps["onValidate"];
     onChange: F9TextareaFieldOnChangeEventHandler
 }
 
@@ -36,10 +30,7 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
         delayTimeout,
         onBlur,
         onChange,
-        onValidate,
         fieldProps,
-        validate,
-        pendingValidation,
         resize,
         ...restProps
     } = props;
@@ -55,36 +46,6 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
             setValue(props.value);
         }
     },[props.value, valueUpdated, setValue]);
-
-    const validation = React.useMemo(()=>{
-        if(
-            validate == "always" ||
-            (validate == "onchange" && valueChangedFromDefault.current)
-        ){
-            if(!pendingValidation.validationMessage){
-                pendingValidation.validationState = "none"
-            }
-            if(!pendingValidation.validationState){
-                pendingValidation.validationState = "error"
-            }
-            return pendingValidation;
-        } else {
-            return {
-                validationMessage: "",
-                validationState: "none"
-            } as typeof pendingValidation
-        }
-    }, [
-        pendingValidation.validationMessage,
-        pendingValidation.validationState,
-        valueChangedFromDefault.current, 
-        validate
-    ]);
-
-    React.useEffect(()=>{
-        inputRef.current 
-        && onValidate?.({type: "validate", target: inputRef.current}, validation)
-    },[validation]);
 
     const textareaSlot = React.useMemo(()=>{
         return isRead 
@@ -105,7 +66,7 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
 
     return <F9Field 
         {...fieldProps}
-        {...validation}
+        valueChanged={valueChangedFromDefault.current}
     >
         {
             isRead 

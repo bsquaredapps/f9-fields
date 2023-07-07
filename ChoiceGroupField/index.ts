@@ -12,7 +12,7 @@ import {
     getValueColumn
 } from "../components/options";
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { CheckboxProps, RadioProps } from "@fluentui/react-components";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
@@ -36,10 +36,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -74,7 +71,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.notifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
@@ -213,19 +210,19 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
-                onClick: this.onSelect
+                onClick: this.onSelect,
+                onValidate: this.onValidate,
+                validate: context.parameters.Validate.raw,
+                pendingValidation: this.pendingValidation,
             },
             /* control specific props */
             options: this.options,
             selectedOptions: getSelectedOptionsFromRecords(this.optionsDataSet, this.optionsValueColumn),
             multiselect: context.parameters.Multiselect.raw,
             layout: context.parameters.Layout.raw || "vertical",
-            validate: context.parameters.Validate.raw,
-            pendingValidation: this.pendingValidation,
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,
-            onChange: this.onChange,
-            onValidate: this.onValidate
+            onChange: this.onChange
         };
         return React.createElement(
             F9ChoiceGroupField, props

@@ -36,15 +36,10 @@ export type F9FilePickerFile = {
 }
 
 export interface F9FilePickerFieldProps {
-    fieldProps: F9FieldProps;
+    fieldProps: Omit<F9FieldProps, "valueChanged">;
     isRead?: boolean;
     isControlDisabled?: boolean;
-    validate?: "onchange" | "always" | "never";
     valueUpdated: boolean;
-    pendingValidation: {
-        validationMessage?: F9FieldProps["validationMessage"];
-        validationState?: F9FieldProps["validationState"];
-    };
     defaultFiles?: F9FilePickerFile[];
     maxFiles?: number;
     maxFileSize?: number;
@@ -55,7 +50,6 @@ export interface F9FilePickerFieldProps {
     allocatedHeight?: number;
     allocatedWidth?: number;
     pickFile: () => Promise<ComponentFramework.FileObject[]>;
-    onValidate?: F9FieldProps["onValidate"];
     onChange?: (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles: F9FilePickerFile[]) => void;
 }
 
@@ -155,9 +149,6 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         valueUpdated,
         pickFile,
         onChange,
-        validate,
-        pendingValidation,
-        onValidate,
         addFileLabel,
         removeFileLabel,
         downloadFileLabel,
@@ -180,36 +171,6 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
             )
         }
     }, [valueUpdated, defaultFiles, setFiles]);
-
-    const validation = React.useMemo(()=>{
-        if(
-            validate == "always" ||
-            (validate == "onchange" && valueChangedFromDefault.current)
-        ){
-            if(!pendingValidation.validationMessage){
-                pendingValidation.validationState = "none"
-            }
-            if(!pendingValidation.validationState){
-                pendingValidation.validationState = "error"
-            }
-            return pendingValidation;
-        } else {
-            return {
-                validationMessage: "",
-                validationState: "none"
-            } as typeof pendingValidation
-        }
-    }, [
-        pendingValidation.validationMessage,
-        pendingValidation.validationState,
-        valueChangedFromDefault.current, 
-        validate
-    ]);
-
-    React.useEffect(()=>{
-        inputRef.current 
-        && onValidate?.({type: "validate", target: inputRef.current}, validation)
-    },[validation]);
 
     const onRemove = (ev: React.FormEvent<HTMLDivElement>, selectedFile: F9FilePickerFile) => {
         if (isRead || isControlDisabled) return;
@@ -299,7 +260,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
 
     return <F9Field 
         {...fieldProps}
-        {...validation}
+        valueChanged={valueChangedFromDefault.current}
     >
         <div
             ref={inputRef} 

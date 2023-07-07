@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="Field" version="0.0.17" display-name-key="Field_Display_Key" description-key="Field_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="Field" version="0.0.19" display-name-key="Field_Display_Key" description-key="Field_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -25,6 +25,7 @@
       <value name="FilledDarker" display-name-key="Appearance_FilledDarker_Display_Key">filled-darker</value>
       <value name="FilledLighter" display-name-key="Appearance_FilledLighter_Display_Key">filled-lighter</value>
     </property>
+    <property name="ValueChanged" display-name-key="ValueChanged_Display_Key" description-key="ValueChanged_Desc_Key" of-type="TwoOptions" usage="bound" required="false" default-value="false" />
     <!-- Props common to all fields -->
     <property name="Label" display-name-key="Label_Display_Key" description-key="Label_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Hint" display-name-key="Hint_Display_Key" description-key="Hint_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />

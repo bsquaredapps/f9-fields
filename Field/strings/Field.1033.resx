@@ -282,4 +282,10 @@
   <data name="OnValidate_Desc_Key" xml:space="preserve">
     <value>Executed when validation output changes</value>
   </data>
+  <data name="ValueChanged_Display_Key" xml:space="preserve">
+    <value>Value Changed</value>
+  </data>
+  <data name="ValueChanged_Desc_Key" xml:space="preserve">
+    <value>Toggles validation state if validation type is set to OnChange</value>
+  </data>
 </root>

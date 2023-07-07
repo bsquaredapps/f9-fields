@@ -1,6 +1,5 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { PAEvent, PASourceEvent, PASourceTarget, getPAEvent, PAEventSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
 import * as React from "react";
 
 

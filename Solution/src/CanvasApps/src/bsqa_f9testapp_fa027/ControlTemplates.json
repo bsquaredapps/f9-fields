@@ -57,54 +57,9 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
+          "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
@@ -113,36 +68,14 @@
           "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "ChoiceGroup Field",
-    "Version": "0.0.9"
+    "Version": "0.0.19"
   },
   "Combobox Field": {
     "CustomGroupControlTemplateName": "",
@@ -244,7 +177,7 @@
       }
     },
     "TemplateDisplayName": "Combobox Field",
-    "Version": "0.0.9"
+    "Version": "0.0.19"
   },
   "dropdown": {
     "CustomGroupControlTemplateName": "",
@@ -275,54 +208,9 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
+          "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
@@ -331,92 +219,16 @@
           "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Description",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "File",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileContent",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "Number",
-                  "Name": "fileSize",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "mimeType",
-                  "Type": []
-                }
-              ]
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
       "SelectedFiles": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
+          "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Description",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "File",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileContent",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "Number",
-                  "Name": "fileSize",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "mimeType",
-                  "Type": []
-                }
-              ]
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
@@ -425,44 +237,14 @@
           "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "SelectedFile": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"File\":{\"type\":\"object\",\"properties\":{\"fileContent\":{\"type\":\"string\"},\"fileName\":{\"type\":\"string\"},\"fileSize\":{\"type\":\"number\"},\"mimeType\":{\"type\":\"string\"}}},\"Description\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      },
-      "SelectedFiles": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"File\":{\"type\":\"object\",\"properties\":{\"fileContent\":{\"type\":\"string\"},\"fileName\":{\"type\":\"string\"},\"fileSize\":{\"type\":\"number\"},\"mimeType\":{\"type\":\"string\"}}},\"Description\":{\"type\":\"string\"}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "File Picker Field",
-    "Version": "0.0.11"
+    "Version": "0.0.19"
   },
   "groupContainer": {
     "FirstParty": true,
@@ -489,54 +271,9 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
+          "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
@@ -545,36 +282,14 @@
           "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "Input Field",
-    "Version": "0.0.15"
+    "Version": "0.0.19"
   },
   "label": {
     "CustomGroupControlTemplateName": "",
@@ -633,54 +348,9 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
+          "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       },
@@ -689,36 +359,14 @@
           "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
         "Version": "1.332"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "Textarea Field",
-    "Version": "0.0.9"
+    "Version": "0.0.19"
   },
   "toggleSwitch": {
     "CustomGroupControlTemplateName": "",

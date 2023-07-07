@@ -195,6 +195,13 @@
         Y: =224
         ZIndex: =24
 
+    Textarea_Resize As dropdown:
+        Default: ='F9Fields.TextareaField.AllowResize'.Both
+        Items: =['F9Fields.TextareaField.AllowResize'.Both,'F9Fields.TextareaField.AllowResize'.Horizontal, 'F9Fields.TextareaField.AllowResize'.Vertical, 'F9Fields.TextareaField.AllowResize'.None]
+        X: =370
+        Y: =169
+        ZIndex: =26
+
     "TextareaField1 As 'Textarea Field'":
         AllowResize: =Textarea_Resize.Selected.Value
         Appearance: =Textarea_Appearance.Selected.Value
@@ -215,14 +222,7 @@
         ValidationState: =Textarea_Validate.Selected.Value
         Value: =Textarea_Value.Text
         Width: =Max(150, Self.ContentWidth)
-        X: =40
-        Y: =91
-        ZIndex: =25
-
-    Textarea_Resize As dropdown:
-        Default: ='F9Fields.TextareaField.AllowResize'.Both
-        Items: =['F9Fields.TextareaField.AllowResize'.Both,'F9Fields.TextareaField.AllowResize'.Horizontal, 'F9Fields.TextareaField.AllowResize'.Vertical, 'F9Fields.TextareaField.AllowResize'.None]
-        X: =370
-        Y: =169
-        ZIndex: =26
+        X: =60
+        Y: =111
+        ZIndex: =27
 

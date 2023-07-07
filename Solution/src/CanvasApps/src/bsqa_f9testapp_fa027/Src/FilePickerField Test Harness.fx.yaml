@@ -4,7 +4,7 @@
 
     FilePicker_ItemsJSON As text:
         Default: |-
-            ="[{""File"":{""fileName"": ""file1.txt""},""Description"":""Desc 1""},{""File"":{""fileName"": ""file2.xlsx""},""Description"":""Desc 2""},{""File"":{""fileName"": ""file3.pptx""},""Description"":""Desc 3""}]"
+            ="[{""File"":{""fileName"": ""file1.txt"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 1""},{""File"":{""fileName"": ""file2.xlsx"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 2""},{""File"":{""fileName"": ""file3.pptx"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 3""}]"
         Height: =115
         Mode: =TextMode.MultiLine
         OnChange: |-
@@ -191,7 +191,7 @@
         Label: =FilePicker_Label.Text
         Layout: =FilePicker_Layout.Selected.Value
         MaxFileSize: =FilePicker_MaxFileSize.Text
-        OnChange: =Notify("Files Changed");
+        OnChange: =ClearCollect(FilePicker_Items, Self.SelectedFiles)
         OnError: =Notify("File error");
         OnResize: =Notify("File resize");
         OnSelect: =Notify("Files Selected");

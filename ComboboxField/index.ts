@@ -13,7 +13,7 @@ import {
     getValueColumn
 } from '../components/options';
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { OptionProps } from "@fluentui/react-components";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
@@ -32,12 +32,10 @@ interface F9Context extends ComponentFramework.Context<IInputs> {
 
 export class ComboboxField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
-    private context: F9Context;  
     private controlName: string;
     private controlId: string;
     private controlUniqueId: string; 
     private defaultSelectedItemsListener: PropertyListener;
-    private selectedItemsListener: PropertyListener;
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
@@ -50,10 +48,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -74,18 +69,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         } else {
             this.optionsDataSet?.refresh();
         }
-    }
-
-    private onSelectedItemsChanged = (bindingContext: any)=>{
-        console.log({
-            bindingContext, 
-            lastValue: bindingContext.outputRow[this.controlName]?.SelectedItems?.lastValue?.map((item: any)=>({...item})),
-            lastValueString: JSON.stringify(bindingContext.outputRow[this.controlName]?.SelectedItems?.lastValue?.map((item: any)=>({...item}))),
-            nextValue: bindingContext.outputRow[this.controlName]?.SelectedItems?.ruleValue?.map((item: any)=>({...item})),
-            nextValueString: JSON.stringify(bindingContext.outputRow[this.controlName]?.SelectedItems?.ruleValue?.map((item: any)=>({...item})))
-        });
-        //this.optionsDataSet?.refresh();
-        //this.context.events.OnChange();
     }
     
     private maybeDebounceNotifyOutputChanged = ()=>{
@@ -116,39 +99,8 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             const selectedRecordIds = getSelectedRecordsFromOptions(this.optionsDataSet,data.selectedOptions, this.options, this.optionsValueColumn);
             this.optionsDataSet?.setSelectedRecordIds(selectedRecordIds);
              
-            //this.dispatchOnChange = true;
+            this.dispatchOnChange = true;
             this.notifyOutputChanged();
-            /*let componentInstance;
-            let componentBindingContext: any;
-
-            (window as any).AppMagic
-                .AuthoringTool
-                .Runtime
-                .globalBindingContext
-                .componentBindingContexts
-                .forEach((cx: any) => {if(cx.controlContexts[this.controlName]?.instanceId == this.controlUniqueId.split('-')[1].trim()){componentBindingContext = cx; componentInstance = cx.id; }});
-            if(!componentBindingContext) componentBindingContext = (window as any).AppMagic.AuthoringTool.Runtime.globalBindingContext;
-            (window as any).AppMagic
-                .AuthoringTool
-                .Runtime
-                .waitForAsyncRuleExecutions(
-                    [componentInstance], 
-                    `${this.controlId}.Items`
-                ).then((...args: any)=>{
-                    console.log({args, componentBindingContext});
-                    let newBindingContext: any;
-
-                    (window as any).AppMagic
-                        .AuthoringTool
-                        .Runtime
-                        .globalBindingContext
-                        .componentBindingContexts
-                        .forEach((cx: any) => {if(cx.controlContexts[this.controlName]?.instanceId == this.controlUniqueId.split('-')[1].trim()){newBindingContext = cx;}});
-                    if(!newBindingContext) newBindingContext = (window as any).AppMagic.AuthoringTool.Runtime.globalBindingContext;
-
-                    console.log({selectedItems: componentBindingContext.controlContexts[this.controlName].modelProperties.SelectedItems.getValue()?.map((v:any) => ({...v}))});
-                    componentBindingContext.controlContexts[this.controlName].behaviors.OnChange();
-                })*/
         }
     }
 
@@ -165,13 +117,8 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         this.notifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         window.clearTimeout(this.debounceTimeoutId);
-        /*const resizeEvent: PASourceEvent = {
-            type: "resize",
-            target: target as PASourceTarget
-        };
-        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
         this.dispatchOnResize = true;
@@ -227,7 +174,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         this.controlUniqueId = (context as any).client._customControlProperties.controlId;
 
         this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems", PropertyType.Input);
-        this.selectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "SelectedItems", PropertyType.Output);
     }
 
     /**
@@ -236,10 +182,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        console.log('rendering');
-        this.context = context as F9Context;
-        (window as any)["ComboContexts"] = (window as any)["ComboContexts"] ?? {};
-        (window as any)["ComboContexts"][this.controlUniqueId] = context;
+
         //dispatch events
         if(this.dispatchOnChange){
             (context as any).events.OnChange?.();
@@ -267,7 +210,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         //DefaultSelectedItems doesn't trigger a refresh when set to a collection, and doesn't reset when set to an empty array.
         //Property Listener fixes both of these.
         this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged);
-        this.selectedItemsListener.listen(this.onSelectedItemsChanged);
+        //this.selectedItemsListener.listen(this.onSelectedItemsChanged);
 
 
         //convert options and default selected options
@@ -325,7 +268,10 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
                 orientation: context.parameters.Orientation.raw,
                 size: context.parameters.Size.raw || "medium",
                 onResize: this.onResize,
-                onClick: this.onSelect
+                onClick: this.onSelect,
+                onValidate: this.onValidate,
+                validate: context.parameters.Validate.raw,
+                pendingValidation: this.pendingValidation
             },
             /* control specific props */
             searchText: inputValue,
@@ -336,13 +282,10 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             multiselect: context.parameters.Multiselect.raw,
             allowSearch: context.parameters.AllowSearch.raw,
             appearance: context.parameters.Appearance.raw || "outline",
-            validate: context.parameters.Validate.raw,
-            pendingValidation: this.pendingValidation,
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,
             onBlur: this.onBlur,
             onChange: this.onChange,
-            onValidate: this.onValidate,
             onSearch: this.onSearch
         };
         return React.createElement(
@@ -356,11 +299,11 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      */
     public getOutputs(): IOutputs {
         return { 
-            SearchText: this.searchText,
-            Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
+            Validation: {...this.validation},
             Events: [...this.events],
+            SearchText: this.searchText,
             Label: this.label,
             Hint: this.hint,
             Info: this.info,

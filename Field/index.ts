@@ -1,7 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9Field, F9FieldOnValidateEventHandler, F9FieldProps } from "./F9Field";
 import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
-import { ElementSize } from '../utils/useElementSize';
+import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { ValidationSchema } from "../utils/ValidationSchema";
 
@@ -16,10 +16,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: {
-        validationMessage:F9FieldProps["validationMessage"];
-        validationState: F9FieldProps["validationState"];
-    };
+    private pendingValidation: F9FieldProps["pendingValidation"];
     private validation: {
         Message: string;
         State: string;  
@@ -28,6 +25,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
     private dispatchOnSelect: boolean = false
     private dispatchOnResize?: boolean = false;
     private dispatchOnValidate?: boolean = false;
+    private valueChanged: boolean = false;
     
     private onSelect: React.MouseEventHandler<any> = (ev): void => {
         this.events.push(getPAEvent(ev as PASourceEvent));
@@ -35,7 +33,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         this.notifyOutputChanged();
     }
 
-    private onResize = (size?: ElementSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
         /*const resizeEvent: PASourceEvent = {
             type: "resize",
             target: target as PASourceTarget
@@ -124,6 +122,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         this.hint = context.parameters.Hint.raw || undefined;
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
+        this.valueChanged = context.parameters.ValueChanged.raw;
         
         //initialize content height & width
         if(!this.contentHeight || !this.contentWidth){            
@@ -150,19 +149,6 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
                 this.pendingValidation = pendingValidation;
             }
         }
-
-        //no input on the template, so just pass through unless Validate is Never
-        if(context.parameters.Validate.raw == "never"){
-            this.validation = {
-                Message: "",
-                State: "none"
-            }
-        } else {
-            this.validation = {
-                Message: this.pendingValidation.validationMessage || "",
-                State: this.pendingValidation.validationState || "none"
-            }
-        }
         
         const fieldProps: F9FieldProps = { 
             /* field props */
@@ -175,8 +161,10 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             onResize: this.onResize,
             onClick: this.onSelect,
             onValidate: this.onValidate,
-            validationMessage: this.pendingValidation.validationMessage,
-            validationState: this.pendingValidation.validationState
+            valueChanged: context.parameters.ValueChanged.raw,
+            pendingValidation: this.pendingValidation,
+            //validationMessage: this.pendingValidation.validationMessage,
+            //validationState: this.pendingValidation.validationState
         };
 
         return React.createElement(
@@ -198,7 +186,8 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             Label: this.label,
             Hint: this.hint,
             Info: this.info,
-            Required: this.required
+            Required: this.required,
+            ValueChanged: this.valueChanged
         };
     }
 

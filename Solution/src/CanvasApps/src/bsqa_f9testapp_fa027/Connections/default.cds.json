@@ -5,6 +5,22 @@
         "PCFExternalServiceUsageAllowed": false
       },
       "ComponentName": "CustomControl",
+      "Identifier": "bsqa_F9Fields.ComboboxField",
+      "IdentifierType": 0
+    },
+    {
+      "Capabilities": {
+        "PCFExternalServiceUsageAllowed": false
+      },
+      "ComponentName": "CustomControl",
+      "Identifier": "bsqa_F9Fields.ComboboxField",
+      "IdentifierType": 0
+    },
+    {
+      "Capabilities": {
+        "PCFExternalServiceUsageAllowed": false
+      },
+      "ComponentName": "CustomControl",
       "Identifier": "bsqa_F9Fields.InputField",
       "IdentifierType": 0
     },
