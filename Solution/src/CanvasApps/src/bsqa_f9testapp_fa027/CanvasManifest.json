@@ -1,7 +1,7 @@
 {
   "FormatVersion": "0.24",
   "Header": {
-    "DocVersion": "1.332",
+    "DocVersion": "1.333",
     "MinVersionToLoad": "1.331",
     "MSAppStructureVersion": "2.0"
   },
@@ -42,7 +42,6 @@
       "enableonstart": true,
       "enableonstartnavigate": false,
       "enablepcfmoderndatasets": true,
-      "enablepowerautomatepane": true,
       "enablerowscopeonetonexpand": false,
       "enablerpawarecomponentdependency": true,
       "enablerulespanel": false,
@@ -98,7 +97,7 @@
       "zeroalltabindexes": false
     },
     "Author": "",
-    "BindingErrorCount": 24,
+    "BindingErrorCount": 0,
     "ContainsThirdPartyPcfControls": true,
     "DefaultConnectedDataSourceMaxGetRowsCount": 500,
     "DocumentAppType": "DesktopOrTablet",
@@ -116,7 +115,8 @@
     "ManualOfflineProfileId": "",
     "Name": "F9 Test App",
     "OriginatingVersion": "1.330",
-    "ParserErrorCount": 0
+    "ParserErrorCount": 0,
+    "ShowStatusBar": false
   },
   "PublishInfo": {
     "AppName": "F9 Test App",
@@ -135,6 +135,7 @@
     "FilePickerField Test Harness",
     "ComboboxField Test Harness",
     "InputField Test Harness",
+    "Field Test Harness",
     "Textarea Test Harness",
     "Screen1"
   ]

@@ -21,7 +21,7 @@ Home As screen:
         ZIndex: =2
 
     Label5 As label:
-        Text: ="v23"
+        Text: ="v24"
         X: =305
         ZIndex: =3
 
@@ -54,4 +54,14 @@ Home As screen:
         X: =40
         Y: =222
         ZIndex: =6
+
+    btnInput_3 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =28
+        OnSelect: =Navigate('Field Test Harness')
+        Text: ="Field"
+        Width: =159
+        X: =40
+        Y: =276
+        ZIndex: =7
 

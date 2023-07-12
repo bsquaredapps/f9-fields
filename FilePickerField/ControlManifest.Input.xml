@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="FilePickerField" version="0.0.19" display-name-key="FilePickerField_Disp_Key" description-key="FilePickerField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="FilePickerField" version="0.0.21" display-name-key="FilePickerField_Disp_Key" description-key="FilePickerField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -25,7 +25,7 @@
     <property name="AllowMultipleFiles" display-name-key="AllowMultipleFiles_Display_Key" description-key="AllowMultipleFiles_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
     <property name="MaxFileSize" display-name-key="MaxFileSize_Display_Key" description-key="MaxFileSize_Desc_Key" of-type="Whole.None" usage="input" required="false" default-value="10485760" />
     <property name="AcceptedTypes" display-name-key="AcceptedTypes_Display_Key" description-key="AcceptedTypes_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="Layout" display-name-key="Layout_Display_Key" description-key="Layout_Desc_Key" of-type="Enum" usage="input" required="false" default-value="outline">
+    <property name="Layout" display-name-key="Layout_Display_Key" description-key="Layout_Desc_Key" of-type="Enum" usage="input" required="false" default-value="vertical">
       <value name="Horizontal" display-name-key="Layout_Horizontal_Display_Key">horizontal</value>
       <value name="Vertical" display-name-key="Layout_Vertical_Display_Key">vertical</value>
     </property>

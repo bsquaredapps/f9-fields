@@ -1,0 +1,155 @@
+"'Field Test Harness' As screen":
+    OnVisible: =
+
+    Field_Appearance As dropdown:
+        Default: ='F9Fields.ComboboxField.Appearance'.Outline
+        Items: =['F9Fields.ComboboxField.Appearance'.Outline,'F9Fields.ComboboxField.Appearance'.FilledDarker,'F9Fields.ComboboxField.Appearance'.FilledLighter]
+        X: =367
+        Y: =123
+        ZIndex: =4
+
+    Field_Hint As text:
+        Default: =""
+        HintText: ="Hint"
+        X: =367
+        Y: =297
+        ZIndex: =5
+
+    Field_Info As text:
+        Default: =""
+        HintText: ="Info"
+        X: =367
+        Y: =336
+        ZIndex: =6
+
+    Field_Label As text:
+        Default: =""
+        HintText: ="Label"
+        X: =367
+        Y: =215
+        ZIndex: =7
+
+    Field_ValueChanged As toggleSwitch:
+        FalseText: ="Not Changed"
+        Height: =25
+        TrueText: ="Changed"
+        Width: =173
+        X: =367
+        Y: =489
+        ZIndex: =8
+
+    Field_Required As toggleSwitch:
+        FalseText: ="Not Required"
+        Height: =25
+        TrueText: ="Required"
+        Width: =173
+        X: =367
+        Y: =465
+        ZIndex: =9
+
+    Field_ValidationMessage As text:
+        Default: =""
+        HintText: ="Validation Message"
+        OnChange: =Set(_InputValidationMessage, Self.Text)
+        X: =367
+        Y: =518
+        ZIndex: =10
+
+    Field_ValidationState As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
+        Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
+        OnChange: =Set(_InputValidationState, Self.Selected.Value);
+        X: =367
+        Y: =569
+        ZIndex: =11
+
+    Field_Orientation As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
+        Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
+        X: =367
+        Y: =620
+        ZIndex: =12
+
+    Field_Size As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Size'.Medium
+        Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
+        X: =367
+        Y: =671
+        ZIndex: =13
+
+    Field_DisplayMode As dropdown:
+        Default: =DisplayMode.Edit
+        Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
+        X: =367
+        Y: =728
+        ZIndex: =14
+
+    Label4_3 As label:
+        Height: =768
+        Overflow: =Overflow.Scroll
+        Text: |-
+            =$"Version: 3,
+            Label: {Field1.Label}
+            Hint: {Field1.Hint}
+            Info: {Field1.Info}
+            Validation Message: {Field1.Validation.Message}
+            Validation State: {Field1.Validation.State}
+            Content Height: {Field1.ContentHeight}
+            Content Width: {Field1.ContentWidth}
+            Display Mode: {Field1.DisplayMode}
+            Events: {Input_EventsJSON}
+            Events Count: {CountRows(Field1.Events)}
+            Required: {Field1.Required}
+            ValueChanged: {Field1.ValueChanged}
+            Visible: {Field1.Visible}"
+        Width: =643
+        X: =723
+        ZIndex: =16
+
+    ButtonCanvas4_4 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =32
+        OnSelect: =Navigate(Home)
+        Text: ="Home"
+        Width: =96
+        X: =40
+        Y: =40
+        ZIndex: =21
+
+    Field_InputType As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.InputField.InputType'.Text,'F9Fields.InputField.InputType'.Date, 'F9Fields.InputField.InputType'.DateTime, 'F9Fields.InputField.InputType'.Email, 'F9Fields.InputField.InputType'.Month, 'F9Fields.InputField.InputType'.Number, 'F9Fields.InputField.InputType'.Password, 'F9Fields.InputField.InputType'.Search, 'F9Fields.InputField.InputType'.Telephone,'F9Fields.InputField.InputType'.Time, 'F9Fields.InputField.InputType'.Url, 'F9Fields.InputField.InputType'.Week]
+        X: =367
+        Y: =47
+        ZIndex: =27
+
+    Field_Validate As dropdown:
+        Default: ='F9Fields.InputField.Validate'.OnChange
+        Items: =['F9Fields.InputField.Validate'.OnChange,'F9Fields.InputField.Validate'.Always,'F9Fields.InputField.Validate'.Never]
+        X: =367
+        Y: =397
+        ZIndex: =30
+
+    Field1 As Field:
+        Appearance: =Field_Appearance.Selected.Value
+        DisplayMode: =Field_DisplayMode.Selected.Value
+        Height: =92
+        Hint: =Field_Hint.Text
+        Info: =Field_Info.Text
+        Label: =Field_Label.Text
+        OnChange: =Set(Field_EventsJSON, JSON(Self.Events));
+        OnResize: =Set(Field_EventsJSON, JSON(Self.Events));
+        OnSelect: =Set(Field_EventsJSON, JSON(Self.Events));
+        OnValidate: =Set(Field_EventsJSON, JSON(Self.Events));
+        Orientation: =Field_Orientation.Selected.Value
+        Required: =Field_Required.Value
+        Size: =Field_Size.Selected.Value
+        Validate: =Field_Validate.Selected.Value
+        ValidationMessage: =Field_ValidationMessage.Text
+        ValidationState: =Field_ValidationState.Selected.Value
+        ValueChanged: =Field_ValueChanged.Value
+        Width: =247
+        X: =36
+        Y: =97
+        ZIndex: =31
+

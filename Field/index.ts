@@ -158,11 +158,16 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             required: this.required,
             orientation: context.parameters.Orientation.raw,
             size: context.parameters.Size.raw || "medium",
+            validate: context.parameters.Validate.raw,
             onResize: this.onResize,
             onClick: this.onSelect,
             onValidate: this.onValidate,
             valueChanged: context.parameters.ValueChanged.raw,
             pendingValidation: this.pendingValidation,
+            style: {
+                height: context.mode.allocatedHeight,
+                width: context.mode.allocatedWidth
+            }
             //validationMessage: this.pendingValidation.validationMessage,
             //validationState: this.pendingValidation.validationState
         };

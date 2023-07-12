@@ -202,27 +202,36 @@
         Y: =169
         ZIndex: =26
 
-    "TextareaField1 As 'Textarea Field'":
-        AllowResize: =Textarea_Resize.Selected.Value
-        Appearance: =Textarea_Appearance.Selected.Value
-        DefaultValue: =Textarea_DefaultValue.Text
-        DelayOutput: =Textarea_DelayOutput.Selected.Value
-        DelayTimeout: =Textarea_DebounceTimeout.Text
-        DisplayMode: =Textarea_DisplayMode.Selected.Value
-        Height: =118
-        Hint: =Textarea_Hint.Text
-        Info: =Textarea_Info.Text
-        Label: =Textarea_Label.Text
-        Orientation: =Textarea_Orientation.Selected.Value
-        Placeholder: =Textarea_Placeholder.Text
-        Required: =Textarea_Required.Value
-        Size: =Textarea_Size.Selected.Value
-        Validate: =Textarea_Validate.Selected.Value
-        ValidationMessage: =Textarea_ValidationMessage.Text
-        ValidationState: =Textarea_Validate.Selected.Value
-        Value: =Textarea_Value.Text
-        Width: =Max(150, Self.ContentWidth)
-        X: =60
-        Y: =111
-        ZIndex: =27
+    Container1 As groupContainer.verticalAutoLayoutContainer:
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        X: =100
+        Y: =100
+        ZIndex: =28
+
+        "TextareaField1 As 'Textarea Field'":
+            AllowResize: =Textarea_Resize.Selected.Value
+            Appearance: =Textarea_Appearance.Selected.Value
+            DefaultValue: =Textarea_DefaultValue.Text
+            DelayOutput: =Textarea_DelayOutput.Selected.Value
+            DelayTimeout: =Textarea_DebounceTimeout.Text
+            DisplayMode: =Textarea_DisplayMode.Selected.Value
+            Height: =Self.ContentHeight
+            Hint: =Textarea_Hint.Text
+            Info: =Textarea_Info.Text
+            Label: =Textarea_Label.Text
+            LayoutMinHeight: =200
+            LayoutMinWidth: =200
+            Orientation: =Textarea_Orientation.Selected.Value
+            Placeholder: =Textarea_Placeholder.Text
+            Required: =Textarea_Required.Value
+            Size: =Textarea_Size.Selected.Value
+            Validate: =Textarea_Validate.Selected.Value
+            ValidationMessage: =Textarea_ValidationMessage.Text
+            ValidationState: =Textarea_ValidationState.Selected.Value
+            Value: =Textarea_Value.Text
+            Width: =283
+            X: =60
+            Y: =111
+            ZIndex: =1
 

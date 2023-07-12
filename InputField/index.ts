@@ -202,7 +202,11 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
                 onClick: this.onSelect,
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
-                pendingValidation: this.pendingValidation
+                pendingValidation: this.pendingValidation,
+                style: {
+                    height: context.mode.allocatedHeight,
+                    width: context.mode.allocatedWidth
+                }
             },
 
             /* control specific props */

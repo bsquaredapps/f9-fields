@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="InputField" version="0.0.19" display-name-key="InputField_Display_Key" description-key="InputField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="InputField" version="0.0.21" display-name-key="InputField_Display_Key" description-key="InputField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -38,7 +38,7 @@
     </property>
     <property name="ContentBefore" display-name-key="ContentBefore_Display_Key" description-key="ContentBefore_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="ContentAfter" display-name-key="ContentAfter_Display_Key" description-key="ContentAfter_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="DelayOutput" display-name-key="DelayOutput_Display_Key" description-key="DelayOutput_Desc_Key" of-type="Enum" usage="input" required="false" default-value="none">
+    <property name="DelayOutput" display-name-key="DelayOutput_Display_Key" description-key="DelayOutput_Desc_Key" of-type="Enum" usage="input" required="false" default-value="debounce">
       <value name="None" display-name-key="DelayOutput_None_Display_Key">none</value>
       <value name="Debounce" display-name-key="DelayOutput_Debounce_Display_Key">debounce</value>
       <value name="OnBlur" display-name-key="DelayOutput_OnBlur_Display_Key">onblur</value>
@@ -50,7 +50,7 @@
     <property name="Info" display-name-key="Info_Display_Key" description-key="Info_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Required" display-name-key="Required_Display_Key" description-key="Required_Desc_Key" of-type="TwoOptions" usage="bound" required="false" default-value="false" />
     <property name="ValidationMessage" display-name-key="ValidationMessage_Display_Key" description-key="ValidationMessage_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="input" required="false" default-value="Error">
+    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="input" required="false" default-value="error">
       <value name="None" display-name-key="ValidationState_None_Display_Key">none</value>
       <value name="Success" display-name-key="ValidationState_Success_Display_Key">success</value>
       <value name="Warning" display-name-key="ValidationState_Warning_Display_Key">warning</value>

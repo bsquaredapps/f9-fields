@@ -265,10 +265,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         <div
             ref={inputRef} 
             className={mergeClasses(styles.root)} 
-            style={{ 
-                maxHeight: `${allocatedHeight}px`, 
-                maxWidth: `${allocatedWidth}px` 
-            }}>
+        >
             <ul className={mergeClasses(styles.files, layout === "vertical" && styles.vertical)}>
                 {
                     files?.filter((file) => !!file.file.fileName)

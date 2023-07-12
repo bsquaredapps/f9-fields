@@ -214,6 +214,10 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
                 pendingValidation: this.pendingValidation,
+                style: {
+                    height: context.mode.allocatedHeight,
+                    width: context.mode.allocatedWidth
+                }
             },
             /* control specific props */
             options: this.options,

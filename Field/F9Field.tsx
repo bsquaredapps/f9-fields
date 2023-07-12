@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Field, FieldProps, LabelProps } from '@fluentui/react-components';
+import { Field, FieldProps, LabelProps, makeStyles } from '@fluentui/react-components';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import * as DOMPurify from 'dompurify';
 import useScrollSize, { ScrollSize } from '../utils/useScrollSize';
@@ -28,8 +28,16 @@ export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info"
     onValidate?: F9FieldOnValidateEventHandler
 }
 
-export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") =>
-    rawHtml && <El dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(rawHtml)}}/>
+export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") => {
+    return rawHtml && <El dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(rawHtml)}}/> 
+}
+
+const useStyles = makeStyles({
+    root: {
+        flexGrow: 1,
+        alignContent: "flex-start"
+    }
+});
 
 export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
 
@@ -67,6 +75,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
     const scrollSize = useScrollSize(fieldRef);
 
     const validation = React.useMemo(()=>{
+        
         if(
             validate == "always" ||
             (validate == "onchange" && valueChanged)
@@ -80,7 +89,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
             return pendingValidation;
         } else {
             return {
-                validationMessage: "",
+                validationMessage: undefined,
                 validationState: "none"
             } as typeof pendingValidation
         }
@@ -90,7 +99,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
         valueChanged,
         validate
     ]);
-
+    
     React.useEffect(()=>{
         fieldRef.current 
         && onValidate?.({type: "validate", target: fieldRef.current}, validation)
@@ -99,11 +108,12 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
     const validationMessageSlot = React.useMemo(() => {
         return renderSlotAsHtml(validation.validationMessage, 'span')
     },[validation.validationMessage]);
-
+    
     React.useEffect(()=>{
         fieldRef && scrollSize?.height && scrollSize?.width && onResize?.(scrollSize, fieldRef);
     }, [scrollSize, scrollSize?.height, scrollSize?.width, fieldRef]);
 
+    const styles = useStyles();
     return <Field
         {...restProps}
         label={labelSlot}
@@ -115,5 +125,6 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
         size={size}
         ref={fieldRef}
         onClick={onClick}
+        className={styles.root}
     />
 }

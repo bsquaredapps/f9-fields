@@ -246,6 +246,10 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
                 pendingValidation: this.pendingValidation,
+                style: {
+                    height: context.mode.allocatedHeight,
+                    width: context.mode.allocatedWidth
+                }
             },
             /* control specific props */
             defaultFiles: this.defaultFiles,
@@ -278,7 +282,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 }));
         return { 
             SelectedFiles: _selectedFiles,
-            SelectedFile: _selectedFiles[0] || {File: null},
+            SelectedFile: _selectedFiles[0] || {File: undefined},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Validation: {...this.validation},

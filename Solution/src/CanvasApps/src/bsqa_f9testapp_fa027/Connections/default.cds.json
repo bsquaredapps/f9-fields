@@ -55,6 +55,14 @@
       "ComponentName": "CustomControl",
       "Identifier": "bsqa_F9Fields.ComboboxField",
       "IdentifierType": 0
+    },
+    {
+      "Capabilities": {
+        "PCFExternalServiceUsageAllowed": false
+      },
+      "ComponentName": "CustomControl",
+      "Identifier": "bsqa_F9Fields.Field",
+      "IdentifierType": 0
     }
   ],
   "dataSources": {},

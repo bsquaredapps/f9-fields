@@ -112,14 +112,15 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                         {
                             options?.map((option) =>{
                                 return <Checkbox 
-                                {...option.props} 
+                                required={false} 
                                 key={option.value}
                                 value={option.value}
                                 label={option.text ?? option.value}
                                 size={fieldProps.size == "large" ? "large" : "medium"}
                                 checked={selectedOptions?.includes(option.value)}
                                 onChange={(ev)=>{onSelectionChange(ev, option.value)}}
-                                disabled={isControlDisabled} />
+                                disabled={isControlDisabled}
+                                {...option.props} />
                             })
                         }
                     </div>
@@ -136,10 +137,11 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                     {   
                         options?.map((option) => {
                             return <Radio 
-                                {...option.props}
                                 key={option.value}
                                 value={option.value} 
                                 label={option.text ?? option.value}
+                                className={mergeClasses()}
+                                {...option.props}
                                 />
                         })
                     }

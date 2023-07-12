@@ -271,7 +271,11 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
                 onClick: this.onSelect,
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
-                pendingValidation: this.pendingValidation
+                pendingValidation: this.pendingValidation,
+                style: {
+                    height: context.mode.allocatedHeight,
+                    width: context.mode.allocatedWidth
+                }
             },
             /* control specific props */
             searchText: inputValue,
