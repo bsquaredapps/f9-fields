@@ -65,7 +65,7 @@ export const getSelectedRecordsFromOptions = <T>(
     const currentSelectedRecords: { [key: string]: string} = {};
     dataSet
         .getSelectedRecordIds()?.forEach((recordId) => { 
-            currentSelectedRecords[dataSet.records[recordId].getValue(column).toString()] = recordId;
+            currentSelectedRecords[dataSet.records[recordId].getValue(column)?.toString()] = recordId;
         });
 
     return selectedValues.map((value) => {

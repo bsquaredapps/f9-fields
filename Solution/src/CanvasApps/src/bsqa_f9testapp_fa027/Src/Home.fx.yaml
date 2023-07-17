@@ -65,3 +65,55 @@ Home As screen:
         Y: =276
         ZIndex: =7
 
+    Dialog1 As Dialog.pcfdataset:
+        Content: |-
+            ="This si the content <a href=""#"">a link</a>"
+        DisplayMode: =DisplayMode.Edit
+        Height: =200
+        IsOpen: =_OpenDialog
+        Items: |-
+            =Table({Key: "OK", Text:"OK", Appearance: "primary"}, {Key:"Cancel", Text:"Cancel", Appearance: "outline"})
+        ModalType: ='F9Fields.Dialog.ModalType'.Modal
+        OnChange: |-
+            =Notify("This changed: " & Self.Selected.Key);
+        OnSelect: |-
+            =Notify("Item Selected: " & Self.Selected.Key);
+        Title: ="This is the title"
+        Width: =200
+        X: =401
+        Y: =124
+        ZIndex: =8
+
+        Key1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Key"
+            FieldName: ="Key"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =1
+
+        TextInput1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Text"
+            FieldName: ="Text"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =2
+            ZIndex: =2
+
+        Appearance1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Appearance"
+            FieldName: ="Appearance"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =3
+            ZIndex: =3
+
+    Button1 As button:
+        OnSelect: |-
+            =Set(_OpenDialog, false);
+            Set(_OpenDialog, true);
+        Text: ="Button"
+        X: =962
+        Y: =89
+        ZIndex: =9
+

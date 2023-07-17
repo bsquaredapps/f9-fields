@@ -5,7 +5,8 @@ import {
     TextProps, 
     InputOnChangeData, 
     Input, 
-    InputProps
+    InputProps,
+    makeStyles
 } from '@fluentui/react-components';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
@@ -19,6 +20,12 @@ export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "c
     valueUpdated: boolean;
     onChange: F9InputFieldOnChangeEventHandler
 }
+
+const useStyles = makeStyles({
+    root: {
+        width: "100%"
+    }
+});
 
 export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=>{
 
@@ -51,6 +58,7 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
         }
     },[props.value, valueUpdated, setValue]);
 
+    const styles = useStyles();
     const inputSlot = React.useMemo(()=>{
         return isRead 
         ? {
@@ -58,7 +66,7 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
                 return <Text {...(inputControlProps as TextProps)}>{value}</Text>;
              }
           } 
-        : undefined
+        : { className: styles.root }
     }, [isRead, value]);
 
     const contentBeforeSlot = React.useMemo(()=>renderSlotAsHtml(contentBefore, 'span'),[contentBefore]);
@@ -77,6 +85,7 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     >
         <Input
             {...restProps}
+            className={styles.root}
             input={inputSlot}
             onChange={onInputChange}
             onBlur={onBlur}

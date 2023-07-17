@@ -221,7 +221,7 @@
         DelayOutput: =Input_DelayOutput.Selected.Value
         DelayTimeout: =Input_DebounceTimeout.Text
         DisplayMode: =Input_DisplayMode.Selected.Value
-        Height: =36
+        Height: =26
         Hint: =Input_Hint.Text
         Info: =Input_Info.Text
         InputType: =Input_InputType.Selected.Value
@@ -246,8 +246,16 @@
         ValidationMessage: =Input_ValidationMessage.Text
         ValidationState: =Input_ValidationState.Selected.Value
         Value: =Input_Value.Text
-        Width: =200
+        Width: =117
         X: =60
         Y: =138
         ZIndex: =33
+
+    "TextInputCanvas2 As 'Text input'":
+        DisplayMode: =DisplayMode.Edit
+        Height: =45
+        Width: =240
+        X: =23
+        Y: =397
+        ZIndex: =34
 

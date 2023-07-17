@@ -36,11 +36,10 @@ export type F9FilePickerFile = {
 }
 
 export interface F9FilePickerFieldProps {
-    fieldProps: Omit<F9FieldProps, "valueChanged">;
+    fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
-    valueUpdated: boolean;
-    defaultFiles?: F9FilePickerFile[];
+    files?: F9FilePickerFile[];
     maxFiles?: number;
     maxFileSize?: number;
     layout?: "vertical" | "horizontal";
@@ -145,40 +144,21 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         isRead,
         isControlDisabled,
         layout,
-        defaultFiles,
-        valueUpdated,
+        files,
         pickFile,
         onChange,
         addFileLabel,
         removeFileLabel,
-        downloadFileLabel,
-        allocatedHeight,
-        allocatedWidth
+        downloadFileLabel
     } = props;
 
     const inputRef = React.useRef<HTMLDivElement>(null);
-    
-    const [files, setFiles] = React.useState(defaultFiles);
-    const valueChangedFromDefault = React.useRef(false);
-    React.useEffect(()=>{
-        if(valueUpdated){
-            valueChangedFromDefault.current = false;
-            setFiles(defaultFiles);
-            inputRef.current && 
-            onChange?.(
-                {type: "change", target: {...inputRef.current}} as any as React.ChangeEvent<HTMLDivElement>, 
-                defaultFiles || []
-            )
-        }
-    }, [valueUpdated, defaultFiles, setFiles]);
 
     const onRemove = (ev: React.FormEvent<HTMLDivElement>, selectedFile: F9FilePickerFile) => {
         if (isRead || isControlDisabled) return;
         const newFiles = files?.filter((currentFile) => {
             return currentFile.file.fileName !== selectedFile.file.fileName
         }) || [];
-        valueChangedFromDefault.current = true;
-        setFiles(newFiles);
         onChange?.(ev, newFiles);
     }
 
@@ -196,8 +176,6 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
             const files: F9FilePickerFile[] = fileObjs.map((file) => ({ file }));
             const existingFiles = filesRef.current?.filter((oldfile)=>!files.find((newFile)=>newFile.file.fileName === oldfile.file.fileName));
             const newFiles = existingFiles ? [...existingFiles, ...files] : files;
-            valueChangedFromDefault.current = true;
-            setFiles(newFiles);
             onChange?.(ev, newFiles);
         }
 
@@ -225,48 +203,73 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
                     )
                 } />;
         const FileTypeIcon = wrapIcon(() => iconImg, fileTypeAltText);
+        const menuItems = 
+            [
+                !isRead && !isControlDisabled && 
+                    <MenuItem onClick={(ev) => onRemove(ev, file)}>
+                        {removeFileLabel ?? "Remove File"}
+                    </MenuItem>,
+                file.file.fileContent && 
+                    <MenuItem onClick={(ev) => onDownload(ev, file)}>
+                        {downloadFileLabel ?? "Download File"}
+                    </MenuItem>
+            ].filter(item => item);
+
+        
         return <li key={file.file.fileName}>
-            <Menu>
-                <MenuTrigger disableButtonEnhancement>
-                    {(triggerProps: MenuButtonProps) => (
-                        <SplitButton
-                            primaryActionButton={{
-                                children: (_: React.ElementType, props: SplitButtonProps) => {
-                                    return <CompoundButton
-                                        {...props as CompoundButtonProps}
-                                        secondaryContent={formatFileSize(file.file.fileSize)}
-                                        icon={<FileTypeIcon />}
-                                    >
-                                        {parsedName.baseName}
-                                    </CompoundButton>
-                                }
-                            }}
-                            menuButton={{...triggerProps, icon: <MoreHorizontal/>}}
-                            size={fieldProps.size}
-                            disabled={isControlDisabled}
-                        >
-                        </SplitButton>
-                    )}
-                </MenuTrigger>
-                <MenuPopover>
-                    <MenuList>
-                        {!isRead && !isControlDisabled && <MenuItem onClick={(ev) => onRemove(ev, file)}>{removeFileLabel ?? "Remove File"}</MenuItem> }
-                        <MenuItem onClick={(ev) => onDownload(ev, file)}>{downloadFileLabel ?? "Download File"}</MenuItem>
-                    </MenuList>
-                </MenuPopover>
-            </Menu>
+            {
+                menuItems.length == 0
+
+                ? <CompoundButton
+                    secondaryContent={formatFileSize(file.file.fileSize)}
+                    icon={<FileTypeIcon />}
+                    size={fieldProps.size}
+                    disabled={isControlDisabled}
+                >
+                    {parsedName.baseName}
+                </CompoundButton>
+
+                : <Menu>
+                    <MenuTrigger>
+                        {(triggerProps: MenuButtonProps) => (
+                            <SplitButton
+                                primaryActionButton={{
+                                    children: (_: React.ElementType, props: SplitButtonProps) => {
+                                        return <CompoundButton
+                                            {...props as CompoundButtonProps}
+                                            secondaryContent={formatFileSize(file.file.fileSize)}
+                                            icon={<FileTypeIcon />}
+                                        >
+                                            {parsedName.baseName}
+                                        </CompoundButton>
+                                    }
+                                }}
+                                menuButton={{...triggerProps, icon: <MoreHorizontal/>}}
+                                size={fieldProps.size}
+                                disabled={isControlDisabled}
+                            >
+                            </SplitButton>
+                        )}
+                    </MenuTrigger>
+                    <MenuPopover>
+                        <MenuList>
+                            { !isRead && !isControlDisabled && <MenuItem onClick={(ev) => onRemove(ev, file)}>{removeFileLabel ?? "Remove File"}</MenuItem> }
+                            { file.file.fileContent && <MenuItem onClick={(ev) => onDownload(ev, file)}>{downloadFileLabel ?? "Download File"}</MenuItem> }
+                        </MenuList>
+                    </MenuPopover>
+                </Menu>
+            }
         </li>
     },[styles, iconStyles, onRemove, onDownload, fieldProps.size]);
 
     return <F9Field 
         {...fieldProps}
-        valueChanged={valueChangedFromDefault.current}
     >
         <div
             ref={inputRef} 
             className={mergeClasses(styles.root)} 
         >
-            <ul className={mergeClasses(styles.files, layout === "vertical" && styles.vertical)}>
+            <ul className={mergeClasses(styles.files)}>
                 {
                     files?.filter((file) => !!file.file.fileName)
                         .map((file) => renderFileItem(file))

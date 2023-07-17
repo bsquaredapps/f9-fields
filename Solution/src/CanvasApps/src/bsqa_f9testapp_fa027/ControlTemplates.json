@@ -142,7 +142,7 @@
       }
     },
     "TemplateDisplayName": "ChoiceGroup Field",
-    "Version": "0.0.21"
+    "Version": "0.0.22"
   },
   "Combobox Field": {
     "CustomGroupControlTemplateName": "",
@@ -244,7 +244,22 @@
       }
     },
     "TemplateDisplayName": "Combobox Field",
-    "Version": "0.0.21"
+    "Version": "0.0.22"
+  },
+  "Dialog": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": false,
+    "Id": "http://microsoft.com/appmagic/powercontrol/bsqa_F9Fields.Dialog",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": true,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": false,
+    "LastModifiedTimestamp": "0",
+    "Name": "bsqa_F9Fields.Dialog",
+    "OverridableProperties": {},
+    "TemplateDisplayName": "Dialog",
+    "Version": "0.0.22"
   },
   "dropdown": {
     "CustomGroupControlTemplateName": "",
@@ -360,7 +375,7 @@
       }
     },
     "TemplateDisplayName": "Field",
-    "Version": "0.0.21"
+    "Version": "0.0.22"
   },
   "File Picker Field": {
     "CustomGroupControlTemplateName": "",
@@ -552,7 +567,7 @@
       }
     },
     "TemplateDisplayName": "File Picker Field",
-    "Version": "0.0.21"
+    "Version": "0.0.22"
   },
   "groupContainer": {
     "CustomGroupControlTemplateName": "",
@@ -668,7 +683,7 @@
       }
     },
     "TemplateDisplayName": "Input Field",
-    "Version": "0.0.21"
+    "Version": "0.0.22"
   },
   "label": {
     "CustomGroupControlTemplateName": "",
@@ -683,6 +698,20 @@
     "Name": "label",
     "OverridableProperties": {},
     "Version": "2.5.1"
+  },
+  "pcfDataField": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/pcfDataField",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "pcfDataField",
+    "OverridableProperties": {},
+    "Version": "1.4.0"
   },
   "screen": {
     "CustomGroupControlTemplateName": "",
@@ -711,6 +740,21 @@
     "Name": "text",
     "OverridableProperties": {},
     "Version": "2.3.2"
+  },
+  "Text input": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/powercontrol/PowerApps_CoreControls_TextInputCanvas",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": true,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": false,
+    "LastModifiedTimestamp": "0",
+    "Name": "PowerApps_CoreControls_TextInputCanvas",
+    "OverridableProperties": {},
+    "TemplateDisplayName": "Text input",
+    "Version": "0.0.13"
   },
   "Textarea Field": {
     "CustomGroupControlTemplateName": "",
@@ -812,7 +856,7 @@
       }
     },
     "TemplateDisplayName": "Textarea Field",
-    "Version": "0.0.19"
+    "Version": "0.0.21"
   },
   "toggleSwitch": {
     "CustomGroupControlTemplateName": "",

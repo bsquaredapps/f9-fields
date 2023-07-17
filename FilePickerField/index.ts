@@ -12,6 +12,7 @@ import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import * as isDeepEqual from 'fast-deep-equal';
 import { ValidationSchema } from "../utils/ValidationSchema";
+import { arrayDeepDifference } from "../utils/arrayDifference";
 
 const getFilesFromDataSet = (dataSet: ComponentFramework.PropertyTypes.DataSet, columns?: ComponentFramework.PropertyHelper.DataSetApi.Column[]) => {
     
@@ -63,11 +64,13 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
     private dispatchOnResize: boolean = false;
     private dispatchOnValidate: boolean = false;
     private dispatchOnError: boolean = false;
+    private valueChangedFromDefault: boolean = false;
 
     private onChange = (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles?: F9FilePickerFile[]) => {
         if(newFiles && ev){
             //this.events.push(getPAEvent(ev as PASourceEvent));
             this.files = newFiles;
+            this.valueChangedFromDefault = true;
             this.dispatchOnChange = true;
             this.notifyOutputChanged();
         }
@@ -168,7 +171,6 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-
         //dispatch events
         if(this.dispatchOnChange){
             (context as any).events.OnChange?.();
@@ -191,25 +193,38 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
             this.dispatchOnValidate = false;
         }
         //clear events
-        this.events.length = 0;
+        this.events = [];
 
         //grab raw props
         this.label =  context.parameters.Label.raw || undefined;
         this.hint = context.parameters.Hint.raw || undefined;
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
-
+        
+        let defaultValueChanged = false;
         const defaultFiles = getFilesFromDataSet(context.parameters.DefaultFiles);
-        const valueUpdated = !isDeepEqual(defaultFiles, this.defaultFiles);
-        if(valueUpdated){
-            this.defaultFiles = defaultFiles;
+        
+        if(
+            context.updatedProperties.includes('dataset') 
+            || context.updatedProperties.includes('records')
+        ){
+            const defaultFiles = getFilesFromDataSet(context.parameters.DefaultFiles);
+            defaultValueChanged = arrayDeepDifference(
+                defaultFiles?.map((file)=>file.file), 
+                this.files?.map((file)=>file.file)
+            )?.length != 0;
+            
+            if(defaultValueChanged){
+                this.valueChangedFromDefault = false;
+                this.files = defaultFiles;
+            }
         }
         
         //initialize values if not already
         if(!this.contentHeight || !this.contentWidth || !this.files){
             if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
             if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            if(!this.files) this.files = [...this.defaultFiles];
+            if(!this.files && this.defaultFiles) this.files = [...this.defaultFiles];
             this.notifyOutputChanged();
         }
         
@@ -245,6 +260,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 onClick: this.onSelect,
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
+                valueChanged: this.valueChangedFromDefault,
                 pendingValidation: this.pendingValidation,
                 style: {
                     height: context.mode.allocatedHeight,
@@ -252,8 +268,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 }
             },
             /* control specific props */
-            defaultFiles: this.defaultFiles,
-            valueUpdated: valueUpdated,
+            files: this.files,
             layout: context.parameters.Layout.raw || "vertical",
             isRead: (context.mode as any).isRead,
             isControlDisabled: context.mode.isControlDisabled,

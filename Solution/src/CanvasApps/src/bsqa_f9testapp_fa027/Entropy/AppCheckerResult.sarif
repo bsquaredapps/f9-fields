@@ -1890,6 +1890,78 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 6
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
             }
           ]
         }
@@ -1960,19 +2032,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ItemsJSON.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ButtonHome.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ItemsJSON.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ButtonHome.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_ItemsJSON"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_ButtonHome"
               }
             }
           ],
@@ -1990,19 +2062,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ItemsJSON.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ItemsJSON.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_ItemsJSON"
               }
             }
           ],
@@ -2020,19 +2092,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DefaultItemsJSON.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_MaxFileSize.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DefaultItemsJSON.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_MaxFileSize.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_DefaultItemsJSON"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_MaxFileSize"
               }
             }
           ],
@@ -2050,19 +2122,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Appearance.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Appearance.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Appearance"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes"
               }
             }
           ],
@@ -2080,19 +2152,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Label.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Appearance.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Label.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Appearance.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Label"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Appearance"
               }
             }
           ],
@@ -2110,19 +2182,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Placeholder.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Layout.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Placeholder.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Layout.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Placeholder"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Layout"
               }
             }
           ],
@@ -2140,19 +2212,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Hint.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Label.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Hint.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Label.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Hint"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Label"
               }
             }
           ],
@@ -2170,19 +2242,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Info.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Hint.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Info.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Hint.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Info"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Hint"
               }
             }
           ],
@@ -2200,19 +2272,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DelayOutput.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Info.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DelayOutput.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Info.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_DelayOutput"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Info"
               }
             }
           ],
@@ -2230,19 +2302,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DebounceTimeout.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Required.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DebounceTimeout.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Required.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_DebounceTimeout"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Required"
               }
             }
           ],
@@ -2260,19 +2332,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Required.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AllowMultiple.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Required.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AllowMultiple.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Required"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_AllowMultiple"
               }
             }
           ],
@@ -2290,19 +2362,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_AllowSearch.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationMessage.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_AllowSearch.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationMessage.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_AllowSearch"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_ValidationMessage"
               }
             }
           ],
@@ -2320,19 +2392,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Multiselect.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationState.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Multiselect.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationState.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Multiselect"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_ValidationState"
               }
             }
           ],
@@ -2350,19 +2422,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationMessage.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Validate.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationMessage.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Validate.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_ValidationMessage"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Validate"
               }
             }
           ],
@@ -2380,19 +2452,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationState.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Orientation.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationState.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Orientation.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_ValidationState"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Orientation"
               }
             }
           ],
@@ -2410,19 +2482,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Orientation.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Size.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Orientation.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Size.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Orientation"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_Size"
               }
             }
           ],
@@ -2440,19 +2512,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Size.AccessibleLabel"
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_DisplayMode.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Size.AccessibleLabel",
+                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_DisplayMode.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_Size"
+                "module": "FilePickerField Test Harness",
+                "type": "'FilePickerField Test Harness'.FilePicker_DisplayMode"
               }
             }
           ],
@@ -2470,19 +2542,498 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DisplayMode.AccessibleLabel"
+                  "fullyQualifiedName": "Screen1"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DisplayMode.AccessibleLabel",
+                  "fullyQualifiedName": "Screen1",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "module": "Screen1",
+                "type": "Screen1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Low"
+          },
+          "ruleId": "acc-ReadableScreenNameNeeded",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen1.Label1_1.FocusedBorderThickness"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen1.Label1_1.FocusedBorderThickness",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "FocusedBorderThickness",
+                "module": "Screen1",
+                "type": "Screen1.Label1_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Screen1.Label1_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen1.Label1_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Screen1",
+                "type": "Screen1.Label1_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.ButtonCanvas4_4.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.ButtonCanvas4_4.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.CB_DisplayMode"
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.ButtonCanvas4_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_InputType.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_InputType.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_InputType"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Appearance.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Appearance.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Appearance"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Label.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Label.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Label"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Hint.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Hint.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Hint"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Info.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Info.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Info"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Validate.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Validate.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Validate"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Required.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Required.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Required"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValueChanged.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValueChanged.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_ValueChanged"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationMessage.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationMessage.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_ValidationMessage"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationState.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationState.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_ValidationState"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Orientation.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Orientation.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Orientation"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Size.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_Size.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_Size"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_DisplayMode.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Field Test Harness'.Field_DisplayMode.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Field Test Harness",
+                "type": "'Field Test Harness'.Field_DisplayMode"
               }
             }
           ],
@@ -3143,6 +3694,546 @@
                 "member": "AccessibleLabel",
                 "module": "InputField Test Harness",
                 "type": "'InputField Test Harness'.Input_DisplayMode"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ItemsJSON.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ItemsJSON.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_ItemsJSON"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_ButtonCanvas4_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DefaultItemsJSON.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DefaultItemsJSON.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_DefaultItemsJSON"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Appearance.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Appearance.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Appearance"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Label.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Label.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Label"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Placeholder.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Placeholder.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Placeholder"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Hint.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Hint.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Hint"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Info.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Info.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Info"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DelayOutput.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DelayOutput.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_DelayOutput"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DebounceTimeout.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DebounceTimeout.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_DebounceTimeout"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Required.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Required.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Required"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_AllowSearch.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_AllowSearch.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_AllowSearch"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Multiselect.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Multiselect.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Multiselect"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationMessage.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationMessage.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_ValidationMessage"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationState.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_ValidationState.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_ValidationState"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Orientation.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Orientation.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Orientation"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Size.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Size.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_Size"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DisplayMode.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.CB_DisplayMode.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.CB_DisplayMode"
               }
             }
           ],
@@ -4420,1008 +5511,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ButtonHome.AccessibleLabel"
+                  "fullyQualifiedName": "'InputField Test Harness'.TextInputCanvas2.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ButtonHome.AccessibleLabel",
+                  "fullyQualifiedName": "'InputField Test Harness'.TextInputCanvas2.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_ButtonHome"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ItemsJSON.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ItemsJSON.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_ItemsJSON"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_MaxFileSize.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_MaxFileSize.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_MaxFileSize"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_AcceptedTypes"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Appearance.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Appearance.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Appearance"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Layout.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Layout.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Layout"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Label.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Label.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Label"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Hint.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Hint.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Hint"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Info.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Info.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Info"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Required.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Required.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Required"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AllowMultiple.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_AllowMultiple.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_AllowMultiple"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationMessage.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationMessage.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_ValidationMessage"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationState.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_ValidationState.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_ValidationState"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Validate.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Validate.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Validate"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Orientation.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Orientation.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Orientation"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Size.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_Size.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_Size"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_DisplayMode.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'FilePickerField Test Harness'.FilePicker_DisplayMode.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "FilePickerField Test Harness",
-                "type": "'FilePickerField Test Harness'.FilePicker_DisplayMode"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen1"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen1",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "module": "Screen1",
-                "type": "Screen1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Low"
-          },
-          "ruleId": "acc-ReadableScreenNameNeeded",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen1.Label1_1.FocusedBorderThickness"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen1.Label1_1.FocusedBorderThickness",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "FocusedBorderThickness",
-                "module": "Screen1",
-                "type": "Screen1.Label1_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen1.Label1_1.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen1.Label1_1.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Screen1",
-                "type": "Screen1.Label1_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.ButtonCanvas4_4.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.ButtonCanvas4_4.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.ButtonCanvas4_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_InputType.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_InputType.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_InputType"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Appearance.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Appearance.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Appearance"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Label.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Label.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Label"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Hint.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Hint.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Hint"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Info.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Info.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Info"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Validate.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Validate.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Validate"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Required.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Required.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Required"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValueChanged.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValueChanged.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_ValueChanged"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationMessage.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationMessage.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_ValidationMessage"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationState.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_ValidationState.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_ValidationState"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Orientation.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Orientation.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Orientation"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Size.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_Size.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_Size"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_DisplayMode.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Field Test Harness'.Field_DisplayMode.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Field Test Harness",
-                "type": "'Field Test Harness'.Field_DisplayMode"
+                "module": "InputField Test Harness",
+                "type": "'InputField Test Harness'.TextInputCanvas2"
               }
             }
           ],
@@ -5480,216 +5582,6 @@
               },
               "properties": {
                 "member": "SelfEmploymentTypes",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App._selectedOption"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App._selectedOption",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_selectedOption",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App._selectedPeopleJson"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App._selectedPeopleJson",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_selectedPeopleJson",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App.CG_Value"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.CG_Value",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "CG_Value",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App.Input_ValidationJSON"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.Input_ValidationJSON",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "Input_ValidationJSON",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App._InputValue"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App._InputValue",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_InputValue",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App._InputValidationMessage"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App._InputValidationMessage",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_InputValidationMessage",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App._InputValidationState"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App._InputValidationState",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_InputValidationState",
                 "module": "App",
                 "type": "App"
               }
@@ -5780,6 +5672,216 @@
               },
               "properties": {
                 "member": "Field_EventsJSON",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App._InputValidationMessage"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App._InputValidationMessage",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "_InputValidationMessage",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App._InputValidationState"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App._InputValidationState",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "_InputValidationState",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.Input_ValidationJSON"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.Input_ValidationJSON",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "Input_ValidationJSON",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App._InputValue"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App._InputValue",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "_InputValue",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.CG_Value"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.CG_Value",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "CG_Value",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App._selectedOption"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App._selectedOption",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "_selectedOption",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App._selectedPeopleJson"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App._selectedPeopleJson",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "_selectedPeopleJson",
                 "module": "App",
                 "type": "App"
               }

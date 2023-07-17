@@ -10,7 +10,8 @@ import {
     Persona,
     OptionProps,
     InputOnChangeData,
-    Text
+    Text,
+    makeStyles
 } from '@fluentui/react-components';
 import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
 import { arrayDifference } from '../utils/arrayDifference';
@@ -46,6 +47,12 @@ const renderOption = (option: F9Option<OptionProps>) => {
             {option.text ?? option.value}
         </Option>
 };
+
+const useStyles = makeStyles({
+    root: {
+        minWidth: "inherit"
+    }
+});
 
 export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (props) => {
 
@@ -142,6 +149,8 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         return groups;
     }, [options, allowSearch, isOpen, searchText]);
 
+    const styles = useStyles();
+
     return <F9Field
         {...fieldProps}
         valueChanged={valueChangedFromDefault.current}
@@ -158,6 +167,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                 </Text>
                 : <Combobox
                     {...restProps}
+                    className={styles.root}
                     value={
                         allowSearch && isOpen
                             ? searchText

@@ -202,7 +202,7 @@
         Validate: =FilePicker_Validate.Selected.Value
         ValidationMessage: =FilePicker_ValidationMessage
         ValidationState: =FilePicker_ValidationState.Selected.Value
-        Width: =200
+        Width: =487
         X: =40
         Y: =40
         ZIndex: =27
