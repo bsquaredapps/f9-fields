@@ -1,0 +1,85 @@
+Component2_1 As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ButtonCanvas1_1 As Button:
+        DisplayMode: =DisplayMode.Edit
+        Height: =32
+        OnSelect: |-
+            =Set(_DD_Items, Table({ Value: true, Text: "Yes"}, { Value: false, Text: "No"}))
+        Text: ="Init"
+        Width: =96
+        X: =442
+        Y: =40
+        ZIndex: =1
+
+    "ChoiceGroup1 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: =_ChoiceGroup1
+        DisplayMode: =DisplayMode.Edit
+        Height: =76
+        Items: =_DD_Items
+        Label: ="Field 1"
+        OnChange: |-
+            =Notify($"{Self.Label} changed. {Self.Selected.Value}");
+            Set(_ChoiceGroup1, Self.Selected);
+            If(
+                _ChoiceGroup1.Value <> false, 
+                Set(_ChoiceGroup2, Blank());
+                Set(_ChoiceGroup3, Blank());
+            )
+        OnResize: |-
+            =Notify($"{Self.Label} resized. Width: {Self.ContentWidth} Height:{Self.ContentHeight}")
+        OnSelect: =Notify($"{Self.Label} selected. {Self.Selected.Value}")
+        OnValidate: =Notify($"{Self.Label} validated. {Self.Validation.Message}")
+        Width: =200
+        X: =80
+        Y: =80
+        ZIndex: =4
+
+    "ChoiceGroup2 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: =_ChoiceGroup2
+        DisplayMode: =DisplayMode.Edit
+        Height: =76
+        Items: =_DD_Items
+        Label: ="Field 2"
+        OnChange: |-
+            =Notify($"{Self.Label} changed. {Self.Selected.Value}");
+            Set(_ChoiceGroup2, Self.Selected);
+            If(
+                _ChoiceGroup2.Value <> false,
+                Set(_ChoiceGroup3, Blank());
+            )
+        OnResize: |-
+            =Notify($"{Self.Label} resized. Width: {Self.ContentWidth} Height:{Self.ContentHeight}")
+        OnSelect: =Notify($"{Self.Label} selected. {Self.Selected.Value}")
+        OnValidate: =Notify($"{Self.Label} validated. {Self.Validation.Message}")
+        Visible: =_ChoiceGroup1.Value = false
+        Width: =200
+        X: =100
+        Y: =212
+        ZIndex: =5
+
+    "ChoiceGroup3 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: =_ChoiceGroup3
+        DisplayMode: =DisplayMode.Edit
+        Height: =91
+        Items: =_DD_Items
+        Label: |
+            ="Field 3"
+        OnChange: |-
+            =Notify($"{Self.Label} changed. {Self.Selected.Value}");
+            Set(_ChoiceGroup3, Self.Selected);
+        OnResize: |-
+            =Notify($"{Self.Label} resized. Width: {Self.ContentWidth} Height:{Self.ContentHeight}")
+        OnSelect: =Notify($"{Self.Label} selected. {Self.Selected.Value}")
+        OnValidate: =Notify($"{Self.Label} validated. {Self.Validation.Message}")
+        Visible: =_ChoiceGroup2.Value = false
+        Width: =200
+        X: =60
+        Y: =333
+        ZIndex: =6
+

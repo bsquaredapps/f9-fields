@@ -13,18 +13,16 @@ import {
     Text,
     makeStyles
 } from '@fluentui/react-components';
-import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
-import { arrayDifference } from '../utils/arrayDifference';
 
-export type F9InputFieldOnChangeEventHandler = (ev?: { type?: string; target?: HTMLInputElement }, data?: InputOnChangeData) => void;
+export type F9InputFieldOnChangeEventHandler = (targetRef: React.RefObject<HTMLInputElement>, data?: InputOnChangeData) => void;
 
 export type F9ComboboxFieldOnChangeEventHandler = (
-    ev: { type?: string; target?: HTMLInputElement },
+    targetRef: React.RefObject<HTMLInputElement>,
     data: OptionOnSelectData
 ) => void;
 
 export interface F9ComboboxFieldProps extends Omit<ComboboxProps, "contentBefore" | "contentAfter" | "onClick" | "onChange" | "value" | "size"> {
-    fieldProps: Omit<F9FieldProps, "valueChanged">;
+    fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
     searchTextUpdated: boolean;
@@ -62,7 +60,8 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         isControlDisabled,
         allowSearch,
         placeholder,
-        options: rawOptions,
+        options,
+        selectedOptions,
         searchTextUpdated,
         onBlur,
         onChange,
@@ -77,29 +76,8 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     React.useEffect(() => {
         if (searchTextUpdated && props.searchText !== searchText) {
             setSearchText(props.searchText);
-            inputRef.current &&
-                onSearch?.(
-                    { type: "change", target: inputRef.current },
-                    { value: props.searchText || '' }
-                );
         }
     }, [props.searchText, searchTextUpdated, setSearchText]);
-
-    const defaultSelectedOptions = useDeepEqualMemo(props.selectedOptions);
-    const [selectedOptions, setSelectedOptions] = React.useState(defaultSelectedOptions);
-    const valueChangedFromDefault = React.useRef(false);
-
-    React.useEffect(() => {
-        if (arrayDifference(defaultSelectedOptions, selectedOptions)?.length !== 0) {
-            valueChangedFromDefault.current = false;
-            setSelectedOptions(defaultSelectedOptions);
-            inputRef.current
-                && onChange?.(
-                    { type: "change", target: inputRef.current },
-                    { optionValue: '', selectedOptions: defaultSelectedOptions || [] }
-                );
-        }
-    }, [defaultSelectedOptions]);
 
     const onOptionSelect: ComboboxProps["onOptionSelect"] = (ev, data) => {
         const event = {
@@ -109,28 +87,23 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         const { optionValue } = data;
 
         if (optionValue) {
-            valueChangedFromDefault.current = true;
-            setSelectedOptions(data.selectedOptions);
-            onChange?.(event, data);
+            onChange?.(inputRef, data);
         }
     };
 
     const [isOpen, setIsOpen] = React.useState(false);
     const onOpenChange = (e: React.SyntheticEvent, data: ComboboxOpenChangeData) => {
         setIsOpen(data.open);
-        if (!data.open) setSearchText('');
     }
+    
     const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         if (allowSearch /*&& isOpen*/) {
             const value = e.target.value || '';
             setSearchText(value);
-            const event = { ...e };
-            valueChangedFromDefault.current = value != props.searchText;
-            onSearch?.(event, { value })
+            onSearch?.(inputRef, { value })
         }
     }
 
-    const options = useDeepEqualMemo(rawOptions);
     const groupedOptions = React.useMemo(() => {
         const groups: { [key: string]: F9Option<OptionProps>[] } = {};
         const filteredOptions =
@@ -153,7 +126,6 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
 
     return <F9Field
         {...fieldProps}
-        valueChanged={valueChangedFromDefault.current}
     >
         {
             isRead

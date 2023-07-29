@@ -1,6 +1,6 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9Field, F9FieldOnValidateEventHandler, F9FieldProps } from "./F9Field";
-import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
+import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { ValidationSchema } from "../utils/ValidationSchema";
@@ -11,7 +11,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
-    private events: PAEvent[] = [];
+    private eventQueue: PAEventQueue;
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
@@ -21,44 +21,40 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         Message: string;
         State: string;  
     };
-    private dispatchOnChange: boolean = false;
-    private dispatchOnSelect: boolean = false
-    private dispatchOnResize?: boolean = false;
-    private dispatchOnValidate?: boolean = false;
     private valueChanged: boolean = false;
     
-    private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        this.events.push(getPAEvent(ev as PASourceEvent));
-        this.dispatchOnSelect = true;
+    private onSelect: React.MouseEventHandler<any> = (event): void => {
+        this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.notifyOutputChanged();
     }
 
     private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
-        /*const resizeEvent: PASourceEvent = {
-            type: "resize",
-            target: target as PASourceTarget
-        };
-        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
-        
-        this.dispatchOnResize = true;
+        const event: PASourceEvent = {
+            type: "resize",
+            target: target as PASourceTarget,
+            value: JSON.stringify({
+                height: this.contentHeight,
+                width: this.contentWidth
+            })
+        };
+
+        this.eventQueue.add(event, "OnResize");
         this.notifyOutputChanged();
     }
 
-    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
-        const event = getPAEvent(
-            {
-                ...ev, 
-                value: JSON.stringify(validationData)
-            } as PASourceEvent
-        );
-        this.events.push(event);
+    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
         };
-        this.dispatchOnValidate = true;
+        const event = {
+            type: "validate",
+            target: targetRef,
+            value: JSON.stringify(this.validation)
+        };
+        this.eventQueue.add(event, "OnValidate");
         this.notifyOutputChanged();
     }
     /**
@@ -88,6 +84,9 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             State: "none"
         };
         context.mode.trackContainerResize(true);
+        this.contentHeight = context.mode.allocatedHeight ?? 0;
+        this.contentWidth = context.mode.allocatedWidth ?? 0;
+        this.eventQueue = new PAEventQueue();
     }
 
     /**
@@ -96,40 +95,15 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //dispatch events
-        if(this.dispatchOnChange){
-            this.dispatchOnChange = false;
-            (context as any).events.OnChange;
-        }
-        if(this.dispatchOnSelect){
-            this.dispatchOnSelect = false;
-            (context as any).events.OnSelect;
-        }
-        if(this.dispatchOnResize){
-            this.dispatchOnResize = false;
-            (context as any).events.OnResize;
-        }
-        if(this.dispatchOnValidate){
-            this.dispatchOnValidate = false;
-            (context as any).events.OnValidate;
-        }
-        //clear events
-        this.events.length = 0;
+        //execute queued events
+        this.eventQueue.execute(context);
 
-        
         //grab raw props
         this.label =  context.parameters.Label.raw || undefined;
         this.hint = context.parameters.Hint.raw || undefined;
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
         this.valueChanged = context.parameters.ValueChanged.raw;
-        
-        //initialize content height & width
-        if(!this.contentHeight || !this.contentWidth){            
-            if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
-            if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            this.notifyOutputChanged();
-        }
 
         //update validation
         if(
@@ -168,8 +142,6 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
                 height: context.mode.allocatedHeight,
                 width: context.mode.allocatedWidth
             }
-            //validationMessage: this.pendingValidation.validationMessage,
-            //validationState: this.pendingValidation.validationState
         };
 
         return React.createElement(
@@ -182,12 +154,11 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
      */
     public getOutputs(): IOutputs {
-
         return { 
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            Events: [...this.events],
+            Events: this.eventQueue.getOutput(),
             Label: this.label,
             Hint: this.hint,
             Info: this.info,

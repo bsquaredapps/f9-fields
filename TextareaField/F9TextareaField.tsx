@@ -8,7 +8,7 @@ import {
     TextareaProps
 } from '@fluentui/react-components'
 
-export type F9TextareaFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLTextAreaElement}, data?: InputOnChangeData) => void;
+export type F9TextareaFieldOnChangeEventHandler = (targetRef: React.RefObject<HTMLTextAreaElement>, data?: InputOnChangeData) => void;
 export interface F9TextareaFieldProps extends Omit<TextareaProps, "contentBefore" | "contentAfter" | "onClick" | "onChange"> {
     fieldProps: Omit<F9FieldProps, "valueChanged">;
     isRead?: boolean;
@@ -59,9 +59,8 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
 
     const onInputChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: InputOnChangeData)=>{
         setValue(data.value);
-        const event = {...ev};
         valueChangedFromDefault.current = data.value != props.value;
-        onChange?.(event, data);
+        onChange?.(inputRef, data);
     };
 
     return <F9Field 

@@ -213,6 +213,14 @@
         Y: =224
         ZIndex: =32
 
+    "TextInputCanvas2 As 'Text input'":
+        DisplayMode: =DisplayMode.Edit
+        Height: =45
+        Width: =240
+        X: =23
+        Y: =397
+        ZIndex: =34
+
     "InputField1 As 'Input Field'":
         Appearance: =Input_Appearance.Selected.Value
         ContentAfter: =Input_After.Text
@@ -249,13 +257,5 @@
         Width: =117
         X: =60
         Y: =138
-        ZIndex: =33
-
-    "TextInputCanvas2 As 'Text input'":
-        DisplayMode: =DisplayMode.Edit
-        Height: =45
-        Width: =240
-        X: =23
-        Y: =397
-        ZIndex: =34
+        ZIndex: =35
 

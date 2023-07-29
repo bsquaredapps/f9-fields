@@ -1216,13 +1216,13 @@
       "IsControlSpecific": false,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.22\",\"IsFirstParty\":false}}",
+      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.27\",\"IsFirstParty\":false}}",
       "Type": 3
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 10,
-      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/3338c659-5265-44e5-a7ef-3db7815024d3-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0ckhlabr5.usf020S0Resources0Controls0F9Fields.ChoiceGroupField.bundle.js?sv=2018-03-28&sr=b&sig=oFgFaIcvPAwb6sh17iTMwNdhbudwpWgmON4yb2Z3BpM%3D&spr=https&se=2023-07-18T15%3A22%3A30Z&sp=r",
+      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0F9Fields.ChoiceGroupField.bundle.js?sv=2018-03-28&sr=b&sig=JNbpIfNIt%2FbOdPQBLeGHk5M5OUYEd5wSlZd55QsZhX4%3D&spr=https&se=2023-07-30T02%3A03%3A53Z&sp=r",
       "Path": "/PCFControls/bsqa_F9Fields.ChoiceGroupField/F9Fields.ChoiceGroupField.bundle.js",
       "Type": 0
     },
@@ -1243,7 +1243,7 @@
     {
       "IsControlSpecific": true,
       "LoadingOrder": 13,
-      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/3338c659-5265-44e5-a7ef-3db7815024d3-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0ckhlabr5.usf020S0Resources0Controls0strings%252fF9Fields.ChoiceGroupField.ChoiceGroupField.1033.json?sv=2018-03-28&sr=b&sig=76QoD%2FDOFPYQK%2Fh2FLMdKH%2ByUeY9g%2FmWQDaGG8eRjq0%3D&spr=https&se=2023-07-18T15%3A22%3A30Z&sp=r",
+      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0strings%252fF9Fields.ChoiceGroupField.ChoiceGroupField.1033.json?sv=2018-03-28&sr=b&sig=NlMMy6RFmc1sHB7Co9LVa1Cm3mVaeGsmOn2Sap0pIOc%3D&spr=https&se=2023-07-30T02%3A03%3A53Z&sp=r",
       "Path": "/PCFControls/bsqa_F9Fields.ChoiceGroupField/strings/F9Fields.ChoiceGroupField.ChoiceGroupField.1033.json",
       "Type": 5
     },
@@ -1279,5 +1279,5 @@
   "SubscribedFunctionalities": {
     "sharedTemplate": "false"
   },
-  "Version": "0.0.22"
+  "Version": "0.0.27"
 }

@@ -17,7 +17,10 @@ export type F9Option<T> = {
     props?: T;
 }
 
-export const getOptionsFromDataSet = <T>(dataSet: ComponentFramework.PropertyTypes.DataSet, columns?: ComponentFramework.PropertyHelper.DataSetApi.Column[]) => {
+export const getOptionsFromDataSet = <T>(
+    dataSet: ComponentFramework.PropertyTypes.DataSet, 
+    columns?: ComponentFramework.PropertyHelper.DataSetApi.Column[]
+) => {
     
     const options: F9Option<T>[] = [];
     const optionValues: Set<string> = new Set<string>();

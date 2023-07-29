@@ -1,6 +1,6 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9TextareaField, F9TextareaFieldOnChangeEventHandler, F9TextareaFieldProps } from "./F9TextareaField";
-import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
+import { PASourceEvent, PAEventsSchema, PASourceTarget, PAEventQueue } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
@@ -13,7 +13,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     private value?: string;
     private contentHeight?: number;
     private contentWidth?: number;
-    private events: PAEvent[] = [];
+    private eventQueue: PAEventQueue;
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
@@ -23,10 +23,6 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         Message: string;
         State: string;  
     };
-    private dispatchOnChange: boolean = false;
-    private dispatchOnSelect: boolean = false;
-    private dispatchOnResize: boolean = false;
-    private dispatchOnValidate: boolean = false;
     private debounceTimeoutId?: number;
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
@@ -48,50 +44,54 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
 
     private onBlur: React.FocusEventHandler<HTMLTextAreaElement> = (ev) =>{
         if(this.debounce === "onblur"){
-            this.maybeDebounceNotifyOutputChanged();
+            window.clearTimeout(this.debounceTimeoutId);
+            this.notifyOutputChanged();
         }
     }
 
-    private onChange: F9TextareaFieldOnChangeEventHandler = (ev, data) => {
-        if(data?.value && ev){
-            //this.events.push(getPAEvent(ev as PASourceEvent));
-            this.value = data.value;
-            this.dispatchOnChange = true;
-            this.maybeDebounceNotifyOutputChanged();
-        }
+    private onChange: F9TextareaFieldOnChangeEventHandler = (targetRef, data) => {
+        this.value = data?.value ?? "";
+        const event = {
+            type: "change",
+            target: targetRef,
+            value: this.value
+        };
+        this.eventQueue.add(event, "OnChange");
+        this.maybeDebounceNotifyOutputChanged();
     }
     
-    private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        this.events.push(getPAEvent(ev as PASourceEvent));
-        this.dispatchOnSelect = true;
+    private onSelect: React.MouseEventHandler<any> = (event): void => {
+        this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.maybeDebounceNotifyOutputChanged();
     }
 
     private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
-        /*const resizeEvent: PASourceEvent = {
-            type: "resize",
-            target: target as PASourceTarget
-        };
-        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
-        this.dispatchOnResize = true;
+        const event: PASourceEvent = {
+            type: "resize",
+            target: target as PASourceTarget,
+            value: JSON.stringify({
+                height: this.contentHeight,
+                width: this.contentWidth
+            })
+        };
+
+        this.eventQueue.add(event, "OnResize");
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
-        const event = getPAEvent(
-            {
-                ...ev, 
-                value: JSON.stringify(validationData)
-            } as PASourceEvent
-        );
-        this.events.push(event);
+    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
         };
-        this.dispatchOnValidate = true;
+        const event = {
+            type: "validate",
+            target: targetRef,
+            value: JSON.stringify(this.validation)
+        };
+        this.eventQueue.add(event, "OnValidate");
         this.maybeDebounceNotifyOutputChanged();
     }
     /**
@@ -122,6 +122,9 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             State: "none"
         };
         context.mode.trackContainerResize(true);
+        this.contentHeight = context.mode.allocatedHeight;
+        this.contentWidth = context.mode.allocatedWidth;
+        this.eventQueue = new PAEventQueue();
     }
 
     /**
@@ -130,25 +133,8 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //dispatch events
-        if(this.dispatchOnChange){
-            (context as any).events.OnChange?.();
-            this.dispatchOnChange = false;
-        }
-        if(this.dispatchOnSelect){
-            (context as any).events.OnSelect?.();
-            this.dispatchOnSelect = false;
-        }
-        if(this.dispatchOnResize){
-            (context as any).events.OnResize?.();
-            this.dispatchOnResize = false;
-        }
-        if(this.dispatchOnValidate){
-            (context as any).events.OnValidate?.();
-            this.dispatchOnValidate = false;
-        }
-        //clear events
-        this.events.length = 0;
+        //execute queued events
+        this.eventQueue.execute(context);
 
         //grab raw props
         this.debounceTimeout = context.parameters.DelayTimeout.raw || 300;
@@ -157,15 +143,6 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         this.hint = context.parameters.Hint.raw || undefined;
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
-        
-        //initialize content height & width
-
-        if(!this.contentHeight || !this.contentWidth || (!this.value && this.value !="")){            
-            if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
-            if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            if(!this.value) this.value = context.parameters.DefaultValue.raw ?? '';
-            this.notifyOutputChanged();
-        }
 
         //update validation
         if(
@@ -190,6 +167,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         const valueInputField = context.parameters.DefaultValue.raw ? "DefaultValue" : "Value";
         const inputValue = context.parameters[valueInputField].raw || "";
         const inputValueUpdated = context.updatedProperties.includes(valueInputField);
+        if(inputValueUpdated) this.value = inputValue;
 
         const props: F9TextareaFieldProps = { 
             /* field props */
@@ -212,7 +190,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             },
 
             /* control specific props */
-            value: inputValue,
+            value: this.value,
             valueUpdated: inputValueUpdated,
             placeholder: context.parameters.Placeholder.raw || undefined,
             appearance: context.parameters.Appearance.raw || "outline",
@@ -239,7 +217,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            Events: [...this.events],
+            Events: this.eventQueue.getOutput(),
             Label: this.label,
             Hint: this.hint,
             Info: this.info,

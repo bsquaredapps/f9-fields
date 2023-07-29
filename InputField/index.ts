@@ -1,6 +1,6 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { F9InputField, F9InputFieldOnChangeEventHandler, F9InputFieldProps } from "./F9InputField";
-import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
+import { PASourceEvent, PAEventsSchema, PASourceTarget, PAEventQueue } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
@@ -12,7 +12,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     private value?: string;
     private contentHeight?: number;
     private contentWidth?: number;
-    private events: PAEvent[] = [];
+    private eventQueue: PAEventQueue;
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
@@ -22,10 +22,6 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         Message: string;
         State: string;  
     };
-    private dispatchOnChange: boolean = false;
-    private dispatchOnSelect: boolean = false;
-    private dispatchOnResize: boolean = false;
-    private dispatchOnValidate: boolean = false;
     private debounceTimeoutId?: number;
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
@@ -47,50 +43,54 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
 
     private onBlur: React.FocusEventHandler<HTMLInputElement> = (ev) =>{
         if(this.debounce === "onblur"){
+            window.clearTimeout(this.debounceTimeoutId);
             this.notifyOutputChanged();
         }
     }
 
-    private onChange: F9InputFieldOnChangeEventHandler = (ev, data) => {
-        if(this.value !== data?.value){
-            //this.events.push(getPAEvent(ev as PASourceEvent));
-            this.value = data?.value;
-            this.dispatchOnChange = true;
-            this.maybeDebounceNotifyOutputChanged();
-        }
+    private onChange: F9InputFieldOnChangeEventHandler = (targetRef, data) => {
+        this.value = data?.value ?? "";
+        const event = {
+            type: "change",
+            target: targetRef,
+            value: this.value
+        };
+        this.eventQueue.add(event, "OnChange");
+        this.maybeDebounceNotifyOutputChanged();
     }
     
-    private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        this.events.push(getPAEvent(ev as PASourceEvent));
-        this.dispatchOnSelect = true;
+    private onSelect: React.MouseEventHandler<any> = (event): void => {
+        this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.maybeDebounceNotifyOutputChanged();
     }
 
     private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
-        /*const resizeEvent: PASourceEvent = {
-            type: "resize",
-            target: target as PASourceTarget
-        };
-        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
-        this.dispatchOnResize = true;
+        const event: PASourceEvent = {
+            type: "resize",
+            target: target as PASourceTarget,
+            value: JSON.stringify({
+                height: this.contentHeight,
+                width: this.contentWidth
+            })
+        };
+
+        this.eventQueue.add(event, "OnResize");
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
-        const event = getPAEvent(
-            {
-                ...ev, 
-                value: JSON.stringify(validationData)
-            } as PASourceEvent
-        );
-        this.events.push(event);
+    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
         };
-        this.dispatchOnValidate = true;
+        const event = {
+            type: "validate",
+            target: targetRef,
+            value: JSON.stringify(this.validation)
+        };
+        this.eventQueue.add(event, "OnValidate");
         this.maybeDebounceNotifyOutputChanged();
     }
     /**
@@ -121,6 +121,9 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
             State: "none"
         };
         context.mode.trackContainerResize(true);
+        this.contentHeight = context.mode.allocatedHeight ?? 0;
+        this.contentWidth = context.mode.allocatedWidth ?? 0;
+        this.eventQueue = new PAEventQueue();
     }
 
     /**
@@ -129,25 +132,8 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //dispatch events
-        if(this.dispatchOnChange){
-            (context as any).events.OnChange?.();
-            this.dispatchOnChange = false;
-        }
-        if(this.dispatchOnSelect){
-            (context as any).events.OnSelect?.();
-            this.dispatchOnSelect = false;
-        }
-        if(this.dispatchOnResize){
-            (context as any).events.OnResize?.();
-            this.dispatchOnResize = false;
-        }
-        if(this.dispatchOnValidate){
-            (context as any).events.OnValidate?.();
-            this.dispatchOnValidate = false;
-        }
-        //clear events
-        this.events.length = 0;
+        //execute queued events
+        this.eventQueue.execute(context);
 
         //grab raw props
         this.debounceTimeout = context.parameters.DelayTimeout.raw || 300;
@@ -156,13 +142,6 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.hint = context.parameters.Hint.raw || undefined;
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
-        
-        //initialize content height & width
-        if(!this.contentHeight || !this.contentWidth){            
-            if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
-            if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            this.notifyOutputChanged();
-        }
         
         //update validation
         if(
@@ -237,7 +216,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            Events: [...this.events],
+            Events: this.eventQueue.getOutput(),
             Label: this.label,
             Hint: this.hint,
             Info: this.info,

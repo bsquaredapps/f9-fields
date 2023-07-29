@@ -819,13 +819,13 @@
       "IsControlSpecific": false,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.22\",\"IsFirstParty\":false}}",
+      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.27\",\"IsFirstParty\":false}}",
       "Type": 3
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 10,
-      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/3338c659-5265-44e5-a7ef-3db7815024d3-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0ckhlabr5.usf020S0Resources0Controls0F9Fields.Dialog.bundle.js?sv=2018-03-28&sr=b&sig=4k%2FrKmy59ryrEUVC1KPlFWkWnQZtS4MD%2FMcZWdAf%2FXU%3D&spr=https&se=2023-07-18T15%3A22%3A28Z&sp=r",
+      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0F9Fields.Dialog.bundle.js?sv=2018-03-28&sr=b&sig=XjfrLBuy8CA2P5jKUOC60RD4eA4D6LL4J0CNIs%2BfMFw%3D&spr=https&se=2023-07-30T02%3A03%3A56Z&sp=r",
       "Path": "/PCFControls/bsqa_F9Fields.Dialog/F9Fields.Dialog.bundle.js",
       "Type": 0
     },
@@ -846,7 +846,7 @@
     {
       "IsControlSpecific": true,
       "LoadingOrder": 13,
-      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/3338c659-5265-44e5-a7ef-3db7815024d3-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0ckhlabr5.usf020S0Resources0Controls0strings%252fF9Fields.Dialog.Dialog.1033.json?sv=2018-03-28&sr=b&sig=6cO9Sstsb5T9sWurDTaU7SBfvMX9vb4B0HXNsaj2DLg%3D&spr=https&se=2023-07-18T15%3A22%3A29Z&sp=r",
+      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0strings%252fF9Fields.Dialog.Dialog.1033.json?sv=2018-03-28&sr=b&sig=yL3t8%2BU2Hc9FIxZYmWyvNmtdmFUyQ4ZDwyNuzeXTf34%3D&spr=https&se=2023-07-30T02%3A03%3A56Z&sp=r",
       "Path": "/PCFControls/bsqa_F9Fields.Dialog/strings/F9Fields.Dialog.Dialog.1033.json",
       "Type": 5
     },
@@ -879,5 +879,5 @@
       "Type": 4
     }
   ],
-  "Version": "0.0.22"
+  "Version": "0.0.27"
 }

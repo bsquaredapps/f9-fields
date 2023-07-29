@@ -12,18 +12,16 @@ import {
     CheckboxProps,
     RadioProps
 } from '@fluentui/react-components';
-import { useDeepEqualMemo } from '../utils/useDeepEqualMemo';
-import { arrayDifference } from '../utils/arrayDifference';
 
 export type F9InputFieldOnChangeEventHandler = (ev?: {type?: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
 
 export type F9ChoiceGroupFieldOnChangeEventHandler = (
-    ev: {type: string; target?: HTMLDivElement}, 
+    targetRef: React.RefObject<HTMLDivElement>, 
     newSelectedOptions: string[]
 ) => void;
 
 export interface F9ChoiceGroupFieldProps extends Omit<RadioGroupProps, "onClick" | "onChange" | "value" > {
-    fieldProps: Omit<F9FieldProps, "valueChanged">;
+    fieldProps: F9FieldProps;
     isRead?: boolean;
     isControlDisabled?: boolean;
     multiselect?: boolean;
@@ -51,28 +49,14 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
         isRead,
         isControlDisabled,
         multiselect,
+        selectedOptions,
         layout,
-        options: rawOptions,
+        options,
         onChange,
         ...restProps
     } = props;
 
     const inputRef = React.useRef<HTMLDivElement>(null);
-    const [selectedOptions, setSelectedOptions] = React.useState(props.selectedOptions);
-    const valueChangedFromDefault = React.useRef(false);
-    const defaultSelectedOptions = useDeepEqualMemo(props.selectedOptions);
-    React.useEffect(()=>{
-        
-        if(arrayDifference(defaultSelectedOptions, selectedOptions)?.length !== 0){
-            valueChangedFromDefault.current = false;
-            setSelectedOptions(defaultSelectedOptions);
-            inputRef.current 
-            && onChange?.(
-                {type: "change", target: inputRef.current}, 
-                defaultSelectedOptions || []
-            );
-        }
-    }, [defaultSelectedOptions]);
 
     const onSelectionChange = ( ev: React.FormEvent<HTMLDivElement>, selectedValue: string ) => {
         if(isRead || isControlDisabled){
@@ -89,24 +73,21 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                     selectedOptions?.includes(selectedValue)
                     ? []
                     : [selectedValue];
-            valueChangedFromDefault.current = true;
-            setSelectedOptions(newSelectedOptions);
-            onChange?.(event, newSelectedOptions);
+            onChange?.(inputRef, newSelectedOptions);
         }
     };
     
-    const options = useDeepEqualMemo(rawOptions);
     const styles = useStyles();
     
     return <F9Field
         {...fieldProps}
-        valueChanged={valueChangedFromDefault.current}
     >
         {
             multiselect
             ? 
                 (controlProps: any) => (
                     <div 
+                    ref={inputRef}
                         {...controlProps} 
                         className={mergeClasses(styles.root, layout === "vertical" && styles.vertical )}>
                         {

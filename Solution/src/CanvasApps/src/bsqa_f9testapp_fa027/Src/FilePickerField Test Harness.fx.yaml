@@ -183,7 +183,7 @@
         AllowMultipleFiles: =FilePicker_AllowMultiple
         Appearance: =FilePicker_Appearance.Selected.Value
         DisplayMode: =FilePicker_DisplayMode.Selected.Value
-        Height: =200
+        Height: =Self.ContentHeight
         Hint: =FilePicker_Hint.Text
         Info: =FilePicker_Info.Text
         Items: |-
@@ -202,7 +202,7 @@
         Validate: =FilePicker_Validate.Selected.Value
         ValidationMessage: =FilePicker_ValidationMessage
         ValidationState: =FilePicker_ValidationState.Selected.Value
-        Width: =487
+        Width: =260
         X: =40
         Y: =40
         ZIndex: =27

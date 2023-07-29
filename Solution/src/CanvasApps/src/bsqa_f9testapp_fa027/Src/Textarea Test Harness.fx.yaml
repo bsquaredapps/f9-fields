@@ -222,6 +222,14 @@
             Label: =Textarea_Label.Text
             LayoutMinHeight: =200
             LayoutMinWidth: =200
+            OnChange: |-
+                =Notify($"Changed: {JSON(Self.Value)} Event(s): {Concat(Filter(Self.Events, type = "change"),"TargetValue: " & target.value & "Event: " & JSON(ThisRecord), Char(10))}")
+            OnResize: |-
+                =Notify($"Resized: {Self.ContentWidth} x {Self.ContentHeight} Event(s): {Concat(Filter(Self.Events, type = "resize"),JSON(ThisRecord), Char(10))}")
+            OnSelect: |-
+                =Notify($"Selected Event(s): {Concat(Filter(Self.Events, type = "click"),JSON(ThisRecord), Char(10))}")
+            OnValidate: |-
+                =Notify($"Validated: {JSON(Self.Validation)} Event(s): {Concat(Filter(Self.Events, type = "validate"),JSON(ThisRecord), Char(10))}")
             Orientation: =Textarea_Orientation.Selected.Value
             Placeholder: =Textarea_Placeholder.Text
             Required: =Textarea_Required.Value

@@ -29,6 +29,7 @@ export const F9FilePickerDefaultColumns = [
     { name: "Props", displayName: "Props", dataType: "object" }
 ]
 
+export type F9FilePickerOnChangeEventHandler = (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles: F9FilePickerFile[]) => void;
 export type F9FilePickerFile = {
     file: ComponentFramework.FileObject;
     description?: string;
@@ -49,7 +50,7 @@ export interface F9FilePickerFieldProps {
     allocatedHeight?: number;
     allocatedWidth?: number;
     pickFile: () => Promise<ComponentFramework.FileObject[]>;
-    onChange?: (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles: F9FilePickerFile[]) => void;
+    onChange?: F9FilePickerOnChangeEventHandler
 }
 
 export type SelectionEvents =

@@ -1,7 +1,7 @@
 {
   "FormatVersion": "0.24",
   "Header": {
-    "DocVersion": "1.333",
+    "DocVersion": "1.334",
     "MinVersionToLoad": "1.331",
     "MSAppStructureVersion": "2.0"
   },
@@ -134,6 +134,7 @@
     "ChoiceGroupField Test Harness",
     "FilePickerField Test Harness",
     "ComboboxField Test Harness",
+    "ComboboxField Test Harness_1",
     "InputField Test Harness",
     "Field Test Harness",
     "Textarea Test Harness",

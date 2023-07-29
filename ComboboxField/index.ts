@@ -12,72 +12,49 @@ import {
     getSelectedRecordsFromOptions,
     getValueColumn
 } from '../components/options';
-import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
+import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { OptionProps } from "@fluentui/react-components";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
-import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
-
-interface F9Context extends ComponentFramework.Context<IInputs> { 
-    events: { 
-        OnChange: ()=>void; 
-        OnSelect: ()=>void; 
-        OnResize: ()=>void; 
-        OnValidate: ()=> void; 
-        OnSearch:()=>void
-    }
-}
+import { arrayDifference } from "../utils/arrayDifference";
 
 export class ComboboxField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
-    private controlName: string;
-    private controlId: string;
-    private controlUniqueId: string; 
-    private defaultSelectedItemsListener: PropertyListener;
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
-    private events: PAEvent[] = [];
+    private fnEvents: { [key: string]: () => void };
+    private eventQueue: PAEventQueue;
     private searchText?: string;
     private options: F9Option<OptionProps>[];
     private optionsDataSet?: ComponentFramework.PropertyTypes.DataSet;
     private optionsValueColumn?: string;
+    private selectedOptions: string[];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
     private pendingValidation: F9FieldProps["pendingValidation"];
+    private userUpdatedValue = false;
     private validation: {
         Message: string;
         State: string;  
     };
-    private dispatchOnChange: boolean = false;
-    private dispatchOnSelect: boolean = false;
-    private dispatchOnResize: boolean = false;
-    private dispatchOnValidate: boolean = false;
-    private dispatchOnSearch: boolean = false;
+    private resetDefaultSelectedItems = false;
     private debounceTimeoutId?: number;
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
-
-    private onDefaultSelectedItemsChanged = (bindingContext: any)=>{
-        const { ruleValue } = bindingContext.inputRow[this.controlName].DefaultSelectedItems;
-        if(!ruleValue || ruleValue.length === 0){
-            this.optionsDataSet?.setSelectedRecordIds([]);
-        } else {
-            this.optionsDataSet?.refresh();
-        }
-    }
     
-    private maybeDebounceNotifyOutputChanged = ()=>{
+    private maybeDebounceNotifyOutputChanged = (overrideDebounce = false)=>{
         window.clearTimeout(this.debounceTimeoutId);
         switch(this.debounce){
             case "debounce":
-                this.debounceTimeoutId = window.setTimeout(() => {
-                    this.notifyOutputChanged();
-                }, this.debounceTimeout);
+                this.debounceTimeoutId = window.setTimeout(
+                    this.notifyOutputChanged, 
+                    this.debounceTimeout
+                );
                 break;
             case "onblur":
                 break;
@@ -93,53 +70,80 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         }
     }
 
-    private onChange: F9ComboboxFieldOnChangeEventHandler = (ev, data) => {
-        window.clearTimeout(this.debounceTimeoutId);
-        if(data?.optionValue && ev){
-            const selectedRecordIds = getSelectedRecordsFromOptions(this.optionsDataSet,data.selectedOptions, this.options, this.optionsValueColumn);
-            this.optionsDataSet?.setSelectedRecordIds(selectedRecordIds);
-             
-            this.dispatchOnChange = true;
-            this.notifyOutputChanged();
+    private onChange: F9ComboboxFieldOnChangeEventHandler = (targetRef, data) => {
+        if(this.optionsDataSet){
+            
+            this.userUpdatedValue = true;
+            this.selectedOptions = data.selectedOptions;
+
+            const selectedRecordIds = getSelectedRecordsFromOptions(
+                this.optionsDataSet, 
+                this.selectedOptions, 
+                this.options, 
+                this.optionsValueColumn
+            );
+            
+            const event = {
+                type: "change",
+                target: targetRef,
+                value: this.selectedOptions.join(","),
+            };
+            this.eventQueue.add(event, "");
+
+            if(selectedRecordIds){
+               this.optionsDataSet.setSelectedRecordIds(selectedRecordIds)
+            } else {
+                this.optionsDataSet.setSelectedRecordIds([])
+            }
+            
+            this.fnEvents?.OnChange?.();
         }
     }
 
-    private onSearch: F9InputFieldOnChangeEventHandler = (ev, data) => {
-        this.events.push(getPAEvent(ev as PASourceEvent));
+    private onSearch: F9InputFieldOnChangeEventHandler = (targetRef, data) => {
         this.searchText = data?.value;
-        this.dispatchOnSearch = true;
+        const event = {
+            type: "change",
+            target: targetRef,
+            value: this.searchText
+        };
+        this.eventQueue.add(event, "OnSearch");
         this.maybeDebounceNotifyOutputChanged();
     }
     
-    private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        window.clearTimeout(this.debounceTimeoutId);
-        this.events.push(getPAEvent(ev as PASourceEvent));
-        this.notifyOutputChanged();
+    private onSelect: React.MouseEventHandler<any> = (event): void => {
+        this.eventQueue.add(event as PASourceEvent, "OnSelect")
+        this.maybeDebounceNotifyOutputChanged();
     }
 
     private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
-        window.clearTimeout(this.debounceTimeoutId);
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
-        this.dispatchOnResize = true;
-        this.notifyOutputChanged();
+        const event: PASourceEvent = {
+            type: "resize",
+            target: target as PASourceTarget,
+            value: JSON.stringify({
+                height: this.contentHeight,
+                width: this.contentWidth
+            })
+        };
+
+        this.eventQueue.add(event, "OnResize");
+        this.maybeDebounceNotifyOutputChanged();
     }
     
-    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
-        window.clearTimeout(this.debounceTimeoutId);
-        const event = getPAEvent(
-            {
-                ...ev, 
-                value: JSON.stringify(validationData)
-            } as PASourceEvent
-        );
-        this.events.push(event);
+    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
         };
-        this.dispatchOnValidate = true;
-        this.notifyOutputChanged();
+        const event = {
+            type: "validate",
+            target: targetRef,
+            value: JSON.stringify(this.validation)
+        };
+        this.eventQueue.add(event, "OnValidate");
+        this.maybeDebounceNotifyOutputChanged();
     }
     
     /**
@@ -169,11 +173,10 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             State: "none"
         };
         this.searchText = context.parameters.DefaultSearchText.raw || undefined
-        context.mode.trackContainerResize(true);this.controlName = context.mode.label;
-        this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
-        this.controlUniqueId = (context as any).client._customControlProperties.controlId;
-
-        this.defaultSelectedItemsListener = new PropertyListener(this.controlId, this.controlUniqueId, this.controlName, "DefaultSelectedItems", PropertyType.Input);
+        context.mode.trackContainerResize(true);
+        this.contentHeight = context.mode.allocatedHeight;
+        this.contentWidth = context.mode.allocatedWidth;
+        this.eventQueue = new PAEventQueue();
     }
 
     /**
@@ -182,49 +185,47 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
+        //needed to allow OnChange to be called directly after dataset operation
+        this.fnEvents = (context as any).events;
 
-        //dispatch events
-        if(this.dispatchOnChange){
-            (context as any).events.OnChange?.();
-            this.dispatchOnChange = false;
-        } 
-        if(this.dispatchOnSelect){
-            (context as any).events.OnSelect?.();
-            this.dispatchOnSelect = false;
-        }
-        if(this.dispatchOnResize){
-            (context as any).events.OnResize?.();
-            this.dispatchOnResize = false;
-        }
-        if(this.dispatchOnValidate){
-            (context as any).events.OnValidate?.();
-            this.dispatchOnValidate = false;
-        }
-        if(this.dispatchOnSearch){
-            (context as any).events.OnSearch?.();
-            this.dispatchOnSearch = false;
-        }
-        //clear events
-        this.events.length = 0;
+        //execute queued events
+        this.eventQueue.execute(context);
 
-        //DefaultSelectedItems doesn't trigger a refresh when set to a collection, and doesn't reset when set to an empty array.
-        //Property Listener fixes both of these.
-        this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged);
-        //this.selectedItemsListener.listen(this.onSelectedItemsChanged);
-
-
-        //convert options and default selected options
-        this.optionsDataSet = context.parameters.Items;
-        this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
-        this.options = getOptionsFromDataSet(this.optionsDataSet);
-        
-        //initialize values if not already
-        if(!this.contentHeight || !this.contentWidth){
-            if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
-            if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            this.notifyOutputChanged();
+        if(
+            context.updatedProperties.includes('dataset') || 
+            context.updatedProperties.includes('records') || 
+            context.updatedProperties.includes('DefaultSelectedItems')  ||
+            !this.optionsDataSet
+        ){
+            this.optionsDataSet = context.parameters.Items;
+            this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
+            this.options = getOptionsFromDataSet(this.optionsDataSet);
         }
 
+        if(context.updatedProperties.includes('SelectedItems')){
+            if(this.resetDefaultSelectedItems){
+                this.resetDefaultSelectedItems = false;
+                context.parameters.Items.refresh();
+            } else {
+                const selectedOptions = getSelectedOptionsFromRecords(this.optionsDataSet!, this.optionsValueColumn!);
+                if((arrayDifference(selectedOptions, this.selectedOptions)?.length) ?? 0 > 0){
+                    this.selectedOptions = selectedOptions;
+                    this.userUpdatedValue = false;
+                }
+            }
+        }
+
+        if(
+            context.updatedProperties.includes('DefaultSelectedItems') &&
+            !context.mode.isVisible &&
+            (
+                !(context.parameters as any).DefaultSelectedItems?.raw || 
+                (context.parameters as any).DefaultSelectedItems?.raw?.length == 0
+            ) &&
+            context.parameters.Items.getSelectedRecordIds().length == 0
+        ){
+            this.resetDefaultSelectedItems = true;
+        }
         //grab raw props
         this.debounceTimeout = context.parameters.DelayTimeout.raw || 300;
         this.debounce = context.parameters.DelayOutput.raw;
@@ -271,6 +272,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
                 onClick: this.onSelect,
                 onValidate: this.onValidate,
                 validate: context.parameters.Validate.raw,
+                valueChanged: this.userUpdatedValue,
                 pendingValidation: this.pendingValidation,
                 style: {
                     height: context.mode.allocatedHeight,
@@ -282,7 +284,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             searchTextUpdated: inputValueUpdated,
             placeholder: context.parameters.Placeholder.raw || undefined,
             options: this.options,
-            selectedOptions: getSelectedOptionsFromRecords(this.optionsDataSet, this.optionsValueColumn),
+            selectedOptions: this.selectedOptions,
             multiselect: context.parameters.Multiselect.raw,
             allowSearch: context.parameters.AllowSearch.raw,
             appearance: context.parameters.Appearance.raw || "outline",
@@ -306,7 +308,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Validation: {...this.validation},
-            Events: [...this.events],
+            Events: this.eventQueue.getOutput(),
             SearchText: this.searchText,
             Label: this.label,
             Hint: this.hint,

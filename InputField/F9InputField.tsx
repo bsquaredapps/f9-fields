@@ -9,7 +9,7 @@ import {
     makeStyles
 } from '@fluentui/react-components';
 
-export type F9InputFieldOnChangeEventHandler = (ev?: {type: string; target?: HTMLInputElement}, data?: InputOnChangeData) => void;
+export type F9InputFieldOnChangeEventHandler = (targetRef: React.RefObject<HTMLInputElement>, data?: InputOnChangeData) => void;
 export interface F9InputFieldProps extends Omit<InputProps, "contentBefore" | "contentAfter" | "onClick" | "onChange"> {
     fieldProps: Omit<F9FieldProps, "valueChanged">;
     isRead?: boolean;
@@ -50,11 +50,6 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
         if(valueUpdated && props.value !== value){
             valueChangedFromDefault.current = false;
             setValue(props.value);
-            inputRef.current &&
-            onChange?.(
-                {type: "change", target: inputRef.current}, 
-                {value: props.value || ''}
-            );
         }
     },[props.value, valueUpdated, setValue]);
 
@@ -76,7 +71,7 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
         const event = {...ev};
         valueChangedFromDefault.current = data.value != props.value;
         setValue(data.value);
-        onChange?.(event, data);
+        onChange?.(inputRef, data);
     };
 
     return <F9Field 

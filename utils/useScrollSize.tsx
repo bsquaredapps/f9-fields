@@ -18,44 +18,48 @@ const useScrollSize = <T extends HTMLElement>(
   target: React.RefObject<T> | T | null,
   options?: UseSizeOptions
 ): ScrollSize => {
-  const [size, setSize] = React.useState<{height: number, width: number}>(() => {
+  const [size, setSize] = React.useState<{ height: number, width: number }>(() => {
     const targetEl = target && 'current' in target ? target.current : target
     return targetEl
       ? { width: targetEl.scrollWidth, height: targetEl.scrollHeight }
       : { width: options?.initialWidth ?? 0, height: options?.initialHeight ?? 0 }
   })
 
-  useLayoutEffect(() => {
-    const targetEl = target && 'current' in target ? target.current : target
-    if (!targetEl) return
-    setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
-  }, [target])
+
 
   // Where the magic happens
-const resizeObserver =  useResizeObserver(target, (entry) => {
+  const resizeObserver = useResizeObserver(target, (entry) => {
     const target = entry.target as HTMLElement
     setSize({ width: target.scrollWidth, height: target.scrollHeight })
   });
 
-  const childTrigger = React.useCallback(()=>{
+  const childTrigger = React.useCallback(() => {
     const targetEl = target && 'current' in target ? target.current : target;
-    if(targetEl){
-        setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
+    if (targetEl) {
+      setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
     }
-  },[target, setSize])
+  }, [target, setSize])
 
+  useLayoutEffect(() => {
+    const targetEl = target && 'current' in target ? target.current : target
+    if (!targetEl) return
+    setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight });
+    targetEl.childNodes.forEach((node)=>{
+      resizeObserver.subscribe(node as HTMLElement, childTrigger)
+    })
+  }, [target])
 
   //Additional magic for tracking children
   //const childObservers = React.useRef<Map<Node, ReturnType<typeof useResizeObserver>>>(new Map());
-  useMutationObserver(target, (mutation, observer)=>{
-    if(mutation.type === "childList"){
-        mutation.addedNodes.forEach((node) => {
-            resizeObserver.subscribe(node as HTMLElement, childTrigger)
-        });
-        mutation.removedNodes.forEach((node) =>{
-            resizeObserver.unsubscribe(node as HTMLElement, childTrigger)
-        });
-        childTrigger();
+  useMutationObserver(target, (mutation, observer) => {
+    if (mutation.type === "childList") {
+      mutation.addedNodes.forEach((node) => {
+        resizeObserver.subscribe(node as HTMLElement, childTrigger)
+      });
+      mutation.removedNodes.forEach((node) => {
+        resizeObserver.unsubscribe(node as HTMLElement, childTrigger)
+      });
+      childTrigger();
     }
   }, { childList: true })
 

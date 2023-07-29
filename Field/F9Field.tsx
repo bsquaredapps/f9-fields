@@ -10,7 +10,7 @@ export interface F9FieldOnValidateData {
 }
 
 export type F9FieldOnValidateEventHandler = (
-    event: {type: "validate", target: HTMLElement},
+    targetRef: React.RefObject<HTMLElement>,
     validationData: F9FieldOnValidateData
 ) => void;
 
@@ -25,7 +25,7 @@ export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info"
         validationState?: FieldProps["validationState"];
     };
     onResize: (size?: ScrollSize, fieldRef?: React.MutableRefObject<null>) => void,
-    onValidate?: F9FieldOnValidateEventHandler
+    onValidate?: F9FieldOnValidateEventHandler,
 }
 
 export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") => {
@@ -102,7 +102,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
     
     React.useEffect(()=>{
         fieldRef.current 
-        && onValidate?.({type: "validate", target: fieldRef.current}, validation)
+        && onValidate?.(fieldRef, validation)
     },[validation]);
 
     const validationMessageSlot = React.useMemo(() => {

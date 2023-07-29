@@ -3,14 +3,14 @@ import {
     F9FilePickerField, 
     F9FilePickerFieldProps,
     F9FilePickerDefaultColumns,
-    F9FilePickerFile
+    F9FilePickerFile,
+    F9FilePickerOnChangeEventHandler
 } from "./F9FilePickerField";
 import { SelectedFileSchema, SelectedFilesSchema } from "./SelectedFiles";
-import { PAEvent, PASourceEvent, getPAEvent, PAEventsSchema } from "../utils/PAEvent";
+import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
-import * as isDeepEqual from 'fast-deep-equal';
 import { ValidationSchema } from "../utils/ValidationSchema";
 import { arrayDeepDifference } from "../utils/arrayDifference";
 
@@ -47,8 +47,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
-    private events: PAEvent[] = [];
-    private defaultFiles: F9FilePickerFile[];
+    private eventQueue: PAEventQueue;
     private files: F9FilePickerFile[];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
@@ -59,64 +58,65 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         Message: string;
         State: string;  
     };
-    private dispatchOnChange: boolean = false;
-    private dispatchOnSelect: boolean = false;
-    private dispatchOnResize: boolean = false;
-    private dispatchOnValidate: boolean = false;
-    private dispatchOnError: boolean = false;
     private valueChangedFromDefault: boolean = false;
 
-    private onChange = (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles?: F9FilePickerFile[]) => {
-        if(newFiles && ev){
+    private onChange: F9FilePickerOnChangeEventHandler = (ev, newFiles) => {
+        if(newFiles){
             //this.events.push(getPAEvent(ev as PASourceEvent));
             this.files = newFiles;
             this.valueChangedFromDefault = true;
-            this.dispatchOnChange = true;
+            const event = {
+                type: "change",
+                target: ev.currentTarget,
+                value: this.files.map((file)=>file.file.fileName).join("#;")
+            };
+            this.eventQueue.add(event, "OnChange");
             this.notifyOutputChanged();
         }
     }
     
-    private onSelect: React.MouseEventHandler<any> = (ev): void => {
-        this.events.push(getPAEvent(ev as PASourceEvent));
-        this.dispatchOnSelect = true;
+    private onSelect: React.MouseEventHandler<any> = (event): void => {
+        this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.notifyOutputChanged();
     }
 
     private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
-        /*const resizeEvent: PASourceEvent = {
-            type: "resize",
-            target: target as PASourceTarget
-        };
-        this.events.push(getPAEvent(resizeEvent));*/
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
-        this.dispatchOnResize = true;
+        const event: PASourceEvent = {
+            type: "resize",
+            target: target as PASourceTarget,
+            value: JSON.stringify({
+                height: this.contentHeight,
+                width: this.contentWidth
+            })
+        };
+
+        this.eventQueue.add(event, "OnResize");
         this.notifyOutputChanged();
     }
 
     private onFileSizeError = (error: {errorCode: string; param: number}) =>{
-        const fileSizeErrorEvent: PASourceEvent = {
+        const event: PASourceEvent = {
             type: "error",
-            target: {name: error.errorCode, value: error.param.toString()}
+            target: undefined, 
+            value: error.param.toString()
         };
-        this.events.push(getPAEvent(fileSizeErrorEvent));
-        this.dispatchOnError = true;
+        this.eventQueue.add(event, "OnError");
         this.notifyOutputChanged();
     }
     
-    private onValidate: F9FieldOnValidateEventHandler = (ev, validationData) => {
-        const event = getPAEvent(
-            {
-                ...ev, 
-                value: JSON.stringify(validationData)
-            } as PASourceEvent
-        );
-        this.events.push(event);
+    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
         };
-        this.dispatchOnValidate = true;
+        const event = {
+            type: "validate",
+            target: targetRef,
+            value: JSON.stringify(this.validation)
+        };
+        this.eventQueue.add(event, "OnValidate");
         this.notifyOutputChanged();
     }
 
@@ -163,6 +163,9 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
             State: "none"
         };
         context.mode.trackContainerResize(true);
+        this.contentHeight = context.mode.allocatedHeight ?? 0;
+        this.contentWidth = context.mode.allocatedWidth ?? 0;
+        this.eventQueue = new PAEventQueue();
     }
 
     /**
@@ -171,29 +174,8 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        //dispatch events
-        if(this.dispatchOnChange){
-            (context as any).events.OnChange?.();
-            this.dispatchOnChange = false;
-        }
-        if(this.dispatchOnSelect){
-            (context as any).events.OnSelect?.();
-            this.dispatchOnSelect = false;
-        }
-        if(this.dispatchOnResize){
-            (context as any).events.OnResize?.();
-            this.dispatchOnResize = false;
-        }
-        if(this.dispatchOnError){
-            (context as any).events.OnError?.();
-            this.dispatchOnError = false;
-        }
-        if(this.dispatchOnValidate){
-            (context as any).events.OnValidate?.();
-            this.dispatchOnValidate = false;
-        }
-        //clear events
-        this.events = [];
+        //execute queued events
+        this.eventQueue.execute(context);
 
         //grab raw props
         this.label =  context.parameters.Label.raw || undefined;
@@ -201,15 +183,13 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
         this.info = context.parameters.Info.raw || undefined;
         this.required = context.parameters.Required.raw;
         
-        let defaultValueChanged = false;
-        const defaultFiles = getFilesFromDataSet(context.parameters.DefaultFiles);
-        
         if(
             context.updatedProperties.includes('dataset') 
             || context.updatedProperties.includes('records')
+            || (!this.files && context.parameters.DefaultFiles)
         ){
             const defaultFiles = getFilesFromDataSet(context.parameters.DefaultFiles);
-            defaultValueChanged = arrayDeepDifference(
+            const defaultValueChanged = arrayDeepDifference(
                 defaultFiles?.map((file)=>file.file), 
                 this.files?.map((file)=>file.file)
             )?.length != 0;
@@ -218,14 +198,6 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
                 this.valueChangedFromDefault = false;
                 this.files = defaultFiles;
             }
-        }
-        
-        //initialize values if not already
-        if(!this.contentHeight || !this.contentWidth || !this.files){
-            if(!this.contentHeight) this.contentHeight = context.mode.allocatedHeight;
-            if(!this.contentWidth) this.contentWidth = context.mode.allocatedWidth;
-            if(!this.files && this.defaultFiles) this.files = [...this.defaultFiles];
-            this.notifyOutputChanged();
         }
         
         //update validation
@@ -301,7 +273,7 @@ export class FilePickerField implements ComponentFramework.ReactControl<IInputs,
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Validation: {...this.validation},
-            Events: [...this.events],
+            Events: this.eventQueue.getOutput(),
             Label: this.label ?? "",
             Hint: this.hint ?? "",
             Info: this.info ?? "",

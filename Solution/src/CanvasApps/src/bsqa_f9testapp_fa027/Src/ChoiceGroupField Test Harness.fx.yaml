@@ -167,6 +167,12 @@
         Y: =570
         ZIndex: =22
 
+    Component2_2 As Component2_1:
+        Height: =450
+        X: =726
+        Y: =318
+        ZIndex: =24
+
     "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
         DefaultSelectedItems: |-
             =//Filter(_Booleans, Value = CG_Value)//ForAll(ParseJSON(CG_DefaultItemsJSON.Text) As Item, {Value: Item.Value, Text: Item.Text})
@@ -210,8 +216,8 @@
         Size: =CG_Size.Selected.Value
         ValidationMessage: =CG_ValidationMessage.Text
         ValidationState: =CG_ValidationState.Selected.Value
-        Width: =200
-        X: =40
-        Y: =40
-        ZIndex: =23
+        Width: =187
+        X: =30
+        Y: =55
+        ZIndex: =25
 
