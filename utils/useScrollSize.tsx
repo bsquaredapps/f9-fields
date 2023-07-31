@@ -14,15 +14,35 @@ export interface ScrollSize {
   height: number;
   width: number;
 }
+
+const calculateContentSize = (target: HTMLElement) => {
+  const style = getComputedStyle(target);
+  const targetX = target.offsetLeft;
+  const targetY = target.offsetTop;
+
+  const elementBoxHeight = target.offsetHeight - target.clientHeight + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+  const elementBoxWidth = target.offsetWidth - target.clientWidth + parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+  let height = elementBoxHeight;
+  let width = elementBoxWidth;
+
+  for(let i = 0; i < target.children.length; i++){
+    const child = target.children[i] as HTMLElement;
+    height = Math.max(height, elementBoxHeight + child.offsetTop + child.offsetHeight);
+    width = Math.max(width, elementBoxWidth + child.offsetLeft + child.offsetWidth);
+  }
+  return { width, height }
+}
 const useScrollSize = <T extends HTMLElement>(
   target: React.RefObject<T> | T | null,
   options?: UseSizeOptions
 ): ScrollSize => {
   const [size, setSize] = React.useState<{ height: number, width: number }>(() => {
     const targetEl = target && 'current' in target ? target.current : target
-    return targetEl
-      ? { width: targetEl.scrollWidth, height: targetEl.scrollHeight }
-      : { width: options?.initialWidth ?? 0, height: options?.initialHeight ?? 0 }
+    const size = { width: options?.initialWidth ?? 0, height: options?.initialHeight ?? 0 };
+    if(targetEl){
+      return calculateContentSize(targetEl)
+    }
+    return { width: options?.initialWidth ?? 0, height: options?.initialHeight ?? 0 }
   })
 
 
@@ -36,14 +56,16 @@ const useScrollSize = <T extends HTMLElement>(
   const childTrigger = React.useCallback(() => {
     const targetEl = target && 'current' in target ? target.current : target;
     if (targetEl) {
-      setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
+      //setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
+      setSize(calculateContentSize(targetEl));
     }
   }, [target, setSize])
 
   useLayoutEffect(() => {
     const targetEl = target && 'current' in target ? target.current : target
     if (!targetEl) return
-    setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight });
+    //setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight });
+    setSize(calculateContentSize(targetEl));
     targetEl.childNodes.forEach((node)=>{
       resizeObserver.subscribe(node as HTMLElement, childTrigger)
     })

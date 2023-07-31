@@ -145,6 +145,9 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
         this.fnEvents = (context as any).events;
         
+        //execute queued events
+        this.eventQueue.execute(context);
+        
         if(
             context.updatedProperties.includes('dataset') || 
             context.updatedProperties.includes('records') || 

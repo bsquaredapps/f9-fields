@@ -29,7 +29,7 @@ export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info"
 }
 
 export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") => {
-    return rawHtml && <El dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(rawHtml)}}/> 
+    return rawHtml && rawHtml !== "" ? <El dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(rawHtml)}}/> : undefined;
 }
 
 const useStyles = makeStyles({
