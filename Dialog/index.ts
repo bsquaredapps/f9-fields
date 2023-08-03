@@ -2,7 +2,7 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 /* import { PAEvent, PASourceEvent, PASourceTarget, getPAEvent, PAEventSchema, PAEventsSchema } from "../utils/PAEvent"; */
 import * as React from "react";
 import { F9Dialog, F9DialogAction, F9DialogActionDefaultColumns } from "./F9Dialog";
-import { DialogProps } from "@fluentui/react-components";
+import { DialogOpenChangeData, DialogOpenChangeEvent, DialogProps } from "@fluentui/react-components";
 import * as DOMPurify from "dompurify";
 
 const getActionsFromDataSet = <T>(dataSet: ComponentFramework.PropertyTypes.DataSet, columns?: ComponentFramework.PropertyHelper.DataSetApi.Column[]) => {
@@ -44,12 +44,12 @@ export class Dialog implements ComponentFramework.ReactControl<IInputs, IOutputs
     private title: string;
     private content: string;
 
-    private onOpenChange: DialogProps["onOpenChange"] = (ev, data) => {
+    private onOpenChange(ev: DialogOpenChangeEvent, data: DialogOpenChangeData){
         this.open = data.open;
         this.notifyOutputChanged();
     }
 
-    private onSelectAction = (action: F9DialogAction) => {
+    private onSelectAction(action: F9DialogAction){
         this.actionsDataSet.setSelectedRecordIds([action.__recordId]);
     }
     /**
@@ -72,6 +72,8 @@ export class Dialog implements ComponentFramework.ReactControl<IInputs, IOutputs
         this.notifyOutputChanged = notifyOutputChanged;
         context.mode.trackContainerResize(true);
         this.open = context.parameters.IsOpen.raw;
+        this.onSelectAction = this.onSelectAction.bind(this);
+        this.onOpenChange = this.onOpenChange.bind(this);
     }
 
     /**

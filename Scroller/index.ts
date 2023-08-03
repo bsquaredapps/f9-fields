@@ -10,7 +10,7 @@ export class Scroller implements ComponentFramework.ReactControl<IInputs, IOutpu
     private y: number = 0;
     private dispatchOnScroll: boolean = false;
 
-    private onScroll = (ev: React.SyntheticEvent, data: {x: number, y: number}) => {
+    private onScroll(ev: React.SyntheticEvent, data: {x: number, y: number}){
         this.x = data.x;
         this.y = data.y;
         this.dispatchOnScroll = true;

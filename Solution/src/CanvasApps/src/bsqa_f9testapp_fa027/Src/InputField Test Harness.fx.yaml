@@ -229,7 +229,7 @@
         DelayOutput: =Input_DelayOutput.Selected.Value
         DelayTimeout: =Input_DebounceTimeout.Text
         DisplayMode: =Input_DisplayMode.Selected.Value
-        Height: =26
+        Height: =Self.ContentHeight
         Hint: =Input_Hint.Text
         Info: =Input_Info.Text
         InputType: =Input_InputType.Selected.Value

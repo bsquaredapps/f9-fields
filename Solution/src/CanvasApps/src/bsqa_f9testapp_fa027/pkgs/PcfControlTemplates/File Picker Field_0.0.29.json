@@ -1,6 +1,39 @@
 {
   "AuthConfigProperties": [
     {
+      "AcceptedTypes": {
+        "EnabledForFlyout": false,
+        "HelperUI": null,
+        "Hidden": false,
+        "PropertyGroupName": "",
+        "PropertyKind": 1,
+        "SectionIndex": 1,
+        "SectionName": "data",
+        "Type": 0,
+        "WizardStep": null
+      },
+      "AllowMultipleFiles": {
+        "EnabledForFlyout": false,
+        "HelperUI": null,
+        "Hidden": false,
+        "PropertyGroupName": "",
+        "PropertyKind": 1,
+        "SectionIndex": 1,
+        "SectionName": "data",
+        "Type": 0,
+        "WizardStep": null
+      },
+      "Appearance": {
+        "EnabledForFlyout": false,
+        "HelperUI": null,
+        "Hidden": false,
+        "PropertyGroupName": "",
+        "PropertyKind": 1,
+        "SectionIndex": 1,
+        "SectionName": "data",
+        "Type": 0,
+        "WizardStep": null
+      },
       "DisplayMode": {
         "EnabledForFlyout": false,
         "HelperUI": null,
@@ -78,7 +111,7 @@
         "Type": 0,
         "WizardStep": null
       },
-      "Multiselect": {
+      "MaxFileSize": {
         "EnabledForFlyout": false,
         "HelperUI": null,
         "Hidden": false,
@@ -239,9 +272,9 @@
       "Name": "OnSelect"
     }
   ],
-  "ControlConstructor": "ChoiceGroupField",
+  "ControlConstructor": "FilePickerField",
   "ControlNamespace": "F9Fields",
-  "DisplayNameKey": "ChoiceGroupField_Disp_Key",
+  "DisplayNameKey": "FilePickerField_Disp_Key",
   "Events": [
     {
       "Description": "Executes when the internal content area of the control changes.",
@@ -249,6 +282,13 @@
       "Hidden": false,
       "IsPrimaryInput": false,
       "Name": "OnResize"
+    },
+    {
+      "Description": "Executes if an error is returned from the file picker control.",
+      "DisplayName": "On Error",
+      "Hidden": false,
+      "IsPrimaryInput": false,
+      "Name": "OnError"
     },
     {
       "Description": "Executed when validation output changes",
@@ -436,7 +476,7 @@
     },
     {
       "Category": "design",
-      "DefaultValue": "A ChoiceGroup combines a text field and a dropdown giving people a way to select an option from a list or enter their own choice.",
+      "DefaultValue": "Allows users to choose files.",
       "Description": "",
       "DescriptionResourceString": "",
       "DisplayName": "Tooltip",
@@ -460,15 +500,15 @@
       "WebDefaultValue": ""
     }
   ],
-  "Name": "ChoiceGroup Field",
+  "Name": "File Picker Field",
   "Properties": [
     {
       "Category": "data",
       "DefaultValue": "false",
-      "Description": "Allow for single selection or multiple selection.",
-      "DescriptionResourceString": "Multiselect_Desc_Key",
-      "DisplayName": "Multiselect",
-      "DisplayNameResourceString": "Multiselect_Display_Key",
+      "Description": "Allow users to select more than 1 file in the file picker.",
+      "DescriptionResourceString": "AllowMultipleFiles_Desc_Key",
+      "DisplayName": "Allow Multiple Files",
+      "DisplayNameResourceString": "AllowMultipleFiles_Display_Key",
       "EnumValues": [],
       "HelperUI": "",
       "Hidden": false,
@@ -477,7 +517,7 @@
       "IsPrimaryInput": false,
       "IsPrimaryOutput": false,
       "IsResettable": false,
-      "Name": "Multiselect",
+      "Name": "AllowMultipleFiles",
       "ParentDataSetName": "",
       "PassThroughProperty": "",
       "PhoneDefaultValue": "",
@@ -489,7 +529,57 @@
     },
     {
       "Category": "data",
-      "DefaultValue": "horizontal",
+      "DefaultValue": "10485760",
+      "Description": "Maximum file size in bytes.",
+      "DescriptionResourceString": "MaxFileSize_Desc_Key",
+      "DisplayName": "Max File Size",
+      "DisplayNameResourceString": "MaxFileSize_Display_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": false,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "MaxFileSize",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 16,
+      "Usage": 0,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "",
+      "Description": "Acceptable values are \"audio\", \"video\", \"image\", or specific file extensions.",
+      "DescriptionResourceString": "AcceptedTypes_Desc_Key",
+      "DisplayName": "Accepted Types",
+      "DisplayNameResourceString": "AcceptedTypes_Display_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": false,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "AcceptedTypes",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 6,
+      "Usage": 0,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "vertical",
       "Description": "Choose a layout variant for the control.",
       "DescriptionResourceString": "Layout_Desc_Key",
       "DisplayName": "Layout",
@@ -508,13 +598,6 @@
           "IsDefaultValue": false,
           "Name": "Vertical",
           "Value": "vertical"
-        },
-        {
-          "Description": "Horizontal-Stacked",
-          "DisplayName": "Horizontal-Stacked",
-          "IsDefaultValue": false,
-          "Name": "HorizontalStacked",
-          "Value": "horizontal-stacked"
         }
       ],
       "HelperUI": "",
@@ -525,6 +608,67 @@
       "IsPrimaryOutput": false,
       "IsResettable": false,
       "Name": "Layout",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 1,
+      "Usage": 0,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "default",
+      "Description": "Select an appearance variant for the control.",
+      "DescriptionResourceString": "Appearance_Desc_Key",
+      "DisplayName": "Appearance",
+      "DisplayNameResourceString": "Appearance_Display_Key",
+      "EnumValues": [
+        {
+          "Description": "Default",
+          "DisplayName": "Default",
+          "IsDefaultValue": false,
+          "Name": "Default",
+          "Value": "default"
+        },
+        {
+          "Description": "Primary",
+          "DisplayName": "Primary",
+          "IsDefaultValue": false,
+          "Name": "Primary",
+          "Value": "primary"
+        },
+        {
+          "Description": "Outline",
+          "DisplayName": "Outline",
+          "IsDefaultValue": false,
+          "Name": "Outline",
+          "Value": "outline"
+        },
+        {
+          "Description": "Subtle",
+          "DisplayName": "Subtle",
+          "IsDefaultValue": false,
+          "Name": "Subtle",
+          "Value": "subtle"
+        },
+        {
+          "Description": "Transparent",
+          "DisplayName": "Transparent",
+          "IsDefaultValue": false,
+          "Name": "Transparent",
+          "Value": "transparent"
+        }
+      ],
+      "HelperUI": "",
+      "Hidden": false,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "Appearance",
       "ParentDataSetName": "",
       "PassThroughProperty": "",
       "PhoneDefaultValue": "",
@@ -656,7 +800,7 @@
       "Required": false,
       "ShouldAutoBind": false,
       "Type": 6,
-      "Usage": 0,
+      "Usage": 2,
       "WebDefaultValue": ""
     },
     {
@@ -710,7 +854,7 @@
       "Required": false,
       "ShouldAutoBind": false,
       "Type": 1,
-      "Usage": 0,
+      "Usage": 2,
       "WebDefaultValue": ""
     },
     {
@@ -900,9 +1044,9 @@
     {
       "Category": "data",
       "DefaultValue": "",
-      "Description": "JSON Schema for events",
+      "Description": "Events_Schema_Desc_Key",
       "DescriptionResourceString": "Events_Schema_Desc_Key",
-      "DisplayName": "Events Schema",
+      "DisplayName": "Events_Schema_Disp_Key",
       "DisplayNameResourceString": "Events_Schema_Disp_Key",
       "EnumValues": [],
       "HelperUI": "",
@@ -913,6 +1057,56 @@
       "IsPrimaryOutput": false,
       "IsResettable": false,
       "Name": "EventsSchema",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 6,
+      "Usage": 0,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "",
+      "Description": "Schema for the selected files",
+      "DescriptionResourceString": "SelectedFiles_Schema_Desc_Key",
+      "DisplayName": "Selected Files Schema",
+      "DisplayNameResourceString": "SelectedFiles_Schema_Disp_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": true,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "SelectedFilesSchema",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 6,
+      "Usage": 0,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "",
+      "Description": "Schema describing the Selected File object",
+      "DescriptionResourceString": "SelectedFile_Schema_Desc_Key",
+      "DisplayName": "Selected File Schema",
+      "DisplayNameResourceString": "SelectedFile_Schema_Disp_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": true,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "SelectedFileSchema",
       "ParentDataSetName": "",
       "PassThroughProperty": "",
       "PhoneDefaultValue": "",
@@ -975,6 +1169,56 @@
     {
       "Category": "data",
       "DefaultValue": "",
+      "Description": "Current files that have been selected by the user",
+      "DescriptionResourceString": "SelectedFiles_Desc_Key",
+      "DisplayName": "Selected Files",
+      "DisplayNameResourceString": "SelectedFiles_Disp_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": false,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "SelectedFiles",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 5,
+      "Usage": 1,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "",
+      "Description": "Returns a single selected file",
+      "DescriptionResourceString": "SelectedFile_Desc_Key",
+      "DisplayName": "Selected File",
+      "DisplayNameResourceString": "SelectedFile_Disp_Key",
+      "EnumValues": [],
+      "HelperUI": "",
+      "Hidden": false,
+      "IsDataSourceProperty": false,
+      "IsPrimaryBehavioral": false,
+      "IsPrimaryInput": false,
+      "IsPrimaryOutput": false,
+      "IsResettable": false,
+      "Name": "SelectedFile",
+      "ParentDataSetName": "",
+      "PassThroughProperty": "",
+      "PhoneDefaultValue": "",
+      "Required": false,
+      "ShouldAutoBind": false,
+      "Type": 5,
+      "Usage": 1,
+      "WebDefaultValue": ""
+    },
+    {
+      "Category": "data",
+      "DefaultValue": "",
       "Description": "Resultant validation state.  Displays the Validation Message and Validation State based on the Validate configuration.",
       "DescriptionResourceString": "Validation_Desc_Key",
       "DisplayName": "Validation",
@@ -1000,10 +1244,10 @@
     {
       "Category": "data",
       "DefaultValue": "",
-      "Description": "Available options to choose.  Include a Key column and Text column to display.",
-      "DescriptionResourceString": "Available options to choose.  Include a Key column and Text column to display.",
-      "DisplayName": "Items(##PCFDatasetItems##)",
-      "DisplayNameResourceString": "Items",
+      "Description": "Initial set of files to load into the control.",
+      "DescriptionResourceString": "Initial set of files to load into the control.",
+      "DisplayName": "Files(##PCFDatasetItems##)",
+      "DisplayNameResourceString": "Files",
       "HelperUI": "",
       "Hidden": false,
       "IsDataSourceProperty": true,
@@ -1025,10 +1269,10 @@
     {
       "Category": "data",
       "DefaultValue": "",
-      "Description": "Available options to choose.  Include a Key column and Text column to display.",
-      "DescriptionResourceString": "Available options to choose.  Include a Key column and Text column to display.",
-      "DisplayName": "Items(##PCFDatasetSelected##)",
-      "DisplayNameResourceString": "Items",
+      "Description": "Initial set of files to load into the control.",
+      "DescriptionResourceString": "Initial set of files to load into the control.",
+      "DisplayName": "Files(##PCFDatasetSelected##)",
+      "DisplayNameResourceString": "Files",
       "HelperUI": "",
       "Hidden": false,
       "IsDataSourceProperty": false,
@@ -1050,10 +1294,10 @@
     {
       "Category": "data",
       "DefaultValue": "",
-      "Description": "Available options to choose.  Include a Key column and Text column to display.",
-      "DescriptionResourceString": "Available options to choose.  Include a Key column and Text column to display.",
-      "DisplayName": "Items(##PCFDatasetSelectedItems##)",
-      "DisplayNameResourceString": "Items",
+      "Description": "Initial set of files to load into the control.",
+      "DescriptionResourceString": "Initial set of files to load into the control.",
+      "DisplayName": "Files(##PCFDatasetSelectedItems##)",
+      "DisplayNameResourceString": "Files",
       "HelperUI": "",
       "Hidden": false,
       "IsDataSourceProperty": false,
@@ -1075,10 +1319,10 @@
     {
       "Category": "data",
       "DefaultValue": "",
-      "Description": "Available options to choose.  Include a Key column and Text column to display.",
-      "DescriptionResourceString": "Available options to choose.  Include a Key column and Text column to display.",
-      "DisplayName": "Items(##PCFDatasetDefaultSelectedItems##)",
-      "DisplayNameResourceString": "Items",
+      "Description": "File",
+      "DescriptionResourceString": "Files_File_Display_Key",
+      "DisplayName": "File",
+      "DisplayNameResourceString": "Files_File_Display_Key",
       "HelperUI": "",
       "Hidden": false,
       "IsDataSourceProperty": false,
@@ -1086,15 +1330,15 @@
       "IsPrimaryInput": false,
       "IsPrimaryOutput": false,
       "IsResettable": false,
-      "Name": "DefaultSelectedItems",
+      "Name": "File",
       "NullDefaultValue": "",
-      "ParentDataSetName": "",
-      "PassThroughProperty": "Items",
+      "ParentDataSetName": "Items",
+      "PassThroughProperty": "",
       "PhoneDefaultValue": "",
       "Required": false,
       "ShouldAutoBind": false,
-      "Type": 26,
-      "Usage": 0,
+      "Type": 3,
+      "Usage": 2,
       "WebDefaultValue": ""
     },
     {
@@ -1130,19 +1374,19 @@
       "RequiredFor": "schema"
     },
     {
-      "Input": "ValidationSchema",
-      "Output": "Validation",
+      "Input": "SelectedFilesSchema",
+      "Output": "SelectedFiles",
       "RequiredFor": "schema"
     },
     {
-      "Input": "DefaultSelectedItems",
-      "Output": "Selected",
-      "RequiredFor": ""
+      "Input": "SelectedFileSchema",
+      "Output": "SelectedFile",
+      "RequiredFor": "schema"
     },
     {
-      "Input": "DefaultSelectedItems",
-      "Output": "SelectedItems",
-      "RequiredFor": ""
+      "Input": "ValidationSchema",
+      "Output": "Validation",
+      "RequiredFor": "schema"
     },
     {
       "Input": "Items",
@@ -1202,35 +1446,35 @@
       "IsControlSpecific": false,
       "LoadingOrder": 7,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"ManifestTemplate\",\"Data\":{\"ConstructorName\":\"F9Fields.ChoiceGroupField\",\"CustomControlId\":\"F9Fields.ChoiceGroupField\",\"IsVirtual\":true,\"Properties\":{\"Resources\":[{\"Name\":\"/PCF/prop-types.js\",\"LoadOrder\":1,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/react-fela.js\",\"LoadOrder\":2,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela.js\",\"LoadOrder\":3,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela-dom.js\",\"LoadOrder\":4,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PCFControls/js/PCFControlWrapper.js\",\"LoadOrder\":6,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PcfControlProxy/js/PcfControlProxy.js\",\"LoadOrder\":7,\"Type\":0,\"LibraryName\":null}],\"GroupDefinitions\":null,\"DataSetDefinitions\":{\"Items\":{\"DisplayName\":\"Items\",\"Type\":\"Grid\",\"Columns\":{},\"Primary\":true,\"InitialDataSetFetch\":true,\"CDSDataSetOptions\":null}},\"Properties\":{\"Multiselect\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"false\"},\"Layout\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"horizontal\"},\"Label\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Hint\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Info\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Required\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"false\"},\"ValidationMessage\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationState\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"error\"},\"Validate\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"onchange\"},\"Orientation\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"vertical\"},\"Size\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"medium\"},\"ContentHeight\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"ContentWidth\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"EventsSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Events\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Validation\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Items\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Selected\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"SelectedItems\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"DefaultSelectedItems\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"}},\"FeatureUsage\":null},\"Events\":{\"OnResize\":{\"EventName\":\"OnResize\"},\"OnValidate\":{\"EventName\":\"OnValidate\"}},\"CommonEvents\":{\"OnChange\":{\"EventName\":\"OnChange\"},\"OnSelect\":{\"EventName\":\"OnSelect\"}},\"DesignMap\":null,\"PropertyDependencies\":[{\"Input\":\"EventsSchema\",\"Output\":\"Events\",\"RequiredFor\":\"schema\"},{\"Input\":\"ValidationSchema\",\"Output\":\"Validation\",\"RequiredFor\":\"schema\"},{\"Input\":\"DefaultSelectedItems\",\"Output\":\"Selected\",\"RequiredFor\":\"\"},{\"Input\":\"DefaultSelectedItems\",\"Output\":\"SelectedItems\",\"RequiredFor\":\"\"},{\"Input\":\"Items\",\"Output\":\"Selected\",\"RequiredFor\":\"\"},{\"Input\":\"Items\",\"Output\":\"SelectedItems\",\"RequiredFor\":\"\"}],\"Children\":null}}",
+      "Path": "{\"Id\":\"ManifestTemplate\",\"Data\":{\"ConstructorName\":\"F9Fields.FilePickerField\",\"CustomControlId\":\"F9Fields.FilePickerField\",\"IsVirtual\":true,\"Properties\":{\"Resources\":[{\"Name\":\"/PCF/prop-types.js\",\"LoadOrder\":1,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/react-fela.js\",\"LoadOrder\":2,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela.js\",\"LoadOrder\":3,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela-dom.js\",\"LoadOrder\":4,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PCFControls/js/PCFControlWrapper.js\",\"LoadOrder\":6,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PcfControlProxy/js/PcfControlProxy.js\",\"LoadOrder\":7,\"Type\":0,\"LibraryName\":null}],\"GroupDefinitions\":null,\"DataSetDefinitions\":{\"DefaultFiles\":{\"DisplayName\":\"Files\",\"Type\":\"Grid\",\"Columns\":{\"0\":{\"Required\":false,\"Usage\":2,\"Name\":\"File\",\"Type\":\"File\"}},\"Primary\":true,\"InitialDataSetFetch\":true,\"CDSDataSetOptions\":null}},\"Properties\":{\"AllowMultipleFiles\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"false\"},\"MaxFileSize\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"10485760\"},\"AcceptedTypes\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Layout\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"vertical\"},\"Appearance\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"default\"},\"Label\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Hint\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Info\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Required\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"false\"},\"ValidationMessage\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"ValidationState\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"error\"},\"Validate\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"onchange\"},\"Orientation\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"vertical\"},\"Size\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"medium\"},\"ContentHeight\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"ContentWidth\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"EventsSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"SelectedFilesSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"SelectedFileSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Events\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"SelectedFiles\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"SelectedFile\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Validation\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Items\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Selected\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"SelectedItems\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"File\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"}},\"FeatureUsage\":[{\"IsRequired\":true,\"Name\":\"Device.pickFile\"}]},\"Events\":{\"OnResize\":{\"EventName\":\"OnResize\"},\"OnError\":{\"EventName\":\"OnError\"},\"OnValidate\":{\"EventName\":\"OnValidate\"}},\"CommonEvents\":{\"OnChange\":{\"EventName\":\"OnChange\"},\"OnSelect\":{\"EventName\":\"OnSelect\"}},\"DesignMap\":null,\"PropertyDependencies\":[{\"Input\":\"EventsSchema\",\"Output\":\"Events\",\"RequiredFor\":\"schema\"},{\"Input\":\"SelectedFilesSchema\",\"Output\":\"SelectedFiles\",\"RequiredFor\":\"schema\"},{\"Input\":\"SelectedFileSchema\",\"Output\":\"SelectedFile\",\"RequiredFor\":\"schema\"},{\"Input\":\"ValidationSchema\",\"Output\":\"Validation\",\"RequiredFor\":\"schema\"},{\"Input\":\"Items\",\"Output\":\"Selected\",\"RequiredFor\":\"\"},{\"Input\":\"Items\",\"Output\":\"SelectedItems\",\"RequiredFor\":\"\"}],\"Children\":null}}",
       "Type": 3
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 8,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"ManifestPropertyTypes\",\"Data\":{\"Properties\":[{\"Name\":\"Multiselect\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Layout\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Label\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Hint\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Info\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Required\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationMessage\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationState\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validate\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Orientation\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Size\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentHeight\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentWidth\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"EventsSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Events\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validation\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Items\",\"Type\":\"DataSet\",\"ComplexType\":\"None\",\"IsPrimary\":true,\"IsIncluded\":false},{\"Name\":\"Selected\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedItems\",\"Type\":\"DataSet\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"DefaultSelectedItems\",\"Type\":\"DataSet\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"PCFTeamsTheme\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"X\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Y\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Width\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Height\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Visible\",\"Type\":\"Boolean\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"DisplayMode\",\"Type\":\"DisplayMode\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"TabIndex\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Tooltip\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true}]}}",
+      "Path": "{\"Id\":\"ManifestPropertyTypes\",\"Data\":{\"Properties\":[{\"Name\":\"AllowMultipleFiles\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"MaxFileSize\",\"Type\":\"Whole_None\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"AcceptedTypes\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Layout\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Appearance\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Label\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Hint\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Info\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Required\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationMessage\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationState\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validate\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Orientation\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Size\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentHeight\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentWidth\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"EventsSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedFilesSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedFileSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Events\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedFiles\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedFile\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validation\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Items\",\"Type\":\"DataSet\",\"ComplexType\":\"None\",\"IsPrimary\":true,\"IsIncluded\":false},{\"Name\":\"Selected\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"SelectedItems\",\"Type\":\"DataSet\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"File\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"PCFTeamsTheme\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"X\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Y\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Width\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Height\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Visible\",\"Type\":\"Boolean\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"DisplayMode\",\"Type\":\"DisplayMode\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"TabIndex\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Tooltip\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true}]}}",
       "Type": 3
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.27\",\"IsFirstParty\":false}}",
+      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.29\",\"IsFirstParty\":false}}",
       "Type": 3
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 10,
-      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0F9Fields.ChoiceGroupField.bundle.js?sv=2018-03-28&sr=b&sig=JNbpIfNIt%2FbOdPQBLeGHk5M5OUYEd5wSlZd55QsZhX4%3D&spr=https&se=2023-07-30T02%3A03%3A53Z&sp=r",
-      "Path": "/PCFControls/bsqa_F9Fields.ChoiceGroupField/F9Fields.ChoiceGroupField.bundle.js",
+      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/c99cad97-78d1-4e57-8563-653e9c4a11fd-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0d5cl4u0q.3gu020S0Resources0Controls0F9Fields.FilePickerField.bundle.js?sv=2018-03-28&sr=b&sig=7s%2BlQYPM3%2FDrxwd6UMN7ceVXpRxuQunbhLihLBGqD3A%3D&spr=https&se=2023-08-04T17%3A12%3A58Z&sp=r",
+      "Path": "/PCFControls/bsqa_F9Fields.FilePickerField/F9Fields.FilePickerField.bundle.js",
       "Type": 0
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "/PCFControls/bsqa_F9Fields.ChoiceGroupField/strings/F9Fields.ChoiceGroupField.ChoiceGroupField.1033.resx",
+      "Path": "/PCFControls/bsqa_F9Fields.FilePickerField/strings/F9Fields.FilePickerField.FilePickerField.1033.resx",
       "Type": 2
     },
     {
@@ -1243,15 +1487,15 @@
     {
       "IsControlSpecific": true,
       "LoadingOrder": 13,
-      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0strings%252fF9Fields.ChoiceGroupField.ChoiceGroupField.1033.json?sv=2018-03-28&sr=b&sig=NlMMy6RFmc1sHB7Co9LVa1Cm3mVaeGsmOn2Sap0pIOc%3D&spr=https&se=2023-07-30T02%3A03%3A53Z&sp=r",
-      "Path": "/PCFControls/bsqa_F9Fields.ChoiceGroupField/strings/F9Fields.ChoiceGroupField.ChoiceGroupField.1033.json",
+      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/c99cad97-78d1-4e57-8563-653e9c4a11fd-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0d5cl4u0q.3gu020S0Resources0Controls0strings%252fF9Fields.FilePickerField.FilePickerField.1033.json?sv=2018-03-28&sr=b&sig=ulOzoehlh1qQzCccqXFfSHVBBmyBYYDnC72HpY6NzB4%3D&spr=https&se=2023-08-04T17%3A12%3A58Z&sp=r",
+      "Path": "/PCFControls/bsqa_F9Fields.FilePickerField/strings/F9Fields.FilePickerField.FilePickerField.1033.json",
       "Type": 5
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 13,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"LocalizedStrings\",\"Data\":{\"LocStrings\":{\"Label_Display_Key\":\"Label\",\"Label_Desc_Key\":\"Label for the field.\",\"Hint_Display_Key\":\"Hint\",\"Hint_Desc_Key\":\"Hint Text to display below the field.\",\"Info_Display_Key\":\"Info\",\"Info_Desc_Key\":\"If set, an info button will appear that will reveal the info content when clicked.\",\"Required_Display_Key\":\"Required\",\"Required_Desc_Key\":\"Shows an asterisk if the field is required.\",\"ValidationMessage_Display_Key\":\"Validation Message\",\"ValidationMessage_Desc_Key\":\"Validation message to display.  Message style can be changed by using the Validation State.\",\"ValidationState_Display_Key\":\"Validation State\",\"ValidationState_Desc_Key\":\"Changes the appearance of the Validation Message\",\"ValidationState_None_Display_Key\":\"None\",\"ValidationState_Success_Display_Key\":\"Success\",\"ValidationState_Warning_Display_Key\":\"Warning\",\"ValidationState_Error_Display_Key\":\"Error\",\"Orientation_Display_Key\":\"Orientation\",\"Orientation_Desc_Key\":\"Select whether the label should be oriented vertically or horizontally.\",\"Orientation_Horizontal_Display_Key\":\"Horizontal\",\"Orientation_Vertical_Display_Key\":\"Vertical\",\"Size_Display_Key\":\"Size\",\"Size_Desc_Key\":\"Choose the size for the label and control if supported.\",\"Size_Small_Display_Key\":\"Small\",\"Size_Medium_Display_Key\":\"Medium\",\"Size_Large_Display_Key\":\"Large\",\"Appearance_Display_Key\":\"Appearance\",\"Content_Height_Disp_Key\":\"Content Height\",\"Content_Height_Desc_Key\":\"Actual height required by the field.\",\"Content_Width_Disp_Key\":\"Content Width\",\"Content_Width_Desc_Key\":\"Actual width required by the field.\",\"Appearance_Outline_Display_Key\":\"Outline\",\"Appearance_Underline_Display_Key\":\"Underline\",\"Appearance_FilledDarker_Display_Key\":\"Filled-Darker\",\"Appearance_FilledLighter_Display_Key\":\"Filled-Lighter\",\"Appearance_Desc_Key\":\"Select an appearance variant for the control.\",\"OnResize_Disp_Key\":\"On Resize\",\"OnResize_Desc_Key\":\"Executes when the internal content area of the control changes.\",\"Validate_Display_Key\":\"Validate\",\"Validate_Desc_Key\":\"Determines when validation should be processed and output to the Validation output.\",\"Validate_OnChange_Display_Key\":\"On Change\",\"Validate_Always_Display_Key\":\"Always\",\"Validate_Never_Display_Key\":\"Never\",\"ValidationSchema_Disp_Key\":\"ValidationSchema\",\"ValidationSchema_Desc_Key\":\"JSON Schema for the Validaton Output Object\",\"Events_Disp_Key\":\"Events\",\"Events_Desc_Key\":\"List of events that executed since the last component output refresh.\",\"Events_Schema_Disp_Key\":\"Events Schema\",\"Events_Schema_Desc_Key\":\"JSON Schema for events\",\"Validation_Disp_Key\":\"Validation\",\"Validation_Desc_Key\":\"Resultant validation state.  Displays the Validation Message and Validation State based on the Validate configuration.\",\"OnValidate_Disp_Key\":\"On Validate\",\"OnValidate_Desc_Key\":\"Executed when validation output changes\",\"ChoiceGroupField_Disp_Key\":\"ChoiceGroup Field\",\"ChoiceGroupField_Desc_Key\":\"A ChoiceGroup combines a text field and a dropdown giving people a way to select an option from a list or enter their own choice.\",\"Items_Disp_Key\":\"Items\",\"Items_Desc_Key\":\"Available options to choose.  Include a Key column and Text column to display.\",\"Multiselect_Display_Key\":\"Multiselect\",\"Multiselect_Desc_Key\":\"Allow for single selection or multiple selection.\",\"SelectedOptions_Schema_Disp_Key\":\"Selected Options Schema\",\"SelectedOptions_Schema_Desc_Key\":\"Schema for Selected Options object.\",\"Layout_Horizontal_Display_Key\":\"Horizontal\",\"Layout_Vertical_Display_Key\":\"Vertical\",\"Layout_HorizontalStacked_Display_Key\":\"Horizontal-Stacked\",\"Layout_Display_Key\":\"Layout\",\"Layout_Desc_Key\":\"Choose a layout variant for the control.\"}}}",
+      "Path": "{\"Id\":\"LocalizedStrings\",\"Data\":{\"LocStrings\":{\"Label_Display_Key\":\"Label\",\"Label_Desc_Key\":\"Label for the field.\",\"Hint_Display_Key\":\"Hint\",\"Hint_Desc_Key\":\"Hint Text to display below the field.\",\"Info_Display_Key\":\"Info\",\"Info_Desc_Key\":\"If set, an info button will appear that will reveal the info content when clicked.\",\"Required_Display_Key\":\"Required\",\"Required_Desc_Key\":\"Shows an asterisk if the field is required.\",\"ValidationMessage_Display_Key\":\"Validation Message\",\"ValidationMessage_Desc_Key\":\"Validation message to display.  Message style can be changed by using the Validation State.\",\"ValidationState_Display_Key\":\"Validation State\",\"ValidationState_Desc_Key\":\"Changes the appearance of the Validation Message\",\"ValidationState_None_Display_Key\":\"None\",\"ValidationState_Success_Display_Key\":\"Success\",\"ValidationState_Warning_Display_Key\":\"Warning\",\"ValidationState_Error_Display_Key\":\"Error\",\"Orientation_Display_Key\":\"Orientation\",\"Orientation_Desc_Key\":\"Select whether the label should be oriented vertically or horizontally.\",\"Orientation_Horizontal_Display_Key\":\"Horizontal\",\"Orientation_Vertical_Display_Key\":\"Vertical\",\"Size_Display_Key\":\"Size\",\"Size_Desc_Key\":\"Choose the size for the label and control if supported.\",\"Size_Small_Display_Key\":\"Small\",\"Size_Medium_Display_Key\":\"Medium\",\"Size_Large_Display_Key\":\"Large\",\"Appearance_Display_Key\":\"Appearance\",\"Content_Height_Disp_Key\":\"Content Height\",\"Content_Height_Desc_Key\":\"Actual height required by the field.\",\"Content_Width_Disp_Key\":\"Content Width\",\"Content_Width_Desc_Key\":\"Actual width required by the field.\",\"Appearance_Outline_Display_Key\":\"Outline\",\"Appearance_Underline_Display_Key\":\"Underline\",\"Appearance_FilledDarker_Display_Key\":\"Filled-Darker\",\"Appearance_FilledLighter_Display_Key\":\"Filled-Lighter\",\"Appearance_Desc_Key\":\"Select an appearance variant for the control.\",\"OnResize_Disp_Key\":\"On Resize\",\"OnResize_Desc_Key\":\"Executes when the internal content area of the control changes.\",\"Validate_Display_Key\":\"Validate\",\"Validate_Desc_Key\":\"Determines when validation should be processed and output to the Validation output.\",\"Validate_OnChange_Display_Key\":\"On Change\",\"Validate_Always_Display_Key\":\"Always\",\"Validate_Never_Display_Key\":\"Never\",\"ValidationSchema_Disp_Key\":\"ValidationSchema\",\"ValidationSchema_Desc_Key\":\"JSON Schema for the Validaton Output Object\",\"Events_Disp_Key\":\"Events\",\"Events_Desc_Key\":\"List of events that executed since the last component output refresh.\",\"Events_Schema_Disp_Key\":\"Events_Schema_Disp_Key\",\"Events_Schema_Desc_Key\":\"Events_Schema_Desc_Key\",\"Validation_Disp_Key\":\"Validation\",\"Validation_Desc_Key\":\"Resultant validation state.  Displays the Validation Message and Validation State based on the Validate configuration.\",\"OnValidate_Disp_Key\":\"On Validate\",\"OnValidate_Desc_Key\":\"Executed when validation output changes\",\"FilePickerField_Disp_Key\":\"File Picker Field\",\"FilePickerField_Desc_Key\":\"Allows users to choose files.\",\"Options_Disp_Key\":\"Options\",\"Options_Desc_Key\":\"Available options to choose.  Include a Key column and Text column to display.\",\"Default_Selected_Options_Disp_Key\":\"Default Selected Options\",\"Default_Selected_Options_Desc_Key\":\"Options selected by default in the control\",\"SelectedOptions_Disp_Key\":\"Selected Options\",\"SelectedOptions_Desc_Key\":\"Options that are currently selected in the control.\",\"Multiselect_Display_Key\":\"Multiselect\",\"Multiselect_Desc_Key\":\"Allow for single selection or multiple selection.\",\"SelectedOptions_Schema_Disp_Key\":\"Selected Options Schema\",\"SelectedOptions_Schema_Desc_Key\":\"Schema for Selected Options object.\",\"Layout_Horizontal_Display_Key\":\"Horizontal\",\"Layout_Vertical_Display_Key\":\"Vertical\",\"Layout_HorizontalStacked_Display_Key\":\"Horizontal-Stacked\",\"Layout_Display_Key\":\"Layout\",\"Layout_Desc_Key\":\"Choose a layout variant for the control.\",\"Default_Add_Single_File_Display_Key\":\"Add file\",\"Default_Add_Multiple_Files_Display_Key\":\"Add files\",\"Files_File_Display_Key\":\"File\",\"Files_Disp_Key\":\"Files\",\"Files_Desc_Key\":\"Initial set of files to load into the control.\",\"Files_Description_Display_Key\":\"Description\",\"AllowMultipleFiles_Display_Key\":\"Allow Multiple Files\",\"AllowMultipleFiles_Desc_Key\":\"Allow users to select more than 1 file in the file picker.\",\"MaxFileSize_Display_Key\":\"Max File Size\",\"MaxFileSize_Desc_Key\":\"Maximum file size in bytes.\",\"AcceptedTypes_Display_Key\":\"Accepted Types\",\"AcceptedTypes_Desc_Key\":\"Acceptable values are \\\"audio\\\", \\\"video\\\", \\\"image\\\", or specific file extensions.\",\"Appearance_Default_Display_Key\":\"Default\",\"Appearance_Primary_Display_Key\":\"Primary\",\"Appearance_Subtle_Display_Key\":\"Subtle\",\"Appearance_Transparent_Display_Key\":\"Transparent\",\"SelectedFiles_Schema_Disp_Key\":\"Selected Files Schema\",\"SelectedFiles_Schema_Desc_Key\":\"Schema for the selected files\",\"SelectedFiles_Disp_Key\":\"Selected Files\",\"SelectedFiles_Desc_Key\":\"Current files that have been selected by the user\",\"SelectedFile_Schema_Disp_Key\":\"Selected File Schema\",\"SelectedFile_Schema_Desc_Key\":\"Schema describing the Selected File object\",\"SelectedFile_Disp_Key\":\"Selected File\",\"SelectedFile_Desc_Key\":\"Returns a single selected file\",\"OnError_Disp_Key\":\"On Error\",\"OnError_Desc_Key\":\"Executes if an error is returned from the file picker control.\"}}}",
       "Type": 3
     },
     {
@@ -1279,5 +1523,5 @@
   "SubscribedFunctionalities": {
     "sharedTemplate": "false"
   },
-  "Version": "0.0.27"
+  "Version": "0.0.29"
 }

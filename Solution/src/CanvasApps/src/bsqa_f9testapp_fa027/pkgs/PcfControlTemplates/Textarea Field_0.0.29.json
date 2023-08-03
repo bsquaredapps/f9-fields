@@ -1,29 +1,18 @@
 {
   "AuthConfigProperties": [
     {
+      "AllowResize": {
+        "EnabledForFlyout": false,
+        "HelperUI": null,
+        "Hidden": false,
+        "PropertyGroupName": "",
+        "PropertyKind": 1,
+        "SectionIndex": 0,
+        "SectionName": "data",
+        "Type": 0,
+        "WizardStep": null
+      },
       "Appearance": {
-        "EnabledForFlyout": false,
-        "HelperUI": null,
-        "Hidden": false,
-        "PropertyGroupName": "",
-        "PropertyKind": 1,
-        "SectionIndex": 0,
-        "SectionName": "data",
-        "Type": 0,
-        "WizardStep": null
-      },
-      "ContentAfter": {
-        "EnabledForFlyout": false,
-        "HelperUI": null,
-        "Hidden": false,
-        "PropertyGroupName": "",
-        "PropertyKind": 1,
-        "SectionIndex": 0,
-        "SectionName": "data",
-        "Type": 0,
-        "WizardStep": null
-      },
-      "ContentBefore": {
         "EnabledForFlyout": false,
         "HelperUI": null,
         "Hidden": false,
@@ -101,17 +90,6 @@
         "WizardStep": null
       },
       "Info": {
-        "EnabledForFlyout": false,
-        "HelperUI": null,
-        "Hidden": false,
-        "PropertyGroupName": "",
-        "PropertyKind": 1,
-        "SectionIndex": 0,
-        "SectionName": "data",
-        "Type": 0,
-        "WizardStep": null
-      },
-      "InputType": {
         "EnabledForFlyout": false,
         "HelperUI": null,
         "Hidden": false,
@@ -305,23 +283,23 @@
       "Name": "OnSelect"
     }
   ],
-  "ControlConstructor": "InputField",
+  "ControlConstructor": "TextareaField",
   "ControlNamespace": "F9Fields",
-  "DisplayNameKey": "InputField_Display_Key",
+  "DisplayNameKey": "TextareaField_Display_Key",
   "Events": [
-    {
-      "Description": "Executed when validation output changes",
-      "DisplayName": "On Validate",
-      "Hidden": false,
-      "IsPrimaryInput": false,
-      "Name": "OnValidate"
-    },
     {
       "Description": "Executes when the internal content area of the control changes.",
       "DisplayName": "On Resize",
       "Hidden": false,
       "IsPrimaryInput": false,
       "Name": "OnResize"
+    },
+    {
+      "Description": "Executed when validation output changes",
+      "DisplayName": "On Validate",
+      "Hidden": false,
+      "IsPrimaryInput": false,
+      "Name": "OnValidate"
     }
   ],
   "IncludedProperties": [
@@ -502,7 +480,7 @@
     },
     {
       "Category": "design",
-      "DefaultValue": "Input allows the user to enter and edit text",
+      "DefaultValue": "Input allows the user to enter and edit multiline text",
       "Description": "",
       "DescriptionResourceString": "",
       "DisplayName": "Tooltip",
@@ -526,7 +504,7 @@
       "WebDefaultValue": ""
     }
   ],
-  "Name": "Input Field",
+  "Name": "Textarea Field",
   "Properties": [
     {
       "Category": "data",
@@ -605,95 +583,39 @@
     },
     {
       "Category": "data",
-      "DefaultValue": "text",
-      "Description": "A format for the input control",
-      "DescriptionResourceString": "InputType_Desc_Key",
-      "DisplayName": "Input Type",
-      "DisplayNameResourceString": "InputType_Display_Key",
+      "DefaultValue": "none",
+      "Description": "Allow user to resize the text area field",
+      "DescriptionResourceString": "AllowResize_Desc_Key",
+      "DisplayName": "Allow Resize",
+      "DisplayNameResourceString": "AllowResize_Display_Key",
       "EnumValues": [
         {
-          "Description": "Number",
-          "DisplayName": "Number",
+          "Description": "None",
+          "DisplayName": "None",
           "IsDefaultValue": false,
-          "Name": "Number",
-          "Value": "number"
+          "Name": "None",
+          "Value": "none"
         },
         {
-          "Description": "Time",
-          "DisplayName": "Time",
+          "Description": "Both",
+          "DisplayName": "Both",
           "IsDefaultValue": false,
-          "Name": "Time",
-          "Value": "time"
+          "Name": "Both",
+          "Value": "both"
         },
         {
-          "Description": "Text",
-          "DisplayName": "Text",
+          "Description": "Horizontal",
+          "DisplayName": "Horizontal",
           "IsDefaultValue": false,
-          "Name": "Text",
-          "Value": "text"
+          "Name": "Horizontal",
+          "Value": "horizontal"
         },
         {
-          "Description": "Search",
-          "DisplayName": "Search",
+          "Description": "Vertical",
+          "DisplayName": "Vertical",
           "IsDefaultValue": false,
-          "Name": "Search",
-          "Value": "search"
-        },
-        {
-          "Description": "Phone",
-          "DisplayName": "Phone",
-          "IsDefaultValue": false,
-          "Name": "Telephone",
-          "Value": "tel"
-        },
-        {
-          "Description": "Url",
-          "DisplayName": "Url",
-          "IsDefaultValue": false,
-          "Name": "Url",
-          "Value": "url"
-        },
-        {
-          "Description": "Email",
-          "DisplayName": "Email",
-          "IsDefaultValue": false,
-          "Name": "Email",
-          "Value": "email"
-        },
-        {
-          "Description": "Date",
-          "DisplayName": "Date",
-          "IsDefaultValue": false,
-          "Name": "Date",
-          "Value": "date"
-        },
-        {
-          "Description": "Date Time",
-          "DisplayName": "Date Time",
-          "IsDefaultValue": false,
-          "Name": "DateTime",
-          "Value": "datetime-local"
-        },
-        {
-          "Description": "Month",
-          "DisplayName": "Month",
-          "IsDefaultValue": false,
-          "Name": "Month",
-          "Value": "month"
-        },
-        {
-          "Description": "Password",
-          "DisplayName": "Password",
-          "IsDefaultValue": false,
-          "Name": "Password",
-          "Value": "password"
-        },
-        {
-          "Description": "Week",
-          "DisplayName": "Week",
-          "IsDefaultValue": false,
-          "Name": "Week",
-          "Value": "week"
+          "Name": "Vertical",
+          "Value": "vertical"
         }
       ],
       "HelperUI": "",
@@ -703,63 +625,13 @@
       "IsPrimaryInput": false,
       "IsPrimaryOutput": false,
       "IsResettable": false,
-      "Name": "InputType",
+      "Name": "AllowResize",
       "ParentDataSetName": "",
       "PassThroughProperty": "",
       "PhoneDefaultValue": "",
       "Required": false,
       "ShouldAutoBind": false,
       "Type": 1,
-      "Usage": 0,
-      "WebDefaultValue": ""
-    },
-    {
-      "Category": "data",
-      "DefaultValue": "",
-      "Description": "Content that will appear before the input control box.",
-      "DescriptionResourceString": "ContentBefore_Desc_Key",
-      "DisplayName": "Content Before",
-      "DisplayNameResourceString": "ContentBefore_Display_Key",
-      "EnumValues": [],
-      "HelperUI": "",
-      "Hidden": false,
-      "IsDataSourceProperty": false,
-      "IsPrimaryBehavioral": false,
-      "IsPrimaryInput": false,
-      "IsPrimaryOutput": false,
-      "IsResettable": false,
-      "Name": "ContentBefore",
-      "ParentDataSetName": "",
-      "PassThroughProperty": "",
-      "PhoneDefaultValue": "",
-      "Required": false,
-      "ShouldAutoBind": false,
-      "Type": 6,
-      "Usage": 0,
-      "WebDefaultValue": ""
-    },
-    {
-      "Category": "data",
-      "DefaultValue": "",
-      "Description": "Content that will appear after the input control box.",
-      "DescriptionResourceString": "ContentAfter_Desc_Key",
-      "DisplayName": "Content After",
-      "DisplayNameResourceString": "ContentAfter_Display_Key",
-      "EnumValues": [],
-      "HelperUI": "",
-      "Hidden": false,
-      "IsDataSourceProperty": false,
-      "IsPrimaryBehavioral": false,
-      "IsPrimaryInput": false,
-      "IsPrimaryOutput": false,
-      "IsResettable": false,
-      "Name": "ContentAfter",
-      "ParentDataSetName": "",
-      "PassThroughProperty": "",
-      "PhoneDefaultValue": "",
-      "Required": false,
-      "ShouldAutoBind": false,
-      "Type": 6,
       "Usage": 0,
       "WebDefaultValue": ""
     },
@@ -957,7 +829,7 @@
       "Required": false,
       "ShouldAutoBind": false,
       "Type": 6,
-      "Usage": 0,
+      "Usage": 2,
       "WebDefaultValue": ""
     },
     {
@@ -1011,7 +883,7 @@
       "Required": false,
       "ShouldAutoBind": false,
       "Type": 1,
-      "Usage": 0,
+      "Usage": 2,
       "WebDefaultValue": ""
     },
     {
@@ -1162,13 +1034,6 @@
           "IsDefaultValue": false,
           "Name": "Outline",
           "Value": "outline"
-        },
-        {
-          "Description": "Underline",
-          "DisplayName": "Underline",
-          "IsDefaultValue": false,
-          "Name": "Underline",
-          "Value": "underline"
         },
         {
           "Description": "Filled-Darker",
@@ -1437,35 +1302,35 @@
       "IsControlSpecific": false,
       "LoadingOrder": 7,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"ManifestTemplate\",\"Data\":{\"ConstructorName\":\"F9Fields.InputField\",\"CustomControlId\":\"F9Fields.InputField\",\"IsVirtual\":true,\"Properties\":{\"Resources\":[{\"Name\":\"/PCF/prop-types.js\",\"LoadOrder\":1,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/react-fela.js\",\"LoadOrder\":2,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela.js\",\"LoadOrder\":3,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela-dom.js\",\"LoadOrder\":4,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PCFControls/js/PCFControlWrapper.js\",\"LoadOrder\":6,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PcfControlProxy/js/PcfControlProxy.js\",\"LoadOrder\":7,\"Type\":0,\"LibraryName\":null}],\"GroupDefinitions\":null,\"DataSetDefinitions\":{},\"Properties\":{\"DefaultValue\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Value\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Placeholder\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"InputType\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"text\"},\"ContentBefore\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ContentAfter\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"DelayOutput\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"debounce\"},\"DelayTimeout\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"300\"},\"Label\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Hint\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Info\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Required\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"false\"},\"ValidationMessage\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationState\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"error\"},\"Validate\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"onchange\"},\"Orientation\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"vertical\"},\"Size\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"medium\"},\"Appearance\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"outline\"},\"ContentHeight\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"ContentWidth\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"EventsSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Events\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Validation\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"}},\"FeatureUsage\":null},\"Events\":{\"OnValidate\":{\"EventName\":\"OnValidate\"},\"OnResize\":{\"EventName\":\"OnResize\"}},\"CommonEvents\":{\"OnChange\":{\"EventName\":\"OnChange\"},\"OnSelect\":{\"EventName\":\"OnSelect\"}},\"DesignMap\":null,\"PropertyDependencies\":[{\"Input\":\"EventsSchema\",\"Output\":\"Events\",\"RequiredFor\":\"schema\"},{\"Input\":\"ValidationSchema\",\"Output\":\"Validation\",\"RequiredFor\":\"schema\"}],\"Children\":null}}",
+      "Path": "{\"Id\":\"ManifestTemplate\",\"Data\":{\"ConstructorName\":\"F9Fields.TextareaField\",\"CustomControlId\":\"F9Fields.TextareaField\",\"IsVirtual\":true,\"Properties\":{\"Resources\":[{\"Name\":\"/PCF/prop-types.js\",\"LoadOrder\":1,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/react-fela.js\",\"LoadOrder\":2,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela.js\",\"LoadOrder\":3,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/PCF/fela-dom.js\",\"LoadOrder\":4,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PCFControls/js/PCFControlWrapper.js\",\"LoadOrder\":6,\"Type\":0,\"LibraryName\":null},{\"Name\":\"/ctrllib/PcfControlProxy/js/PcfControlProxy.js\",\"LoadOrder\":7,\"Type\":0,\"LibraryName\":null}],\"GroupDefinitions\":null,\"DataSetDefinitions\":{},\"Properties\":{\"DefaultValue\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Value\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Placeholder\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"AllowResize\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"none\"},\"DelayOutput\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"debounce\"},\"DelayTimeout\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"300\"},\"Label\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Hint\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Info\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"Required\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"false\"},\"ValidationMessage\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"\"},\"ValidationState\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"error\"},\"Validate\":{\"Required\":true,\"Usage\":0,\"DefaultValue\":\"onchange\"},\"Orientation\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"vertical\"},\"Size\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"medium\"},\"Appearance\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"outline\"},\"ContentHeight\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"ContentWidth\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"EventsSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"ValidationSchema\":{\"Required\":true,\"Usage\":1,\"DefaultValue\":\"\"},\"Events\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"},\"Validation\":{\"Required\":true,\"Usage\":2,\"DefaultValue\":\"\"}},\"FeatureUsage\":null},\"Events\":{\"OnResize\":{\"EventName\":\"OnResize\"},\"OnValidate\":{\"EventName\":\"OnValidate\"}},\"CommonEvents\":{\"OnChange\":{\"EventName\":\"OnChange\"},\"OnSelect\":{\"EventName\":\"OnSelect\"}},\"DesignMap\":null,\"PropertyDependencies\":[{\"Input\":\"EventsSchema\",\"Output\":\"Events\",\"RequiredFor\":\"schema\"},{\"Input\":\"ValidationSchema\",\"Output\":\"Validation\",\"RequiredFor\":\"schema\"}],\"Children\":null}}",
       "Type": 3
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 8,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"ManifestPropertyTypes\",\"Data\":{\"Properties\":[{\"Name\":\"DefaultValue\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Value\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Placeholder\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"InputType\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentBefore\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentAfter\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"DelayOutput\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"DelayTimeout\",\"Type\":\"Whole_None\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Label\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Hint\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Info\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Required\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationMessage\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationState\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validate\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Orientation\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Size\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Appearance\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentHeight\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentWidth\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"EventsSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Events\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validation\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"PCFTeamsTheme\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"X\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Y\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Width\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Height\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Visible\",\"Type\":\"Boolean\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"DisplayMode\",\"Type\":\"DisplayMode\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"TabIndex\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Tooltip\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true}]}}",
+      "Path": "{\"Id\":\"ManifestPropertyTypes\",\"Data\":{\"Properties\":[{\"Name\":\"DefaultValue\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Value\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Placeholder\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"AllowResize\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"DelayOutput\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"DelayTimeout\",\"Type\":\"Whole_None\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Label\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Hint\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Info\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Required\",\"Type\":\"TwoOptions\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationMessage\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationState\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validate\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Orientation\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Size\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Appearance\",\"Type\":\"Enum\",\"ComplexType\":\"None\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentHeight\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ContentWidth\",\"Type\":\"Decimal\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"EventsSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"ValidationSchema\",\"Type\":\"SingleLine_Text\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Events\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"Validation\",\"Type\":\"Object\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":false},{\"Name\":\"PCFTeamsTheme\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"X\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Y\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Width\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Height\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Visible\",\"Type\":\"Boolean\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"DisplayMode\",\"Type\":\"DisplayMode\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"TabIndex\",\"Type\":\"Number\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true},{\"Name\":\"Tooltip\",\"Type\":\"String\",\"ComplexType\":\"\",\"IsPrimary\":false,\"IsIncluded\":true}]}}",
       "Type": 3
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.27\",\"IsFirstParty\":false}}",
+      "Path": "{\"Id\":\"PowerAppsControlInfo\",\"Data\":{\"TemplateVersion\":1,\"Version\":\"0.0.29\",\"IsFirstParty\":false}}",
       "Type": 3
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 10,
-      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0F9Fields.InputField.bundle.js?sv=2018-03-28&sr=b&sig=lUZSpOQes5L40D%2BSJzghAiuNx3bjT%2F%2FaIATPQPwoZQQ%3D&spr=https&se=2023-07-30T02%3A03%3A55Z&sp=r",
-      "Path": "/PCFControls/bsqa_F9Fields.InputField/F9Fields.InputField.bundle.js",
+      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/c99cad97-78d1-4e57-8563-653e9c4a11fd-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0d5cl4u0q.3gu020S0Resources0Controls0F9Fields.TextareaField.bundle.js?sv=2018-03-28&sr=b&sig=L0TPIxUmy7tkk49rV%2Bx44XrZN1MifBJl2kDmgk9%2Bt%2Bc%3D&spr=https&se=2023-08-04T17%3A13%3A00Z&sp=r",
+      "Path": "/PCFControls/bsqa_F9Fields.TextareaField/F9Fields.TextareaField.bundle.js",
       "Type": 0
     },
     {
       "IsControlSpecific": true,
       "LoadingOrder": 9,
       "ModifiedPath": "",
-      "Path": "/PCFControls/bsqa_F9Fields.InputField/strings/F9Fields.InputField.InputField.1033.resx",
+      "Path": "/PCFControls/bsqa_F9Fields.TextareaField/strings/F9Fields.TextareaField.TextareaField.1033.resx",
       "Type": 2
     },
     {
@@ -1478,15 +1343,15 @@
     {
       "IsControlSpecific": true,
       "LoadingOrder": 13,
-      "ModifiedPath": "https://docserverpaagovugtx.blob.core.usgovcloudapi.net/1a80822c-6641-45b2-83f9-fde884b6a9f2-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App860work0352qqbq1.jwg020S0Resources0Controls0strings%252fF9Fields.InputField.InputField.1033.json?sv=2018-03-28&sr=b&sig=kENpHkMdi1sZTjPXAbhHqnQ7AfEayIzaswgaAFJ3oiM%3D&spr=https&se=2023-07-30T02%3A03%3A55Z&sp=r",
-      "Path": "/PCFControls/bsqa_F9Fields.InputField/strings/F9Fields.InputField.InputField.1033.json",
+      "ModifiedPath": "https://docserverpaagovugva.blob.core.usgovcloudapi.net/c99cad97-78d1-4e57-8563-653e9c4a11fd-1/appdynamicresources/D%253a0SvcFab0_App0PowerApps.WebAuthoringType_App790work0d5cl4u0q.3gu020S0Resources0Controls0strings%252fF9Fields.TextareaField.TextareaField.1033.json?sv=2018-03-28&sr=b&sig=MZhvpbILdxPfbFBXBhS1VjOoZO5od%2BeunzI1syEYUeo%3D&spr=https&se=2023-08-04T17%3A13%3A00Z&sp=r",
+      "Path": "/PCFControls/bsqa_F9Fields.TextareaField/strings/F9Fields.TextareaField.TextareaField.1033.json",
       "Type": 5
     },
     {
       "IsControlSpecific": false,
       "LoadingOrder": 13,
       "ModifiedPath": "",
-      "Path": "{\"Id\":\"LocalizedStrings\",\"Data\":{\"LocStrings\":{\"Label_Display_Key\":\"Label\",\"Label_Desc_Key\":\"Label for the field.\",\"Hint_Display_Key\":\"Hint\",\"Hint_Desc_Key\":\"Hint Text to display below the field.\",\"Info_Display_Key\":\"Info\",\"Info_Desc_Key\":\"If set, an info button will appear that will reveal the info content when clicked.\",\"Required_Display_Key\":\"Required\",\"Required_Desc_Key\":\"Shows an asterisk if the field is required.\",\"ValidationMessage_Display_Key\":\"Validation Message\",\"ValidationMessage_Desc_Key\":\"Validation message to display.  Message style can be changed by using the Validation State.\",\"ValidationState_Display_Key\":\"Validation State\",\"ValidationState_Desc_Key\":\"Changes the appearance of the Validation Message\",\"ValidationState_None_Display_Key\":\"None\",\"ValidationState_Success_Display_Key\":\"Success\",\"ValidationState_Warning_Display_Key\":\"Warning\",\"ValidationState_Error_Display_Key\":\"Error\",\"Orientation_Display_Key\":\"Orientation\",\"Orientation_Desc_Key\":\"Select whether the label should be oriented vertically or horizontally.\",\"Orientation_Horizontal_Display_Key\":\"Horizontal\",\"Orientation_Vertical_Display_Key\":\"Vertical\",\"Size_Display_Key\":\"Size\",\"Size_Desc_Key\":\"Choose the size for the label and control if supported.\",\"Size_Small_Display_Key\":\"Small\",\"Size_Medium_Display_Key\":\"Medium\",\"Size_Large_Display_Key\":\"Large\",\"Appearance_Display_Key\":\"Appearance\",\"Content_Height_Disp_Key\":\"Content Height\",\"Content_Height_Desc_Key\":\"Actual height required by the field.\",\"Content_Width_Disp_Key\":\"Content Width\",\"Content_Width_Desc_Key\":\"Actual width required by the field.\",\"Appearance_Outline_Display_Key\":\"Outline\",\"Appearance_Underline_Display_Key\":\"Underline\",\"Appearance_FilledDarker_Display_Key\":\"Filled-Darker\",\"Appearance_FilledLighter_Display_Key\":\"Filled-Lighter\",\"Appearance_Desc_Key\":\"Select an appearance variant for the control.\",\"OnResize_Disp_Key\":\"On Resize\",\"OnResize_Desc_Key\":\"Executes when the internal content area of the control changes.\",\"Validate_Display_Key\":\"Validate\",\"Validate_Desc_Key\":\"Determines when validation should be processed and output to the Validation output.\",\"Validate_OnChange_Display_Key\":\"On Change\",\"Validate_Always_Display_Key\":\"Always\",\"Validate_Never_Display_Key\":\"Never\",\"ValidationSchema_Disp_Key\":\"ValidationSchema\",\"ValidationSchema_Desc_Key\":\"JSON Schema for the Validaton Output Object\",\"Events_Disp_Key\":\"Events\",\"Events_Desc_Key\":\"List of events that executed since the last component output refresh.\",\"Events_Schema_Disp_Key\":\"Events_Schema_Disp_Key\",\"Events_Schema_Desc_Key\":\"Events_Schema_Desc_Key\",\"Validation_Disp_Key\":\"Validation\",\"Validation_Desc_Key\":\"Resultant validation state.  Displays the Validation Message and Validation State based on the Validate configuration.\",\"OnValidate_Disp_Key\":\"On Validate\",\"OnValidate_Desc_Key\":\"Executed when validation output changes\",\"DefaultValue_Display_Key\":\"Default Value\",\"DefaultValue_Desc_Key\":\"Initial value for the control.  The value will be reset if the default value changes.\",\"Value_Display_Key\":\"Value\",\"Value_Desc_Key\":\"Current value of the control\",\"Placeholder_Display_Key\":\"Placeholder\",\"Placeholder_Desc_Key\":\"Placeholder text that will appear if there is no value\",\"InputType_Display_Key\":\"Input Type\",\"InputType_Desc_Key\":\"A format for the input control\",\"InputType_Number_Display_Key\":\"Number\",\"InputType_Time_Display_Key\":\"Time\",\"InputType_Text_Display_Key\":\"Text\",\"InputType_Search_Display_Key\":\"Search\",\"InputType_Telephone_Display_Key\":\"Phone\",\"InputType_Url_Display_Key\":\"Url\",\"InputType_Email_Display_Key\":\"Email\",\"InputType_Date_Display_Key\":\"Date\",\"InputType_DateTime_Display_Key\":\"Date Time\",\"InputType_Month_Display_Key\":\"Month\",\"InputType_Password_Display_Key\":\"Password\",\"InputType_Week_Display_Key\":\"Week\",\"ContentBefore_Display_Key\":\"Content Before\",\"ContentBefore_Desc_Key\":\"Content that will appear before the input control box.\",\"ContentAfter_Display_Key\":\"Content After\",\"ContentAfter_Desc_Key\":\"Content that will appear after the input control box.\",\"DelayOutput_Display_Key\":\"Delay Output\",\"DelayOutput_Desc_Key\":\"Choose to delay output.  Can be helpful in galleries or to reduce the number of search queries in search fields.\",\"DelayOutput_None_Display_Key\":\"None\",\"DelayOutput_Debounce_Display_Key\":\"Debounce\",\"DelayOutput_OnBlur_Display_Key\":\"On Blur\",\"DelayTimeout_Display_Key\":\"Delay Timeout\",\"DelayTimeout_Desc_Key\":\"Number of millisecond to delay before triggering a change event when Delay Output set to Debounce\",\"InputField_Display_Key\":\"Input Field\",\"InputField_Desc_Key\":\"Input allows the user to enter and edit text\"}}}",
+      "Path": "{\"Id\":\"LocalizedStrings\",\"Data\":{\"LocStrings\":{\"Label_Display_Key\":\"Label\",\"Label_Desc_Key\":\"Label for the field.\",\"Hint_Display_Key\":\"Hint\",\"Hint_Desc_Key\":\"Hint Text to display below the field.\",\"Info_Display_Key\":\"Info\",\"Info_Desc_Key\":\"If set, an info button will appear that will reveal the info content when clicked.\",\"Required_Display_Key\":\"Required\",\"Required_Desc_Key\":\"Shows an asterisk if the field is required.\",\"ValidationMessage_Display_Key\":\"Validation Message\",\"ValidationMessage_Desc_Key\":\"Validation message to display.  Message style can be changed by using the Validation State.\",\"ValidationState_Display_Key\":\"Validation State\",\"ValidationState_Desc_Key\":\"Changes the appearance of the Validation Message\",\"ValidationState_None_Display_Key\":\"None\",\"ValidationState_Success_Display_Key\":\"Success\",\"ValidationState_Warning_Display_Key\":\"Warning\",\"ValidationState_Error_Display_Key\":\"Error\",\"Orientation_Display_Key\":\"Orientation\",\"Orientation_Desc_Key\":\"Select whether the label should be oriented vertically or horizontally.\",\"Orientation_Horizontal_Display_Key\":\"Horizontal\",\"Orientation_Vertical_Display_Key\":\"Vertical\",\"Size_Display_Key\":\"Size\",\"Size_Desc_Key\":\"Choose the size for the label and control if supported.\",\"Size_Small_Display_Key\":\"Small\",\"Size_Medium_Display_Key\":\"Medium\",\"Size_Large_Display_Key\":\"Large\",\"Appearance_Display_Key\":\"Appearance\",\"Content_Height_Disp_Key\":\"Content Height\",\"Content_Height_Desc_Key\":\"Actual height required by the field.\",\"Content_Width_Disp_Key\":\"Content Width\",\"Content_Width_Desc_Key\":\"Actual width required by the field.\",\"Appearance_Outline_Display_Key\":\"Outline\",\"Appearance_FilledDarker_Display_Key\":\"Filled-Darker\",\"Appearance_FilledLighter_Display_Key\":\"Filled-Lighter\",\"Appearance_Desc_Key\":\"Select an appearance variant for the control.\",\"OnResize_Disp_Key\":\"On Resize\",\"OnResize_Desc_Key\":\"Executes when the internal content area of the control changes.\",\"Validate_Display_Key\":\"Validate\",\"Validate_Desc_Key\":\"Determines when validation should be processed and output to the Validation output.\",\"Validate_OnChange_Display_Key\":\"On Change\",\"Validate_Always_Display_Key\":\"Always\",\"Validate_Never_Display_Key\":\"Never\",\"ValidationSchema_Disp_Key\":\"ValidationSchema\",\"ValidationSchema_Desc_Key\":\"JSON Schema for the Validaton Output Object\",\"Events_Disp_Key\":\"Events\",\"Events_Desc_Key\":\"List of events that executed since the last component output refresh.\",\"Events_Schema_Disp_Key\":\"Events_Schema_Disp_Key\",\"Events_Schema_Desc_Key\":\"Events_Schema_Desc_Key\",\"Validation_Disp_Key\":\"Validation\",\"Validation_Desc_Key\":\"Resultant validation state.  Displays the Validation Message and Validation State based on the Validate configuration.\",\"OnValidate_Disp_Key\":\"On Validate\",\"OnValidate_Desc_Key\":\"Executed when validation output changes\",\"DefaultValue_Display_Key\":\"Default Value\",\"DefaultValue_Desc_Key\":\"Initial value for the control.  The value will be reset if the default value changes.\",\"Value_Display_Key\":\"Value\",\"Value_Desc_Key\":\"Current value of the control\",\"Placeholder_Display_Key\":\"Placeholder\",\"Placeholder_Desc_Key\":\"Placeholder text that will appear if there is no value\",\"DelayOutput_Display_Key\":\"Delay Output\",\"DelayOutput_Desc_Key\":\"Choose to delay output.  Can be helpful in galleries or to reduce the number of search queries in search fields.\",\"DelayOutput_None_Display_Key\":\"None\",\"DelayOutput_Debounce_Display_Key\":\"Debounce\",\"DelayOutput_OnBlur_Display_Key\":\"On Blur\",\"DelayTimeout_Display_Key\":\"Delay Timeout\",\"DelayTimeout_Desc_Key\":\"Number of millisecond to delay before triggering a change event when Delay Output set to Debounce\",\"TextareaField_Display_Key\":\"Textarea Field\",\"TextareaField_Desc_Key\":\"Input allows the user to enter and edit multiline text\",\"AllowResize_None_Display_Key\":\"None\",\"AllowResize_Both_Display_Key\":\"Both\",\"AllowResize_Horizontal_Display_Key\":\"Horizontal\",\"AllowResize_Vertical_Display_Key\":\"Vertical\",\"AllowResize_Display_Key\":\"Allow Resize\",\"AllowResize_Desc_Key\":\"Allow user to resize the text area field\"}}}",
       "Type": 3
     },
     {
@@ -1514,5 +1379,5 @@
   "SubscribedFunctionalities": {
     "sharedTemplate": "false"
   },
-  "Version": "0.0.27"
+  "Version": "0.0.29"
 }

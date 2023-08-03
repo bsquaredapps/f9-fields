@@ -186,8 +186,7 @@
         Height: =Self.ContentHeight
         Hint: =FilePicker_Hint.Text
         Info: =FilePicker_Info.Text
-        Items: |-
-            =ForAll(FilePicker_Items, {File: File, Description: Description})
+        Items: =FilePicker_Items
         Label: =FilePicker_Label.Text
         Layout: =FilePicker_Layout.Selected.Value
         MaxFileSize: =FilePicker_MaxFileSize.Text

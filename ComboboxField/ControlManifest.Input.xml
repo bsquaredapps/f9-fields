@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="ComboboxField" version="0.0.27" display-name-key="ComboboxField_Disp_Key" description-key="ComboboxField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="ComboboxField" version="0.0.29" display-name-key="ComboboxField_Disp_Key" description-key="ComboboxField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -44,8 +44,8 @@
     <property name="Hint" display-name-key="Hint_Display_Key" description-key="Hint_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Info" display-name-key="Info_Display_Key" description-key="Info_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Required" display-name-key="Required_Display_Key" description-key="Required_Desc_Key" of-type="TwoOptions" usage="bound" required="false" default-value="false" />
-    <property name="ValidationMessage" display-name-key="ValidationMessage_Display_Key" description-key="ValidationMessage_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="input" required="false" default-value="error">
+    <property name="ValidationMessage" display-name-key="ValidationMessage_Display_Key" description-key="ValidationMessage_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="bound" required="false" default-value="error">
       <value name="None" display-name-key="ValidationState_None_Display_Key">none</value>
       <value name="Success" display-name-key="ValidationState_Success_Display_Key">success</value>
       <value name="Warning" display-name-key="ValidationState_Warning_Display_Key">warning</value>

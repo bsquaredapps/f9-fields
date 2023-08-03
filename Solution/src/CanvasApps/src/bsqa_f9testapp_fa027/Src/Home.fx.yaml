@@ -127,3 +127,25 @@ Home As screen:
         Y: =324
         ZIndex: =10
 
+    "ChoiceGroupField1_2 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: =_Supervisor_Acknowledgement
+        DisplayMode: =
+        Height: =Self.ContentHeight
+        Hint: =
+        Info: =
+        Items: |-
+            =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
+        Label: =
+        Layout: =
+        Multiselect: =true
+        OnChange: =Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
+        Orientation: =
+        Required: =
+        Size: =
+        ValidationMessage: =If(IsBlank(_Supervisor_Acknowledgement), "You need a value", "")
+        ValidationState: ="error"
+        Width: =187
+        X: =708
+        Y: =344
+        ZIndex: =11
+

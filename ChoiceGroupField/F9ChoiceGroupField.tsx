@@ -49,7 +49,6 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
         isRead,
         isControlDisabled,
         multiselect,
-        selectedOptions,
         layout,
         options,
         onChange,
@@ -58,9 +57,15 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
 
     const inputRef = React.useRef<HTMLDivElement>(null);
 
+    const [selectedOptions, setSelectedOptions] = React.useState<string[]>(props.selectedOptions ?? []);
+    React.useEffect(()=>{
+        setSelectedOptions(props.selectedOptions ?? [])
+    },[props.selectedOptions]);
+
     const onSelectionChange = ( ev: React.FormEvent<HTMLDivElement>, selectedValue: string ) => {
         if(isRead || isControlDisabled){
             ev.preventDefault();
+            setSelectedOptions(selectedOptions);
         } else {
             const event = { type: ev.type, target: {...ev.currentTarget}};
             const newSelectedOptions = 

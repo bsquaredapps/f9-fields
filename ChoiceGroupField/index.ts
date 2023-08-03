@@ -15,10 +15,14 @@ import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { CheckboxProps, RadioProps } from "@fluentui/react-components";
-import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
+import { F9FieldOnValidateData, F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
 import { arrayDifference } from "../utils/arrayDifference";
 
+interface CustomContext<T> extends ComponentFramework.Context<T>{
+    events: { [key: string]: () => void};
+    mode: ComponentFramework.Context<T>["mode"] & { isRead: boolean }
+}
 export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
@@ -42,7 +46,8 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     private userUpdatedValue = false;
     private resetDefaultSelectedItems = false;
 
-    private onChange: F9ChoiceGroupFieldOnChangeEventHandler = (targetRef, selectedOptions) => {
+    private onChange(targetRef: React.RefObject<HTMLDivElement>, selectedOptions: string[]){
+
         if(this.optionsDataSet){
             
             this.userUpdatedValue = true;
@@ -71,12 +76,12 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
             this.fnEvents?.OnChange?.();
         }
     }
-    private onSelect: React.MouseEventHandler<any> = (event): void => {
+    private onSelect(event: React.MouseEvent<any>): void {
         this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.notifyOutputChanged();
     }
 
-    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize(size?: ScrollSize, target?: React.MutableRefObject<null>): void {
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
         const event: PASourceEvent = {
@@ -92,7 +97,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.notifyOutputChanged();
     }
     
-    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
+    private onValidate(targetRef: React.RefObject<HTMLElement>, validationData: F9FieldOnValidateData) {
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
@@ -135,6 +140,11 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.contentHeight = context.mode.allocatedHeight ?? 0;
         this.contentWidth = context.mode.allocatedWidth ?? 0;
         this.eventQueue = new PAEventQueue();
+        this.onChange = this.onChange.bind(this);
+        this.onResize = this.onResize.bind(this);
+        this.onValidate = this.onValidate.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        
     }
 
     /**
@@ -142,53 +152,69 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      * @returns ReactElement root react element for the control
      */
-    public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        this.fnEvents = (context as any).events;
-        
+    public updateView(context: CustomContext<IInputs>): React.ReactElement {
         //execute queued events
         this.eventQueue.execute(context);
         
-        if(
-            context.updatedProperties.includes('dataset') || 
-            context.updatedProperties.includes('records') || 
-            context.updatedProperties.includes('DefaultSelectedItems') ||
-            !this.optionsDataSet
-        ){
-            this.optionsDataSet = context.parameters.Items;
-            this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
-            this.options = getOptionsFromDataSet(this.optionsDataSet);
-        }
+        const { 
+            events, 
+            mode, 
+            parameters,
+            updatedProperties
+        } =  context;
 
-        if(context.updatedProperties.includes('SelectedItems')){
-            if(this.resetDefaultSelectedItems){
-                this.resetDefaultSelectedItems = false;
-                context.parameters.Items.refresh();
-            } else {
-                const selectedOptions = getSelectedOptionsFromRecords(this.optionsDataSet!, this.optionsValueColumn!);
-                if((arrayDifference(selectedOptions, this.selectedOptions)?.length) ?? 0 > 0){
-                    this.selectedOptions = selectedOptions;
-                    this.userUpdatedValue = false;
-                }
+        const { 
+            Items, 
+            Label, 
+            Hint, 
+            Info, 
+            Required, 
+            Layout, 
+            Orientation, 
+            Validate,
+            ValidationMessage, 
+            ValidationState,
+            Size,
+            Multiselect
+        } = parameters;
+        
+        const { isControlDisabled, isRead } = mode;
+
+        this.fnEvents = events;
+        this.optionsDataSet = Items;
+        this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
+        this.options = getOptionsFromDataSet<CheckboxProps & RadioProps>(this.optionsDataSet);
+        
+        this.label = Label.raw || undefined;
+        this.hint = Hint.raw || undefined;
+        this.info = Info.raw || undefined;
+        this.required = Required.raw ?? false;
+
+        this.fnEvents = (context as any).events;
+        
+
+        if(this.resetDefaultSelectedItems){
+            this.resetDefaultSelectedItems = false;
+            context.parameters.Items.refresh();
+        } else {
+            const selectedOptions = getSelectedOptionsFromRecords(this.optionsDataSet!, this.optionsValueColumn!);
+            if((arrayDifference(selectedOptions, this.selectedOptions)?.length) ?? 0 > 0){
+                this.selectedOptions = selectedOptions;
+                this.userUpdatedValue = false;
             }
         }
         
         if(
-            context.updatedProperties.includes('DefaultSelectedItems') &&
+            updatedProperties.includes('DefaultSelectedItems') &&
             !context.mode.isVisible &&
             (
                 !(context.parameters as any).DefaultSelectedItems?.raw || 
                 (context.parameters as any).DefaultSelectedItems?.raw?.length == 0
             ) &&
-            context.parameters.Items.getSelectedRecordIds().length == 0
+            Items.getSelectedRecordIds().length == 0
         ){
             this.resetDefaultSelectedItems = true;
         }
-
-        //grab raw props
-        this.label = context.parameters.Label.raw || undefined;
-        this.hint = context.parameters.Hint.raw || undefined;
-        this.info = context.parameters.Info.raw || undefined;
-        this.required = context.parameters.Required.raw;
 
         //update validation
         if(
@@ -196,10 +222,10 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
             || context.updatedProperties.includes("ValidationState")
         ){
            const pendingValidation = { 
-                validationMessage: context.parameters.ValidationMessage.raw ?? '',
+                validationMessage: ValidationMessage.raw ?? '',
                 validationState: 
-                    context.parameters.ValidationState.raw 
-                    ?? (context.parameters.ValidationMessage.raw ? "error" : "none"),
+                    ValidationState.raw 
+                    ?? (ValidationMessage.raw ? "error" : "none"),
             };
             if(
                 this.pendingValidation.validationMessage != pendingValidation.validationMessage
@@ -216,12 +242,12 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
                 hint: this.hint,
                 info: this.info,
                 required: this.required,
-                orientation: context.parameters.Orientation.raw,
-                size: context.parameters.Size.raw || "medium",
+                orientation: Orientation.raw,
+                size: Size.raw || "medium",
                 onResize: this.onResize,
                 onClick: this.onSelect,
                 onValidate: this.onValidate,
-                validate: context.parameters.Validate.raw,
+                validate: Validate.raw,
                 valueChanged: this.userUpdatedValue,
                 pendingValidation: this.pendingValidation,
                 style: {
@@ -232,10 +258,10 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
             /* control specific props */
             options: this.options,
             selectedOptions: this.selectedOptions,
-            multiselect: context.parameters.Multiselect.raw,
-            layout: context.parameters.Layout.raw || "vertical",
-            isRead: (context.mode as any).isRead,
-            isControlDisabled: context.mode.isControlDisabled,
+            multiselect: Multiselect.raw ?? false,
+            layout: Layout.raw || "vertical",
+            isRead: isRead,
+            isControlDisabled: isControlDisabled,
             onChange: this.onChange
         };
         return React.createElement(
@@ -250,6 +276,8 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     public getOutputs(): IOutputs {
         return { 
             Validation: {...this.validation},
+            ValidationMessage: this.validation.Message,
+            ValidationState: this.validation.State,
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Events: this.eventQueue.getOutput(),

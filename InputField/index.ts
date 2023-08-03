@@ -1,10 +1,11 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import { F9InputField, F9InputFieldOnChangeEventHandler, F9InputFieldProps } from "./F9InputField";
+import { F9InputField, F9InputFieldProps } from "./F9InputField";
 import { PASourceEvent, PAEventsSchema, PASourceTarget, PAEventQueue } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
-import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
+import { F9FieldOnValidateData, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
+import { InputOnChangeData } from "@fluentui/react-components";
 
 export class InputField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -26,7 +27,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
 
-    private maybeDebounceNotifyOutputChanged = ()=>{
+    private maybeDebounceNotifyOutputChanged(){
         window.clearTimeout(this.debounceTimeoutId);
         switch(this.debounce){
             case "debounce":
@@ -39,16 +40,16 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
             default:
                 this.notifyOutputChanged();
         }
-    };
+    }
 
-    private onBlur: React.FocusEventHandler<HTMLInputElement> = (ev) =>{
+    private onBlur(ev: React.FocusEvent<HTMLInputElement>){
         if(this.debounce === "onblur"){
             window.clearTimeout(this.debounceTimeoutId);
             this.notifyOutputChanged();
         }
     }
 
-    private onChange: F9InputFieldOnChangeEventHandler = (targetRef, data) => {
+    private onChange(targetRef: React.RefObject<HTMLInputElement>, data?: InputOnChangeData){
         this.value = data?.value ?? "";
         const event = {
             type: "change",
@@ -59,12 +60,12 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.maybeDebounceNotifyOutputChanged();
     }
     
-    private onSelect: React.MouseEventHandler<any> = (event): void => {
+    private onSelect(event: React.MouseEvent<any>){
         this.eventQueue.add(event as PASourceEvent, "OnSelect")
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize(size?: ScrollSize, target?: React.MutableRefObject<null>){
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
         const event: PASourceEvent = {
@@ -80,7 +81,7 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
+    private onValidate(targetRef: React.RefObject<HTMLElement>, validationData: F9FieldOnValidateData){
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
@@ -124,6 +125,12 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
         this.contentHeight = context.mode.allocatedHeight ?? 0;
         this.contentWidth = context.mode.allocatedWidth ?? 0;
         this.eventQueue = new PAEventQueue();
+        this.maybeDebounceNotifyOutputChanged = this.maybeDebounceNotifyOutputChanged.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.onResize = this.onResize.bind(this);
+        this.onValidate = this.onValidate.bind(this);
     }
 
     /**
@@ -213,6 +220,8 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     public getOutputs(): IOutputs {
         return { 
             Value: this.value,
+            ValidationMessage: this.validation.Message,
+            ValidationState: this.validation.State,
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,

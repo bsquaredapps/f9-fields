@@ -61,7 +61,6 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         allowSearch,
         placeholder,
         options,
-        selectedOptions,
         searchTextUpdated,
         onBlur,
         onChange,
@@ -71,8 +70,12 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
-    const [searchText, setSearchText] = React.useState(props.searchText);
+    const [selectedOptions, setSelectedOptions] = React.useState<string[]>(props.selectedOptions ?? [])
+    React.useEffect(()=>{
+        setSelectedOptions(props.selectedOptions ?? []);
+    },[props.selectedOptions]);
 
+    const [searchText, setSearchText] = React.useState(props.searchText);
     React.useEffect(() => {
         if (searchTextUpdated && props.searchText !== searchText) {
             setSearchText(props.searchText);
@@ -87,6 +90,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         const { optionValue } = data;
 
         if (optionValue) {
+            setSelectedOptions(data.selectedOptions);
             onChange?.(inputRef, data);
         }
     };
@@ -147,7 +151,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                                 .map(option => option.text ?? option.value)
                                 .join(', ')
                     }
-                    selectedOptions={props.selectedOptions}
+                    selectedOptions={selectedOptions}
                     placeholder={placeholder}
                     freeform={allowSearch}
                     onOptionSelect={onOptionSelect}

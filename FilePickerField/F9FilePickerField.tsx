@@ -167,15 +167,12 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         saveAs(file.file.fileContent, file.file.fileName);
     }
 
-    const filesRef = React.useRef(files);
-    filesRef.current = files;
-
     const onAdd = async (ev: React.FormEvent<HTMLButtonElement>) => {
         if (isRead || isControlDisabled) return;
         const fileObjs = await pickFile();
         if (fileObjs) {
             const files: F9FilePickerFile[] = fileObjs.map((file) => ({ file }));
-            const existingFiles = filesRef.current?.filter((oldfile)=>!files.find((newFile)=>newFile.file.fileName === oldfile.file.fileName));
+            const existingFiles = files.filter((oldfile)=>!files.find((newFile)=>newFile.file.fileName === oldfile.file.fileName));
             const newFiles = existingFiles ? [...existingFiles, ...files] : files;
             onChange?.(ev, newFiles);
         }

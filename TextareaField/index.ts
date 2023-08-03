@@ -3,8 +3,9 @@ import { F9TextareaField, F9TextareaFieldOnChangeEventHandler, F9TextareaFieldPr
 import { PASourceEvent, PAEventsSchema, PASourceTarget, PAEventQueue } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
-import { F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
+import { F9FieldOnValidateData, F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
+import { TextareaOnChangeData } from "@fluentui/react-components";
 
 
 export class TextareaField implements ComponentFramework.ReactControl<IInputs, IOutputs> {
@@ -27,7 +28,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
 
-    private maybeDebounceNotifyOutputChanged = ()=>{
+    private maybeDebounceNotifyOutputChanged(){
         window.clearTimeout(this.debounceTimeoutId);
         switch(this.debounce){
             case "debounce":
@@ -40,16 +41,16 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
             default:
                 this.notifyOutputChanged();
         }
-    };
+    }
 
-    private onBlur: React.FocusEventHandler<HTMLTextAreaElement> = (ev) =>{
+    private onBlur(ev:React.FocusEvent<HTMLTextAreaElement>){
         if(this.debounce === "onblur"){
             window.clearTimeout(this.debounceTimeoutId);
             this.notifyOutputChanged();
         }
     }
 
-    private onChange: F9TextareaFieldOnChangeEventHandler = (targetRef, data) => {
+    private onChange(targetRef: React.RefObject<HTMLTextAreaElement>, data?: TextareaOnChangeData) {
         this.value = data?.value ?? "";
         const event = {
             type: "change",
@@ -65,7 +66,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onResize = (size?: ScrollSize, target?: React.MutableRefObject<null>): void =>{
+    private onResize(size?: ScrollSize, target?: React.MutableRefObject<null>){
         this.contentHeight = size?.height;
         this.contentWidth = size?.width;
         const event: PASourceEvent = {
@@ -81,7 +82,7 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         this.maybeDebounceNotifyOutputChanged();
     }
 
-    private onValidate: F9FieldOnValidateEventHandler = (targetRef, validationData) => {
+    private onValidate(targetRef: React.RefObject<HTMLElement>, validationData: F9FieldOnValidateData){
         this.validation = {
             Message: validationData.validationMessage ?? "",
             State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
@@ -125,6 +126,12 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
         this.contentHeight = context.mode.allocatedHeight;
         this.contentWidth = context.mode.allocatedWidth;
         this.eventQueue = new PAEventQueue();
+        this.onValidate = this.onValidate.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onResize = this.onResize.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.maybeDebounceNotifyOutputChanged = this.maybeDebounceNotifyOutputChanged.bind(this);
     }
 
     /**
@@ -214,6 +221,8 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     public getOutputs(): IOutputs {
         return { 
             Value: this.value,
+            ValidationMessage: this.validation.Message,
+            ValidationState: this.validation.State,
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,

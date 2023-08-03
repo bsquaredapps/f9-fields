@@ -45,14 +45,6 @@
         "PCFExternalServiceUsageAllowed": false
       },
       "ComponentName": "CustomControl",
-      "Identifier": "bsqa_F9Fields.ChoiceGroupField",
-      "IdentifierType": 0
-    },
-    {
-      "Capabilities": {
-        "PCFExternalServiceUsageAllowed": false
-      },
-      "ComponentName": "CustomControl",
       "Identifier": "bsqa_F9Fields.FilePickerField",
       "IdentifierType": 0
     },
@@ -102,6 +94,14 @@
       },
       "ComponentName": "CustomControl",
       "Identifier": "bsqa_F9Fields.Dialog",
+      "IdentifierType": 0
+    },
+    {
+      "Capabilities": {
+        "PCFExternalServiceUsageAllowed": false
+      },
+      "ComponentName": "CustomControl",
+      "Identifier": "bsqa_F9Fields.ChoiceGroupField",
       "IdentifierType": 0
     },
     {

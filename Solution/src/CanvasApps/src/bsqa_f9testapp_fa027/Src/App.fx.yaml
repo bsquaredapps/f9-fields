@@ -2,7 +2,7 @@ App As appinfo:
     BackEnabled: =false
     OnStart: |-
         =Set(_Boolean, 
-        { Yes: {Value: "1", Text:"Yes"}, No: {Value: "0", Text:"No"}});
+        { Yes: {Value: true, TextValue: "true", Text:"Yes"}, No: {Value: false, TextValue: "false", Text:"No"}});
         Set(_Booleans, Table(_Boolean.Yes, _Boolean.No));
         
         Set(SelfEmploymentType,{
