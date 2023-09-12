@@ -58,7 +58,7 @@ function createResizeObserver() {
   const observer = new ResizeObserver(
     (entries: ResizeObserverEntry[], obs: Polyfill) => {
       allEntries = allEntries.concat(entries)
-      if (!ticking) {
+      /* if (!ticking) {
         window.requestAnimationFrame(() => {
           const triggered = new Set<Element>()
           for (let i = 0; i < allEntries.length; i++) {
@@ -71,7 +71,15 @@ function createResizeObserver() {
           ticking = false
         })
       }
-      ticking = true
+      ticking = true */
+      const triggered = new Set<Element>()
+      for (let i = 0; i < allEntries.length; i++) {
+        if (triggered.has(allEntries[i].target)) continue
+        triggered.add(allEntries[i].target)
+        const cbs = callbacks.get(allEntries[i].target)
+        cbs?.forEach((cb) => cb(allEntries[i], obs))
+      }
+      allEntries = []
     }
   )
 

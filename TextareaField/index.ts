@@ -221,8 +221,6 @@ export class TextareaField implements ComponentFramework.ReactControl<IInputs, I
     public getOutputs(): IOutputs {
         return { 
             Value: this.value,
-            ValidationMessage: this.validation.Message,
-            ValidationState: this.validation.State,
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,

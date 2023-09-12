@@ -188,8 +188,6 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
     public getOutputs(): IOutputs {
         return { 
             Validation: {...this.validation},
-            ValidationMessage: this.validation.Message,
-            ValidationState: this.validation.State,
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Events: this.eventQueue.getOutput(),

@@ -216,6 +216,9 @@
     "TextInputCanvas2 As 'Text input'":
         DisplayMode: =DisplayMode.Edit
         Height: =45
+        MaxLength: =-1
+        Placeholder: =""
+        Type: ="Text"
         Width: =240
         X: =23
         Y: =397

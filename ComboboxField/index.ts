@@ -347,8 +347,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         return { 
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            ValidationMessage: this.validation.Message,
-            ValidationState: this.validation.State,
             Validation: {...this.validation},
             Events: this.eventQueue.getOutput(),
             SearchText: this.searchText,

@@ -207,7 +207,7 @@
         LayoutMode: =LayoutMode.Auto
         X: =100
         Y: =100
-        ZIndex: =28
+        ZIndex: =27
 
         "TextareaField1 As 'Textarea Field'":
             AllowResize: =Textarea_Resize.Selected.Value

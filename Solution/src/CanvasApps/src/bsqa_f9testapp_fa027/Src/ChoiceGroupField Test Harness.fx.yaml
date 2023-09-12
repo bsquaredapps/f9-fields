@@ -205,3 +205,15 @@
         Y: =55
         ZIndex: =25
 
+    RadioGroupCanvas1 As Radio.pcfdataset:
+        DefaultSelectedItems: =_Supervisor_Acknowledgement
+        DisplayMode: =DisplayMode.Edit
+        Height: =96
+        Items: |-
+            =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
+        Layout: ='RadioGroupCanvas.Layout'.Vertical
+        Width: =320
+        X: =47
+        Y: =250
+        ZIndex: =26
+

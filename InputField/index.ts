@@ -220,8 +220,6 @@ export class InputField implements ComponentFramework.ReactControl<IInputs, IOut
     public getOutputs(): IOutputs {
         return { 
             Value: this.value,
-            ValidationMessage: this.validation.Message,
-            ValidationState: this.validation.State,
             Validation: {...this.validation},
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,

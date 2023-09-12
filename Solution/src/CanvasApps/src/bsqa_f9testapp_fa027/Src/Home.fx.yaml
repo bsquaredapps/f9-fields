@@ -117,16 +117,6 @@ Home As screen:
         Y: =89
         ZIndex: =9
 
-    btnCombobox_1 As Button:
-        DisplayMode: =DisplayMode.Edit
-        Height: =28
-        OnSelect: =Navigate('ComboboxField Test Harness_1')
-        Text: ="Combobox Field 1"
-        Width: =159
-        X: =28
-        Y: =324
-        ZIndex: =10
-
     "ChoiceGroupField1_2 As 'ChoiceGroup Field'.pcfdataset":
         DefaultSelectedItems: =_Supervisor_Acknowledgement
         DisplayMode: =

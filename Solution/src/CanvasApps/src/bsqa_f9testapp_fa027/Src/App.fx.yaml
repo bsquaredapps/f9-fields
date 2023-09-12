@@ -58,4 +58,5 @@ App As appinfo:
                 Other
             )
         ));
+    Theme: =PowerAppsTheme
 
