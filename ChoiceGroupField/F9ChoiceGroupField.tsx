@@ -67,6 +67,7 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
             ev.preventDefault();
             setSelectedOptions(selectedOptions);
         } else {
+            
             const event = { type: ev.type, target: {...ev.currentTarget}};
             const newSelectedOptions = 
                 multiselect 
@@ -78,6 +79,7 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                     selectedOptions?.includes(selectedValue)
                     ? []
                     : [selectedValue];
+                    
             onChange?.(inputRef, newSelectedOptions);
         }
     };

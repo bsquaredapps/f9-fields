@@ -6,7 +6,7 @@
       <LocalizedName description="F9 Fields" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>0.0.31</Version>
+    <Version>0.0.32</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>bsqa</UniqueName>

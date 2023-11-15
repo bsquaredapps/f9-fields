@@ -21,7 +21,7 @@ Home As screen:
         ZIndex: =2
 
     Label5 As label:
-        Text: ="v24"
+        Text: ="v28"
         X: =305
         ZIndex: =3
 

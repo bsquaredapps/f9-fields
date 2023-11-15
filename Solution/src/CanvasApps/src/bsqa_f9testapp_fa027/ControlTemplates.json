@@ -148,7 +148,7 @@
       }
     },
     "TemplateDisplayName": "ChoiceGroup Field",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "Combobox": {
     "CustomGroupControlTemplateName": "",
@@ -271,7 +271,7 @@
       }
     },
     "TemplateDisplayName": "Combobox Field",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "Dialog": {
     "CustomGroupControlTemplateName": "",
@@ -286,7 +286,7 @@
     "Name": "bsqa_F9Fields.Dialog",
     "OverridableProperties": {},
     "TemplateDisplayName": "Dialog",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "dropdown": {
     "CustomGroupControlTemplateName": "",
@@ -423,7 +423,7 @@
       }
     },
     "TemplateDisplayName": "Field",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "File Picker Field": {
     "CustomGroupControlTemplateName": "",
@@ -621,7 +621,7 @@
       }
     },
     "TemplateDisplayName": "File Picker Field",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "groupContainer": {
     "CustomGroupControlTemplateName": "",
@@ -743,7 +743,7 @@
       }
     },
     "TemplateDisplayName": "Input Field",
-    "Version": "0.0.31"
+    "Version": "0.0.32"
   },
   "label": {
     "CustomGroupControlTemplateName": "",

@@ -18,6 +18,7 @@ import { CheckboxProps, RadioProps } from "@fluentui/react-components";
 import { F9FieldOnValidateData, F9FieldOnValidateEventHandler, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
 import { arrayDifference } from "../utils/arrayDifference";
+import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
 
 interface CustomContext<T> extends ComponentFramework.Context<T>{
     events: { [key: string]: () => void};
@@ -45,6 +46,49 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
     };
     private userUpdatedValue = false;
     private resetDefaultSelectedItems = false;
+    private controlId: string;
+    private controlUniqueId: string;
+    private controlName: string;
+    private defaultSelectedItemsListener: PropertyListener;
+
+    private onDefaultSelectedItemsChanged = (bindingContext: any)=>{
+        
+
+        /* const { ruleValue } = bindingContext.inputRow[this.controlName].DefaultSelectedItems;
+        if(!ruleValue || ruleValue.length === 0){
+            this.optionsDataSet?.setSelectedRecordIds([]);
+        } else {
+            this.optionsDataSet?.refresh();
+        } */
+        const { ruleValue } = bindingContext.inputRow[this.controlName].DefaultSelectedItems;
+        const selectedOptions = 
+            ruleValue?.map( (item: any) => {return item[this.optionsValueColumn ?? "Value"]?.toString()}) 
+            ?? ruleValue[this.optionsValueColumn!]?.toString()
+            ?? [];
+        console.log({
+            control: this.controlName, 
+            event: "onDefaultSelectedItemsChanged",
+            ruleValue,
+            selectedOptions,
+            oldSelectedOptions: this.selectedOptions,
+            valueColumnName: this.optionsValueColumn!,
+            controlId: this.controlId,
+            controlUniqueId: this.controlUniqueId,
+            bindingContext: {...bindingContext}
+        });
+        if((arrayDifference(selectedOptions, this.selectedOptions)?.length) ?? 0 > 0){
+            this.selectedOptions = selectedOptions;
+            this.userUpdatedValue = false;
+            console.log(this.optionsDataSet);
+            const selectedRecordIds = getSelectedRecordsFromOptions(
+                this.optionsDataSet, 
+                selectedOptions, 
+                this.options, 
+                this.optionsValueColumn
+            );
+            this.optionsDataSet?.setSelectedRecordIds(selectedRecordIds);
+        }
+    }
 
     private onChange(targetRef: React.RefObject<HTMLDivElement>, selectedOptions: string[]){
 
@@ -59,7 +103,6 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
                 this.options, 
                 this.optionsValueColumn
             );
-            
             const event = {
                 type: "change",
                 target: targetRef,
@@ -144,6 +187,17 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.onResize = this.onResize.bind(this);
         this.onValidate = this.onValidate.bind(this);
         this.onSelect = this.onSelect.bind(this);
+        this.controlName = context.mode.label;
+        this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
+        this.controlUniqueId = (context as any).client._customControlProperties.controlId;
+
+        this.defaultSelectedItemsListener = new PropertyListener(
+            this.controlId, 
+            this.controlUniqueId, 
+            this.controlName, 
+            "DefaultSelectedItems", 
+            PropertyType.Input
+        );
         
     }
 
@@ -153,6 +207,18 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
      * @returns ReactElement root react element for the control
      */
     public updateView(context: CustomContext<IInputs>): React.ReactElement {
+        console.log({
+            control: this.controlName, 
+            event: "updateView",
+            updatedProperties: context.updatedProperties,
+            context: context,
+            SelectedItems: [...(context.parameters as any).SelectedItems?.raw ?? []],
+            DefaultSelectedItems: [...(context.parameters as any).DefaultSelectedItems?.raw ?? []],
+            controlId: this.controlId,
+            controlUniqueId: this.controlUniqueId
+        });
+
+        this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged)
         //execute queued events
         this.eventQueue.execute(context);
         
@@ -193,7 +259,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
         this.fnEvents = (context as any).events;
         
 
-        if(this.resetDefaultSelectedItems){
+        /* if(this.resetDefaultSelectedItems){
             this.resetDefaultSelectedItems = false;
             context.parameters.Items.refresh();
         } else {
@@ -214,7 +280,7 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
             Items.getSelectedRecordIds().length == 0
         ){
             this.resetDefaultSelectedItems = true;
-        }
+        } */
 
         //update validation
         if(
@@ -303,6 +369,11 @@ export class ChoiceGroupField implements ComponentFramework.ReactControl<IInputs
      * i.e. cancelling any pending remote calls, removing listeners, etc.
      */
     public destroy(): void {
+        console.log({
+            control: this.controlName, 
+            event: "destroy"
+        });
         // Add code to cleanup control if necessary
+        this.defaultSelectedItemsListener.destroy();
     }
 }

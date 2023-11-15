@@ -181,30 +181,6 @@
         Y: =318
         ZIndex: =24
 
-    "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
-        DefaultSelectedItems: =_Supervisor_Acknowledgement
-        DisplayMode: =CG_DisplayMode.Selected.Value
-        Height: =200
-        Hint: =CG_Hint.Text
-        Info: =CG_Info.Text
-        Items: |-
-            =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
-        Label: =CG_Label.Text
-        Layout: =CG_Layout.Selected.Value
-        Multiselect: =CG_Multiselect.Value
-        OnChange: =Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
-        OnResize: |-
-            =Notify($"Content Height: {Self.ContentHeight}")
-        Orientation: =CG_Orientation.Selected.Value
-        Required: =CG_Required.Value
-        Size: =CG_Size.Selected.Value
-        ValidationMessage: =CG_ValidationMessage.Text
-        ValidationState: =CG_ValidationState.Selected.Value
-        Width: =187
-        X: =23
-        Y: =55
-        ZIndex: =25
-
     RadioGroupCanvas1 As Radio.pcfdataset:
         DefaultSelectedItems: =_Supervisor_Acknowledgement
         DisplayMode: =DisplayMode.Edit
@@ -216,4 +192,27 @@
         X: =47
         Y: =250
         ZIndex: =26
+
+    "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
+        DefaultSelectedItems: =Filter(CG_Items, Value in CG_DefaultSelectedItems.Value)
+        DisplayMode: =CG_DisplayMode.Selected.Value
+        Height: =200
+        Hint: =CG_Hint.Text
+        Info: =CG_Info.Text
+        Items: =CG_Items
+        Label: =CG_Label.Text
+        Layout: =CG_Layout.Selected.Value
+        Multiselect: =CG_Multiselect.Value
+        OnChange: =ClearCollect(CG_DefaultSelectedItems, Self.SelectedItems)//Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
+        OnResize: |-
+            =Notify($"Content Height: {Self.ContentHeight}")
+        Orientation: =CG_Orientation.Selected.Value
+        Required: =CG_Required.Value
+        Size: =CG_Size.Selected.Value
+        ValidationMessage: =CG_ValidationMessage.Text
+        ValidationState: =CG_ValidationState.Selected.Value
+        Width: =187
+        X: =23
+        Y: =55
+        ZIndex: =27
 

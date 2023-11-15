@@ -18,6 +18,7 @@ import { InputOnChangeData, OptionProps } from "@fluentui/react-components";
 import { F9FieldOnValidateData, F9FieldProps } from "../Field/F9Field";
 import { ValidationSchema } from "../utils/ValidationSchema";
 import { arrayDifference } from "../utils/arrayDifference";
+import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
 
 interface CustomContext<T> extends ComponentFramework.Context<T>{
     events: { [key: string]: () => void};
@@ -51,6 +52,19 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     private debounceTimeoutId?: number;
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
+    private controlId: string;
+    private controlUniqueId: string;
+    private controlName: string;
+    private defaultSelectedItemsListener: PropertyListener;
+
+    private onDefaultSelectedItemsChanged = (bindingContext: any)=>{
+        const { ruleValue } = bindingContext.inputRow[this.controlName].DefaultSelectedItems;
+        if(!ruleValue || ruleValue.length === 0){
+            this.optionsDataSet?.setSelectedRecordIds([]);
+        } else {
+            this.optionsDataSet?.refresh();
+        }
+    }
     
     private maybeDebounceNotifyOutputChanged(){
         window.clearTimeout(this.debounceTimeoutId);
@@ -189,6 +203,17 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         this.onSelect = this.onSelect.bind(this);
         this.onChange = this.onChange.bind(this);
         this.maybeDebounceNotifyOutputChanged = this.maybeDebounceNotifyOutputChanged.bind(this);
+        this.controlName = context.mode.label;
+        this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
+        this.controlUniqueId = (context as any).client._customControlProperties.controlId;
+
+        this.defaultSelectedItemsListener = new PropertyListener(
+            this.controlId, 
+            this.controlUniqueId, 
+            this.controlName, 
+            "DefaultSelectedItems", 
+            PropertyType.Input
+        );
     }
 
     /**
@@ -197,6 +222,9 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: CustomContext<IInputs>): React.ReactElement {
+        (window as any).combocontext = context;
+        this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged)
+        
         //execute queued events
         this.eventQueue.execute(context);
         
@@ -375,5 +403,6 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      */
     public destroy(): void {
         // Add code to cleanup control if necessary
+        this.defaultSelectedItemsListener.destroy();
     }
 }

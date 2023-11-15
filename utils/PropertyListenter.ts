@@ -72,4 +72,7 @@ export default class PropertyListener {
         
         
     }
+    public destroy(){
+        //delete PropertyListener.propertyRuleSubscribers[this.controlId][this.propertyKey][this.controlInstanceId]
+    }
 }

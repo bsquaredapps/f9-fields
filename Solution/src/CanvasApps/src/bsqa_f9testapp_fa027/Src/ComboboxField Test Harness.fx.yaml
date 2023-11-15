@@ -192,6 +192,17 @@
         Y: =420
         ZIndex: =25
 
+    ComboboxCanvas1 As Combobox.pcfdataset:
+        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
+        DisplayMode: =DisplayMode.Edit
+        Height: =32
+        Items: |-
+            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
+        Width: =320
+        X: =27
+        Y: =272
+        ZIndex: =27
+
     "ComboboxField1 As 'Combobox Field'.pcfdataset":
         AllowSearch: =CB_AllowSearch
         Appearance: =CB_Appearance.Selected.Value
@@ -234,16 +245,5 @@
         Width: =200
         X: =60
         Y: =104
-        ZIndex: =26
-
-    ComboboxCanvas1 As Combobox.pcfdataset:
-        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
-        DisplayMode: =DisplayMode.Edit
-        Height: =32
-        Items: |-
-            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
-        Width: =320
-        X: =27
-        Y: =272
-        ZIndex: =27
+        ZIndex: =28
 

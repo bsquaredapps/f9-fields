@@ -2430,6 +2430,18 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 5
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
             }
           ]
         }
@@ -2633,6 +2645,36 @@
                 "member": "AccessibleLabel",
                 "module": "Component2_1",
                 "type": "Component2_1.ButtonCanvas1_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Component2_1.RadioGroupCanvas2.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Component2_1.RadioGroupCanvas2.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Component2_1",
+                "type": "Component2_1.RadioGroupCanvas2"
               }
             }
           ],
@@ -4539,6 +4581,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.ComboboxCanvas1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ComboboxField Test Harness'.ComboboxCanvas1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ComboboxField Test Harness",
+                "type": "'ComboboxField Test Harness'.ComboboxCanvas1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'ComboboxField Test Harness'.CB_Hint.AccessibleLabel"
                 }
               ],
@@ -5829,6 +5901,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ChoiceGroupField Test Harness",
+                "type": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'ChoiceGroupField Test Harness'.CG_Label.AccessibleLabel"
                 }
               ],
@@ -6729,66 +6831,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "ChoiceGroupField Test Harness",
-                "type": "'ChoiceGroupField Test Harness'.RadioGroupCanvas1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.ComboboxCanvas1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'ComboboxField Test Harness'.ComboboxCanvas1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "ComboboxField Test Harness",
-                "type": "'ComboboxField Test Harness'.ComboboxCanvas1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App._Booleans"
                 }
               ],
@@ -7192,96 +7234,6 @@
                 "member": "_selectedPeopleJson",
                 "module": "Component1",
                 "type": "Component1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Component2_1._Booleans"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Component2_1._Booleans",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_Booleans",
-                "module": "Component2_1",
-                "type": "Component2_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Component2_1._ChoiceGroup2"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Component2_1._ChoiceGroup2",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_ChoiceGroup2",
-                "module": "Component2_1",
-                "type": "Component2_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Component2_1._ChoiceGroup3"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Component2_1._ChoiceGroup3",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "_ChoiceGroup3",
-                "module": "Component2_1",
-                "type": "Component2_1"
               }
             }
           ],
