@@ -38,11 +38,9 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
     const inputRef = React.useRef<HTMLTextAreaElement>(null);
     
     const [value, setValue] = React.useState(props.value);
-    const valueChangedFromDefault = React.useRef(false);
     
     React.useEffect(()=>{
         if(valueUpdated && props.value !== value){
-            valueChangedFromDefault.current = false;
             setValue(props.value);
         }
     },[props.value, valueUpdated, setValue]);
@@ -59,13 +57,11 @@ export const F9TextareaField: React.FunctionComponent<F9TextareaFieldProps> = (p
 
     const onInputChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: InputOnChangeData)=>{
         setValue(data.value);
-        valueChangedFromDefault.current = data.value != props.value;
         onChange?.(inputRef, data);
     };
 
     return <F9Field 
         {...fieldProps}
-        valueChanged={valueChangedFromDefault.current}
     >
         {
             isRead 

@@ -34,6 +34,7 @@
     <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*.pcfproj.user" />
     <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*.sln" />
     <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\node_modules\**" />
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*Solution\**" />
   </ItemGroup>
 
   <ItemGroup>

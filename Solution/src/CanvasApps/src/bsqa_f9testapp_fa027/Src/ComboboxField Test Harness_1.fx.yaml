@@ -143,7 +143,15 @@
         ZIndex: =19
 
     CB_ButtonCanvas4_2 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -183,25 +191,14 @@
         Y: =420
         ZIndex: =25
 
-    Component1_3 As Component1:
-        Height: =392
-        X: =726
-        Y: =376
-        ZIndex: =27
-
-    Component1_4 As Component1:
-        Height: =175
-        Width: =476
-        X: =123
-        Y: =593
-        ZIndex: =28
-
     ComboboxField1_1 As Dropdown.pcfdataset:
         DefaultSelectedItems: =CG_DefaultItems_1
         DisplayMode: =DisplayMode.Edit
+        FontSize: =0
         Height: =32
         Items: =CG_Items
         OnChange: =Set(CG_DefaultItems_1, Self.Selected)
+        ValidationState: ="None"
         Width: =320
         X: =20
         Y: =290
@@ -218,16 +215,12 @@
     "ComboboxField1_2 As 'Combobox Field'.pcfdataset":
         AllowSearch: =CB_AllowSearch_1
         Appearance: =CB_Appearance_1.Selected.Value
-        DefaultSearchText: =
-        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
         DelayOutput: =CB_DelayOutput_1.Selected.Value
         DelayTimeout: =CB_DebounceTimeout_1.Text
         DisplayMode: =CB_DisplayMode_1.Selected.Value
         Height: =200
         Hint: =CB_Hint_1.Text
         Info: =CB_Info_1.Text
-        Items: |-
-            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
         Label: =CB_Label_1.Text
         Multiselect: =CB_Multiselect_1.Value
         OnChange: |-

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { F9Field, F9FieldProps } from '../Field/F9Field';
-import { F9Option } from '../components/options/option';
+import { F9SimpleOption } from '../components/options/simpleOption';
 import {
     Combobox,
     ComboboxOpenChangeData,
@@ -28,7 +28,7 @@ export interface F9ComboboxFieldProps extends Omit<ComboboxProps, "contentBefore
     searchTextUpdated: boolean;
     allowSearch?: boolean;
     searchText?: string;
-    options?: F9Option<OptionProps>[];
+    options?: F9SimpleOption<OptionProps>[];
     defaultSelectedOptions?: string[];
     onChange: F9ComboboxFieldOnChangeEventHandler;
     onSearch: F9InputFieldOnChangeEventHandler;
@@ -36,13 +36,16 @@ export interface F9ComboboxFieldProps extends Omit<ComboboxProps, "contentBefore
 
 export type OptionOnSelectData = { optionValue: string | undefined; selectedOptions: string[] }
 
-const renderOption = (option: F9Option<OptionProps>) => {
-    return option.persona
-        ? <Option {...option.props} key={option.value} value={option.value} text={option.text ?? option.value}>
-            <Persona {...option.persona} />
+const renderOption = (option: F9SimpleOption<OptionProps>) => {
+    const personaProps = option.Persona;
+    const value = option.Value;
+    const text = option.Text ?? value;
+    return personaProps
+        ? <Option {...option.Props} key={value} value={value} text={text}>
+            <Persona {...option.Persona} />
         </Option>
-        : <Option {...option.props} key={option.value} value={option.value}>
-            {option.text ?? option.value}
+        : <Option {...option.Props} key={value} value={value}>
+            {text}
         </Option>
 };
 
@@ -67,7 +70,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         onSearch,
         ...restProps
     } = props;
-
+    
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>(props.selectedOptions ?? [])
@@ -83,10 +86,6 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     }, [props.searchText, searchTextUpdated, setSearchText]);
 
     const onOptionSelect: ComboboxProps["onOptionSelect"] = (ev, data) => {
-        const event = {
-            type: ev.type,
-            target: { ...ev.target } as HTMLInputElement
-        };
         const { optionValue } = data;
 
         if (optionValue) {
@@ -109,16 +108,19 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     }
 
     const groupedOptions = React.useMemo(() => {
-        const groups: { [key: string]: F9Option<OptionProps>[] } = {};
+        const groups: { [key: string]: F9SimpleOption<OptionProps>[] } = {};
         const filteredOptions =
             allowSearch && isOpen && searchText && searchText != ""
                 ? options?.filter(
-                    (option) => (option.text ?? option.value).toLowerCase().indexOf(searchText?.trim().toLowerCase()) !== -1
+                    (option) => {
+                        const text = option.Text ?? option.Value;
+                        return text.toLowerCase().indexOf(searchText?.trim().toLowerCase()) !== -1
+                    }
                 )
                 : options;
 
         filteredOptions?.forEach((pcfOption) => {
-            const groupKey = pcfOption.group ?? '';
+            const groupKey = pcfOption.Group ?? '';
             const group = groups[groupKey] || [];
             group.push(pcfOption);
             groups[groupKey] = group;
@@ -136,8 +138,8 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
 
                 ? <Text>
                     {
-                        options?.filter((option) => selectedOptions?.includes(option.value))
-                            .map((option) => option.text ?? option.value)
+                        options?.filter((option) => selectedOptions?.includes(option.Value))
+                            .map((option) => option.Text ?? option.Value)
                             .join("; ")
                     }
                 </Text>
@@ -147,8 +149,8 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                     value={
                         allowSearch && isOpen
                             ? searchText
-                            : options?.filter(option => selectedOptions?.includes(option.value))
-                                .map(option => option.text ?? option.value)
+                            : options?.filter(option => selectedOptions?.includes(option.Value))
+                                .map(option => option.Text ?? option.Value)
                                 .join(', ')
                     }
                     selectedOptions={selectedOptions}

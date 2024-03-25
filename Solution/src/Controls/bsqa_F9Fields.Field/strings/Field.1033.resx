@@ -288,4 +288,10 @@
   <data name="ValueChanged_Desc_Key" xml:space="preserve">
     <value>Toggles validation state if validation type is set to OnChange</value>
   </data>
+  <data name="OnValueChange_Disp_Key" xml:space="preserve">
+    <value>On Value Change</value>
+  </data>
+  <data name="OnValueChange_Desc_Key" xml:space="preserve">
+    <value>Executes when the value of the control changes.</value>
+  </data>
 </root>

@@ -4,28 +4,12 @@ import { InfoLabel } from '@fluentui/react-components/unstable';
 import * as DOMPurify from 'dompurify';
 import useScrollSize, { ScrollSize } from '../utils/useScrollSize';
 
-export interface F9FieldOnValidateData {
-    validationMessage?: string;
-    validationState?: "error" | "success" | "none" | "warning";
-}
-
-export type F9FieldOnValidateEventHandler = (
-    targetRef: React.RefObject<HTMLElement>,
-    validationData: F9FieldOnValidateData
-) => void;
-
-export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info"> {
+export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info" | "validationMessage"> {
     info?: string;
     label?: string;
     hint?: string;
-    validate?: "onchange" | "always" | "never";
-    valueChanged: boolean;
-    pendingValidation: {
-        validationMessage?: string;
-        validationState?: FieldProps["validationState"];
-    };
-    onResize: (size?: ScrollSize, fieldRef?: React.MutableRefObject<null>) => void,
-    onValidate?: F9FieldOnValidateEventHandler,
+    validationMessage?: string;
+    onResize: (size?: ScrollSize, fieldRef?: React.MutableRefObject<null>) => void
 }
 
 export const renderSlotAsHtml = (rawHtml?: string, El: React.ElementType = "div") => {
@@ -46,14 +30,12 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
         info,
         hint,
         required,
-        validate,
-        valueChanged,
-        pendingValidation,
+        validationMessage,
+        validationState,
         orientation,
         size,
         onResize,
         onClick,
-        onValidate,
         ...restProps
     } = props;
 
@@ -74,40 +56,9 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
     const fieldRef = React.useRef(null);
     const scrollSize = useScrollSize(fieldRef);
 
-    const validation = React.useMemo(()=>{
-        
-        if(
-            validate == "always" ||
-            (validate == "onchange" && valueChanged)
-        ){
-            if(!pendingValidation.validationMessage){
-                pendingValidation.validationState = "none"
-            }
-            if(!pendingValidation.validationState){
-                pendingValidation.validationState = "error"
-            }
-            return pendingValidation;
-        } else {
-            return {
-                validationMessage: undefined,
-                validationState: "none"
-            } as typeof pendingValidation
-        }
-    }, [
-        pendingValidation.validationMessage,
-        pendingValidation.validationState,
-        valueChanged,
-        validate
-    ]);
-    
-    React.useEffect(()=>{
-        fieldRef.current 
-        && onValidate?.(fieldRef, validation)
-    },[validation]);
-
     const validationMessageSlot = React.useMemo(() => {
-        return renderSlotAsHtml(validation.validationMessage, 'span')
-    },[validation.validationMessage]);
+        return renderSlotAsHtml(validationMessage, 'span')
+    },[validationMessage]);
     
     React.useEffect(()=>{
         fieldRef && scrollSize?.height && scrollSize?.width && onResize?.(scrollSize, fieldRef);
@@ -120,7 +71,7 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
         hint={hintSlot}
         required={required}
         validationMessage={validationMessageSlot}
-        validationState={validation.validationState}
+        validationState={validationState}
         orientation={orientation}
         size={size}
         ref={fieldRef}

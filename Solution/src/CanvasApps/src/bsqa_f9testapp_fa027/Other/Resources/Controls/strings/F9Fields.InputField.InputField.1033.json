@@ -52,6 +52,8 @@
   "OnResize_Disp_Key": "On Resize",
   "OnValidate_Desc_Key": "Executed when validation output changes",
   "OnValidate_Disp_Key": "On Validate",
+  "OnValueChange_Desc_Key": "Executes when the value of the control changes.",
+  "OnValueChange_Disp_Key": "On Value Change",
   "Orientation_Desc_Key": "Select whether the label should be oriented vertically or horizontally.",
   "Orientation_Display_Key": "Orientation",
   "Orientation_Horizontal_Display_Key": "Horizontal",

@@ -48,12 +48,12 @@ function createMutationObserver() {
   const observer = new MutationObserver(
     (mutationList: MutationRecord[], obs: MutationObserver) => {
       allEntries = allEntries.concat(mutationList);
-      if (!ticking) {
+      /*if (!ticking) {
         window.requestAnimationFrame(() => {
-          const triggered = new Set<Node>();
+          const triggered = new Set<MutationRecord>();
           for (let i = 0; i < allEntries.length; i++) {
-            if (triggered.has(allEntries[i].target)) continue;
-            triggered.add(allEntries[i].target);
+            if (triggered.has(allEntries[i])) continue;
+            triggered.add(allEntries[i]);
             const cbs = callbacks.get(allEntries[i].target);
             cbs?.forEach((cb) => cb(allEntries[i], obs));
           }
@@ -61,7 +61,15 @@ function createMutationObserver() {
           ticking = false;
         })
       }
-      ticking = true;
+      ticking = true;*/
+      const triggered = new Set<MutationRecord>();
+      for (let i = 0; i < allEntries.length; i++) {
+        if (triggered.has(allEntries[i])) continue;
+        triggered.add(allEntries[i]);
+        const cbs = callbacks.get(allEntries[i].target);
+        cbs?.forEach((cb) => cb(allEntries[i], obs));
+      }
+      allEntries = [];
     }
   )
 

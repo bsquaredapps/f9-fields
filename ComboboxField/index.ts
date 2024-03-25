@@ -5,20 +5,15 @@ import {
     OptionOnSelectData
 } from "./F9ComboboxField";
 import {
-    F9Option,
-    getOptionsFromDataSet,
-    getSelectedOptionsFromRecords,
-    getSelectedRecordsFromOptions,
-    getValueColumn
-} from '../components/options';
+    F9SimpleOption,
+    parseOptions,
+    mergeSelectedOptions
+} from '../components/options/simpleOption';
 import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
 import { InputOnChangeData, OptionProps } from "@fluentui/react-components";
-import { F9FieldOnValidateData, F9FieldProps } from "../Field/F9Field";
-import { ValidationSchema } from "../utils/ValidationSchema";
 import { arrayDifference } from "../utils/arrayDifference";
-import PropertyListener, { PropertyType } from "../utils/PropertyListenter";
 
 interface CustomContext<T> extends ComponentFramework.Context<T>{
     events: { [key: string]: () => void};
@@ -31,40 +26,20 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     private notifyOutputChanged: () => void;
     private contentHeight?: number;
     private contentWidth?: number;
-    private fnEvents: { [key: string]: () => void };
     private eventQueue: PAEventQueue;
     private searchText?: string;
-    private options: F9Option<OptionProps>[];
-    private optionsDataSet?: ComponentFramework.PropertyTypes.DataSet;
-    private optionsValueColumn?: string;
-    private selectedOptions: string[];
+    private options: F9SimpleOption<OptionProps>[];
+    private selectedOptions: F9SimpleOption<OptionProps>[];
+    private selectedValues: string[];
     private label: IOutputs["Label"];
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: F9FieldProps["pendingValidation"];
-    private userUpdatedValue = false;
-    private validation: {
-        Message: string;
-        State: string;  
-    };
-    private resetDefaultSelectedItems = false;
+    private validationMessage: string;
+    private validationState: IInputs["ValidationState"]["raw"];
     private debounceTimeoutId?: number;
     private debounceTimeout: number = 300;
     private debounce: IInputs["DelayOutput"]["raw"];
-    private controlId: string;
-    private controlUniqueId: string;
-    private controlName: string;
-    private defaultSelectedItemsListener: PropertyListener;
-
-    private onDefaultSelectedItemsChanged = (bindingContext: any)=>{
-        const { ruleValue } = bindingContext.inputRow[this.controlName].DefaultSelectedItems;
-        if(!ruleValue || ruleValue.length === 0){
-            this.optionsDataSet?.setSelectedRecordIds([]);
-        } else {
-            this.optionsDataSet?.refresh();
-        }
-    }
     
     private maybeDebounceNotifyOutputChanged(){
         window.clearTimeout(this.debounceTimeoutId);
@@ -90,33 +65,15 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
     }
 
     private onChange(targetRef: React.RefObject<HTMLInputElement>, data: OptionOnSelectData) {
-        if(this.optionsDataSet){
-            
-            this.userUpdatedValue = true;
-            this.selectedOptions = data.selectedOptions;
-
-            const selectedRecordIds = getSelectedRecordsFromOptions(
-                this.optionsDataSet, 
-                this.selectedOptions, 
-                this.options, 
-                this.optionsValueColumn
-            );
-            
+            this.selectedValues = data.selectedOptions;
+            this.selectedOptions = this.options.filter((option) => this.selectedValues.includes(option.Value));
             const event = {
                 type: "change",
                 target: targetRef,
-                value: this.selectedOptions.join(","),
+                value: this.selectedValues.join(","),
             };
-            this.eventQueue.add(event, "");
-
-            if(selectedRecordIds){
-               this.optionsDataSet.setSelectedRecordIds(selectedRecordIds)
-            } else {
-                this.optionsDataSet.setSelectedRecordIds([])
-            }
-            
-            this.fnEvents?.OnChange?.();
-        }
+            this.eventQueue.add(event, "OnValueChange");
+            this.maybeDebounceNotifyOutputChanged();
     }
 
     private onSearch(targetRef: React.RefObject<HTMLInputElement>, data?: InputOnChangeData){
@@ -146,22 +103,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
                 width: this.contentWidth
             })
         };
-
         this.eventQueue.add(event, "OnResize");
-        this.maybeDebounceNotifyOutputChanged();
-    }
-    
-    private onValidate(targetRef: React.RefObject<HTMLElement>, validationData: F9FieldOnValidateData) {
-        this.validation = {
-            Message: validationData.validationMessage ?? "",
-            State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
-        };
-        const event = {
-            type: "validate",
-            target: targetRef,
-            value: JSON.stringify(this.validation)
-        };
-        this.eventQueue.add(event, "OnValidate");
         this.maybeDebounceNotifyOutputChanged();
     }
     
@@ -183,37 +125,26 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        this.pendingValidation = { 
-            validationMessage: context.parameters.ValidationMessage.raw || undefined,
-            validationState: context.parameters.ValidationState.raw || "none"
-        };
-        this.validation = {
-            Message: "",
-            State: "none"
-        };
-        this.searchText = context.parameters.DefaultSearchText.raw || undefined
-        context.mode.trackContainerResize(true);
+        this.validationMessage = context.parameters.ValidationMessage.raw || "";
+        this.validationState = context.parameters.ValidationState.raw;
+        
+        this.selectedOptions = parseOptions(context.parameters.SelectedOptions.raw);
+        this.options = mergeSelectedOptions(
+            parseOptions(context.parameters.Options.raw),
+            this.selectedOptions
+        );
+        this.selectedValues = this.selectedOptions.map((option) => option.Value);
+        this.searchText = context.parameters.SearchText.raw ?? "";
         this.contentHeight = context.mode.allocatedHeight;
         this.contentWidth = context.mode.allocatedWidth;
         this.eventQueue = new PAEventQueue();
         this.onBlur = this.onBlur.bind(this);
         this.onSearch = this.onSearch.bind(this);
         this.onResize = this.onResize.bind(this);
-        this.onValidate = this.onValidate.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.onChange = this.onChange.bind(this);
         this.maybeDebounceNotifyOutputChanged = this.maybeDebounceNotifyOutputChanged.bind(this);
-        this.controlName = context.mode.label;
-        this.controlId = (window as any).AppMagic?.AuthoringTool?.Runtime?.getNamedControl?.(this.controlName).OpenAjax.uniqueId;
-        this.controlUniqueId = (context as any).client._customControlProperties.controlId;
-
-        this.defaultSelectedItemsListener = new PropertyListener(
-            this.controlId, 
-            this.controlUniqueId, 
-            this.controlName, 
-            "DefaultSelectedItems", 
-            PropertyType.Input
-        );
+        context.mode.trackContainerResize(true);
     }
 
     /**
@@ -222,22 +153,17 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      * @returns ReactElement root react element for the control
      */
     public updateView(context: CustomContext<IInputs>): React.ReactElement {
-        (window as any).combocontext = context;
-        this.defaultSelectedItemsListener.listen(this.onDefaultSelectedItemsChanged)
-        
         //execute queued events
         this.eventQueue.execute(context);
-        
         const { 
-            events, 
             mode, 
             parameters,
             updatedProperties
         } =  context;
 
         const { 
-            Items, 
-            DefaultSelectedItems,
+            Options,
+            SelectedOptions,
             Label, 
             Hint, 
             Info, 
@@ -245,88 +171,63 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
             AllowSearch,
             Appearance,
             Placeholder,
-            Layout, 
             Orientation, 
-            Validate,
             ValidationMessage, 
             ValidationState,
             Size,
             Multiselect,
             DelayOutput,
             DelayTimeout,
-            DefaultSearchText,
             SearchText,
         } = parameters;
         
-        const { isControlDisabled, isRead, isVisible } = mode;
+        const { 
+            isControlDisabled, 
+            isRead, 
+            isVisible, 
+            allocatedHeight, 
+            allocatedWidth 
+        } = mode;
 
-        this.fnEvents = events;
-        this.optionsDataSet = Items;
-        this.optionsValueColumn = getValueColumn(this.optionsDataSet.columns);
-        this.options = getOptionsFromDataSet(this.optionsDataSet);
         
-        this.label = Label.raw || undefined;
-        this.hint = Hint.raw || undefined;
-        this.info = Info.raw || undefined;
-        this.required = Required.raw ?? false;
-
-        this.fnEvents = (context as any).events;
-
-        if(this.resetDefaultSelectedItems){
-            this.resetDefaultSelectedItems = false;
-            context.parameters.Items.refresh();
-        } else {
-            const selectedOptions = getSelectedOptionsFromRecords(this.optionsDataSet!, this.optionsValueColumn!);
-            if((arrayDifference(selectedOptions, this.selectedOptions)?.length) ?? 0 > 0){
-                this.selectedOptions = selectedOptions;
-                this.userUpdatedValue = false;
+        let mergeOptions = false;
+        if(updatedProperties.includes('Options')){
+            const newOptions: F9SimpleOption<OptionProps>[] = parseOptions(Options.raw);
+            if(arrayDifference(this.options, newOptions)?.length ?? 0 > 0){
+                this.options = newOptions;
+                mergeOptions = true;
+            }
+        }
+        
+        if(updatedProperties.includes('SelectedOptions')){
+            const newSelectedOptions: F9SimpleOption<OptionProps>[] = parseOptions(SelectedOptions.raw); 
+            const newSelectedValues: string[] = newSelectedOptions.map((value) => value.Value);
+            if(arrayDifference(this.selectedValues, newSelectedValues)?.length ?? 0 > 0){
+                this.selectedValues = newSelectedValues;
+                this.selectedOptions = newSelectedOptions;
+                mergeOptions = true;
             }
         }
 
-        if(
-            updatedProperties.includes('DefaultSelectedItems') &&
-            !isVisible &&
-            (
-                !DefaultSelectedItems?.raw || 
-                DefaultSelectedItems?.raw?.length == 0
-            ) &&
-            Items.getSelectedRecordIds().length == 0
-        ){
-            this.resetDefaultSelectedItems = true;
+        if(mergeOptions){
+            this.options = mergeSelectedOptions(this.options, this.selectedOptions);
         }
+
         //grab raw props
         this.debounceTimeout = DelayTimeout.raw || 300;
         this.debounce = DelayOutput.raw;
-        this.label = Label.raw || undefined;
-        this.hint = Hint.raw || undefined;
-        this.info = Info.raw || undefined;
+        this.label = Label.raw || '';
+        this.hint = Hint.raw || '';
+        this.info = Info.raw || '';
         this.required = Required.raw;
+        this.validationMessage = ValidationMessage.raw || '';
+        this.validationState = ValidationState.raw || "none";
 
-        //update validation
-        if(
-            updatedProperties.includes("ValidationMessage") 
-            || updatedProperties.includes("ValidationState")
-        ){
-           const pendingValidation = { 
-                validationMessage: ValidationMessage.raw ?? '',
-                validationState: 
-                    ValidationState.raw 
-                    ?? (ValidationMessage.raw ? "error" : "none"),
-            };
-            if(
-                this.pendingValidation.validationMessage != pendingValidation.validationMessage
-                || this.pendingValidation.validationState != pendingValidation.validationState
-            ){
-                this.pendingValidation = pendingValidation;
-            }
-        }
-        
         //handle input value change from powerapps//handle input value change from powerapps
-        const valueInputField = DefaultSearchText.raw ? "DefaultSearchText" : "SearchText";
-        const inputValue = parameters[valueInputField].raw || "";
-        const inputValueUpdated = updatedProperties.includes(valueInputField);
-        if(inputValueUpdated) this.searchText = inputValue;
-        
+        const searchTextUpdated = updatedProperties.includes("SearchText");
+        if(searchTextUpdated) {
+            this.searchText = SearchText.raw ?? "";
+        }        
         const props: F9ComboboxFieldProps = { 
             /* field props */
             fieldProps: {
@@ -338,21 +239,19 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
                 size: Size.raw || "medium",
                 onResize: this.onResize,
                 onClick: this.onSelect,
-                onValidate: this.onValidate,
-                validate: Validate.raw,
-                valueChanged: this.userUpdatedValue,
-                pendingValidation: this.pendingValidation,
+                validationMessage: this.validationMessage,
+                validationState: this.validationState,
                 style: {
-                    height: context.mode.allocatedHeight,
-                    width: context.mode.allocatedWidth
+                    height: allocatedHeight,
+                    width: allocatedWidth
                 }
             },
             /* control specific props */
-            searchText: inputValue,
-            searchTextUpdated: inputValueUpdated,
+            searchText: this.searchText,
+            searchTextUpdated: searchTextUpdated,
             placeholder: Placeholder.raw || undefined,
             options: this.options,
-            selectedOptions: this.selectedOptions,
+            selectedOptions: this.selectedValues,
             multiselect: Multiselect.raw,
             allowSearch: AllowSearch.raw,
             appearance: Appearance.raw || "outline",
@@ -375,13 +274,15 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
         return { 
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
-            Validation: {...this.validation},
             Events: this.eventQueue.getOutput(),
             SearchText: this.searchText,
             Label: this.label,
             Hint: this.hint,
             Info: this.info,
-            Required: this.required
+            Required: this.required,
+            ValidationMessage: this.validationMessage,
+            ValidationState: this.validationState,
+            SelectedOptions: JSON.stringify(this.selectedOptions)
         };
     }
 
@@ -392,8 +293,7 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      */
     public async getOutputSchema(context: ComponentFramework.Context<IInputs>): Promise<Record<string, unknown>> {
         return Promise.resolve({
-            Events: PAEventsSchema,
-            Validation: ValidationSchema
+            Events: PAEventsSchema
         });
     }
 
@@ -403,6 +303,5 @@ export class ComboboxField implements ComponentFramework.ReactControl<IInputs, I
      */
     public destroy(): void {
         // Add code to cleanup control if necessary
-        this.defaultSelectedItemsListener.destroy();
     }
 }

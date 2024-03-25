@@ -24,7 +24,6 @@ const calculateContentSize = (target: HTMLElement) => {
   const elementBoxWidth = target.offsetWidth - target.clientWidth + parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
   let height = elementBoxHeight;
   let width = elementBoxWidth;
-
   for(let i = 0; i < target.children.length; i++){
     const child = target.children[i] as HTMLElement;
     height = Math.max(height, elementBoxHeight + child.offsetTop + child.offsetHeight);
@@ -38,7 +37,6 @@ const useScrollSize = <T extends HTMLElement>(
 ): ScrollSize => {
   const [size, setSize] = React.useState<{ height: number, width: number }>(() => {
     const targetEl = target && 'current' in target ? target.current : target
-    const size = { width: options?.initialWidth ?? 0, height: options?.initialHeight ?? 0 };
     if(targetEl){
       return calculateContentSize(targetEl)
     }
@@ -56,7 +54,6 @@ const useScrollSize = <T extends HTMLElement>(
   const childTrigger = React.useCallback(() => {
     const targetEl = target && 'current' in target ? target.current : target;
     if (targetEl) {
-      //setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight })
       setSize(calculateContentSize(targetEl));
     }
   }, [target, setSize])
@@ -64,7 +61,6 @@ const useScrollSize = <T extends HTMLElement>(
   useLayoutEffect(() => {
     const targetEl = target && 'current' in target ? target.current : target
     if (!targetEl) return
-    //setSize({ width: targetEl.scrollWidth, height: targetEl.scrollHeight });
     setSize(calculateContentSize(targetEl));
     targetEl.childNodes.forEach((node)=>{
       resizeObserver.subscribe(node as HTMLElement, childTrigger)
@@ -83,7 +79,7 @@ const useScrollSize = <T extends HTMLElement>(
       });
       childTrigger();
     }
-  }, { childList: true })
+  }, { childList: true, subtree: true })
 
   return size
 }

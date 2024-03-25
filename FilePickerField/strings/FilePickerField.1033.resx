@@ -335,17 +335,17 @@
   <data name="Default_Add_Multiple_Files_Display_Key" xml:space="preserve">
     <value>Add files</value>
   </data>
-  <data name="Files_File_Display_Key" xml:space="preserve">
-    <value>File</value>
-  </data>
   <data name="Files_Disp_Key" xml:space="preserve">
     <value>Files</value>
   </data>
   <data name="Files_Desc_Key" xml:space="preserve">
-    <value>Initial set of files to load into the control.</value>
+    <value>JSON table of files</value>
   </data>
-  <data name="Files_Description_Display_Key" xml:space="preserve">
-    <value>Description</value>
+  <data name="OnValueChange_Disp_Key" xml:space="preserve">
+    <value>On Value Change</value>
+  </data>
+  <data name="OnValueChange_Desc_Key" xml:space="preserve">
+    <value>Executes when the value of the control changes.</value>
   </data>
   <data name="AllowMultipleFiles_Display_Key" xml:space="preserve">
     <value>Allow Multiple Files</value>

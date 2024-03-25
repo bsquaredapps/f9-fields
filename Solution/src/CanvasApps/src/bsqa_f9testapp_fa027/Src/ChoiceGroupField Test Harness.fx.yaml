@@ -101,12 +101,20 @@
         ZIndex: =14
 
     CG_DefaultItemsJSON As text:
-        Default: |-
-            ="[{""Value"":""4"",""Text"":""Option 2""}]"
+        Default: =JSON(CG_DefaultItems)
         Height: =105
         Mode: =TextMode.MultiLine
         OnChange: |-
-            =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(CG_DefaultItems), ClearCollect(CG_DefaultItems, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))))
+            =IfError(
+                ClearCollect(
+                    CG_DefaultItems, 
+                    ForAll(
+                        ParseJSON(Self.Text) As Item, 
+                        {Value: Text(Item.Value), Text: Text(Item.Text)}
+                    )
+                ),
+                Clear(CG_DefaultItems)
+            )
         X: =367
         Y: =121
         ZIndex: =15
@@ -114,13 +122,13 @@
     Label4 As label:
         Height: =768
         Overflow: =Overflow.Scroll
-        Text: |-
+        Text: |
             =$"Version: 3,
             Label: {ChoiceGroupField1.Label}
             Hint: {ChoiceGroupField1.Hint}
             Info: {ChoiceGroupField1.Info}
-            Validation Message: {ChoiceGroupField1.Validation.Message}
-            Validation State: {ChoiceGroupField1.Validation.State}
+            Validation Message: {ChoiceGroupField1.ValidationMessage}
+            Validation State: {ChoiceGroupField1.ValidationState}
             Content Height: {ChoiceGroupField1.ContentHeight}
             Content Width: {ChoiceGroupField1.ContentWidth}
             Display Mode: {ChoiceGroupField1.DisplayMode}
@@ -128,9 +136,6 @@
             Required: {ChoiceGroupField1.Required}
             
             Label: {ChoiceGroupField1.Visible}"
-            
-            //Selected Value: {ChoiceGroupField1.Selected.Value}
-            //Selected Values: {Concat(ChoiceGroupField1.SelectedItems, Value, ",")}
         Width: =643
         X: =723
         ZIndex: =16
@@ -159,7 +164,15 @@
         ZIndex: =19
 
     ButtonCanvas4 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -170,20 +183,20 @@
 
     CG_Validate As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Validate'.OnChange
-        Items: =['F9Fields.ChoiceGroupField.Validate'.OnChange,'F9Fields.ChoiceGroupField.Validate'.Always,'F9Fields.ChoiceGroupField.Validate'.Never]
+        Items: =//['F9Fields.ChoiceGroupField.Validate'.OnChange,'F9Fields.ChoiceGroupField.Validate'.Always,'F9Fields.ChoiceGroupField.Validate'.Never]
         X: =367
         Y: =570
         ZIndex: =22
 
-    Component2_2 As Component2_1:
-        Height: =450
-        X: =726
-        Y: =318
-        ZIndex: =24
-
     RadioGroupCanvas1 As Radio.pcfdataset:
         DefaultSelectedItems: =_Supervisor_Acknowledgement
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =96
         Items: |-
             =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
@@ -194,20 +207,21 @@
         ZIndex: =26
 
     "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
-        DefaultSelectedItems: =Filter(CG_Items, Value in CG_DefaultSelectedItems.Value)
         DisplayMode: =CG_DisplayMode.Selected.Value
         Height: =200
         Hint: =CG_Hint.Text
         Info: =CG_Info.Text
-        Items: =CG_Items
         Label: =CG_Label.Text
         Layout: =CG_Layout.Selected.Value
         Multiselect: =CG_Multiselect.Value
-        OnChange: =ClearCollect(CG_DefaultSelectedItems, Self.SelectedItems)//Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
+        OnChange: |-
+            =ClearCollect(CG_DefaultItems, ForAll(ParseJSON(Self.SelectedOptions) As Option, {Value: Text(Option.Value), Text: Text(Option.Text)}))//Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
         OnResize: |-
             =Notify($"Content Height: {Self.ContentHeight}")
+        Options: =JSON(CG_Items)
         Orientation: =CG_Orientation.Selected.Value
         Required: =CG_Required.Value
+        SelectedOptions: =JSON(CG_DefaultItems)
         Size: =CG_Size.Selected.Value
         ValidationMessage: =CG_ValidationMessage.Text
         ValidationState: =CG_ValidationState.Selected.Value
@@ -215,4 +229,33 @@
         X: =23
         Y: =55
         ZIndex: =27
+
+    RadioGroupCanvas3 As Radio.pcfdataset:
+        AccessibleLabel: ="Test label"
+        BasePaletteColor: =RGBA(0, 124, 186, 1)
+        DefaultSelectedItems: =CG_DefaultItems
+        DisplayMode: =DisplayMode.Edit
+        Height: =100
+        Items: =CG_Items
+        OnChange: =ClearCollect(CG_DefaultItems, Self.SelectedItems)
+        Width: =320
+        X: =23
+        Y: =372
+        ZIndex: =28
+
+        TextInput2 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Text"
+            FieldName: ="Text"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =1
+
+        Value1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Value"
+            FieldName: ="Value"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =2
+            ZIndex: =2
 

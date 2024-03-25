@@ -44,11 +44,9 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     const inputRef = React.useRef<HTMLInputElement>(null);
     
     const [value, setValue] = React.useState(props.value);
-    const valueChangedFromDefault = React.useRef(false);
     
     React.useEffect(()=>{
         if(valueUpdated && props.value !== value){
-            valueChangedFromDefault.current = false;
             setValue(props.value);
         }
     },[props.value, valueUpdated, setValue]);
@@ -69,14 +67,12 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
     
     const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData)=>{
         const event = {...ev};
-        valueChangedFromDefault.current = data.value != props.value;
         setValue(data.value);
         onChange?.(inputRef, data);
     };
 
     return <F9Field 
         {...fieldProps}
-        valueChanged={valueChangedFromDefault.current}
     >
         <Input
             {...restProps}

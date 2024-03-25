@@ -85,3 +85,16 @@ export const getValueColumn = (columns?: ComponentFramework.PropertyHelper.DataS
                 : F9OptionDefaultColumns;
     return cols.find((column) => column.name.trim().toLowerCase() == "value")?.name || "Value";
 }
+
+export const SelectedSchema = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "Values": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    }
+};

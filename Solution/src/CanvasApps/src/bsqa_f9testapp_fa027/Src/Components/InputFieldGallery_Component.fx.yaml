@@ -1,0 +1,277 @@
+InputFieldGallery_Component As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =800
+    Width: =1266
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    InputFieldGalleryComponent_Appearance As dropdown:
+        Default: ='F9Fields.ComboboxField.Appearance'.Outline
+        Items: =['F9Fields.ComboboxField.Appearance'.Outline,'F9Fields.ComboboxField.Appearance'.FilledDarker,'F9Fields.ComboboxField.Appearance'.FilledLighter]
+        X: =338
+        Y: =184
+        ZIndex: =1
+
+    InputFieldGalleryComponent_Hint As text:
+        Default: =""
+        HintText: ="Hint"
+        X: =338
+        Y: =322
+        ZIndex: =2
+
+    InputFieldGalleryComponent_Info As text:
+        Default: =""
+        HintText: ="Info"
+        X: =338
+        Y: =368
+        ZIndex: =3
+
+    InputFieldGalleryComponent_Label As text:
+        Default: =""
+        HintText: ="Label"
+        X: =338
+        Y: =230
+        ZIndex: =4
+
+    InputFieldGalleryComponent_Required As toggleSwitch:
+        FalseText: ="Not Required"
+        Height: =25
+        TrueText: ="Required"
+        Width: =173
+        X: =338
+        Y: =506
+        ZIndex: =5
+
+    InputFieldGalleryComponent_ValidationMessage As text:
+        Default: =""
+        HintText: ="Validation Message"
+        OnChange: =Set(_InputValidationMessage, Self.Text)
+        X: =338
+        Y: =537
+        ZIndex: =6
+
+    InputFieldGalleryComponent_ValidationState As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
+        Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
+        OnChange: =Set(_InputValidationState, Self.Selected.Value);
+        X: =338
+        Y: =583
+        ZIndex: =7
+
+    InputFieldGalleryComponent_Orientation As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
+        Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
+        X: =338
+        Y: =629
+        ZIndex: =8
+
+    InputFieldGalleryComponent_Size As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Size'.Medium
+        Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
+        X: =338
+        Y: =675
+        ZIndex: =9
+
+    InputFieldGalleryComponent_DisplayMode As dropdown:
+        Default: =DisplayMode.Edit
+        Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
+        X: =338
+        Y: =728
+        ZIndex: =10
+
+    InputFieldGalleryComponent_Debug As label:
+        Height: =768
+        Overflow: =Overflow.Scroll
+        Text: |-
+            =$"Version: 3,
+            Label: {InputFieldGalleryComponent_InputField.Label}
+            Hint: {InputFieldGalleryComponent_InputField.Hint}
+            Info: {InputFieldGalleryComponent_InputField.Info}
+            Validation Message: {InputFieldGalleryComponent_InputField.ValidationMessage}
+            Validation State: {InputFieldGalleryComponent_InputField.ValidationState}
+            Content Height: {InputFieldGalleryComponent_InputField.ContentHeight}
+            Content Width: {InputFieldGalleryComponent_InputField.ContentWidth}
+            Display Mode: {InputFieldGalleryComponent_InputField.DisplayMode}
+            Events: {InputField_EventsJSON}
+            Events Count: {CountRows(InputFieldGalleryComponent_InputField.Events)}
+            Required: {InputFieldGalleryComponent_InputField.Required}
+            Value: {InputFieldGalleryComponent_InputField.Value}
+            Visible: {InputFieldGalleryComponent_InputField.Visible}"
+        Width: =643
+        X: =705
+        ZIndex: =11
+
+    InputFieldGalleryComponent_Placeholder As text:
+        Default: =""
+        HintText: ="Placeholder"
+        X: =338
+        Y: =276
+        ZIndex: =13
+
+    InputFieldGalleryComponent_DelayOutput As dropdown:
+        Default: ='F9Fields.ComboboxField.Appearance'.Outline
+        Items: =['F9Fields.ComboboxField.DelayOutput'.None,'F9Fields.ComboboxField.DelayOutput'.Debounce,'F9Fields.ComboboxField.DelayOutput'.OnBlur]
+        X: =338
+        Y: =414
+        ZIndex: =14
+
+    InputFieldGalleryComponent_DebounceTimeout As text:
+        Default: =""
+        Format: =TextFormat.Number
+        HintText: ="Debounce Timeout"
+        X: =338
+        Y: =460
+        ZIndex: =15
+
+    InputFieldGalleryComponent_InputType As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.InputField.InputType'.Text,'F9Fields.InputField.InputType'.Date, 'F9Fields.InputField.InputType'.DateTime, 'F9Fields.InputField.InputType'.Email, 'F9Fields.InputField.InputType'.Month, 'F9Fields.InputField.InputType'.Number, 'F9Fields.InputField.InputType'.Password, 'F9Fields.InputField.InputType'.Search, 'F9Fields.InputField.InputType'.Telephone,'F9Fields.InputField.InputType'.Time, 'F9Fields.InputField.InputType'.Url, 'F9Fields.InputField.InputType'.Week]
+        X: =338
+        Y: =46
+        ZIndex: =16
+
+    InputFieldGalleryComponent_Before As text:
+        Default: =""
+        HintText: ="Before"
+        X: =338
+        Y: =92
+        ZIndex: =17
+
+    InputFieldFalleryComponent_After As text:
+        Default: =""
+        HintText: ="After"
+        X: =338
+        Y: =138
+        ZIndex: =18
+
+    InputFieldGalleryComponent_Value As text:
+        Default: =""
+        HintText: ="Value"
+        X: =338
+        ZIndex: =19
+
+    "InputFieldGalleryComponent_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =215
+        Items: =InputFieldGallery_Items
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =104
+        Width: =322
+        X: =18
+        Y: =193
+        ZIndex: =20
+
+        InputFieldGalleryComponent_RowID As label:
+            AutoHeight: =true
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =25
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: =ThisItem.Value
+            VerticalAlign: =VerticalAlign.Top
+            Width: =250
+            X: =4
+            Y: =45
+            ZIndex: =2
+
+        InputFieldGalleryComponent_RowValue As label:
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =26
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =10
+            Text: =ThisItem.ID
+            VerticalAlign: =VerticalAlign.Top
+            Width: =292
+            X: =4
+            Y: =70
+            ZIndex: =3
+
+        InputFieldGalleryComponent_NextArrow As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            Color: =RGBA(166, 166, 166, 1)
+            Height: =50
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            Tooltip: ="View item details"
+            Width: =50
+            X: =Parent.TemplateWidth - Self.Width - 12
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        InputFieldGalleryComponent_Separator As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =8
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - Self.Height
+            ZIndex: =5
+
+        InputFieldGalleryComponent_SelectedRectangle As rectangle:
+            Height: =Parent.TemplateHeight - InputFieldGalleryComponent_Separator.Height
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =4
+            ZIndex: =6
+
+        "InputFieldGalleryComponent_InputField As 'Input Field'":
+            Appearance: =InputFieldGalleryComponent_Appearance.Selected.Value
+            ContentAfter: =InputFieldFalleryComponent_After.Text
+            ContentBefore: =InputFieldGalleryComponent_Before.Text
+            DelayOutput: =InputFieldGalleryComponent_DelayOutput.Selected.Value
+            DelayTimeout: =InputFieldGalleryComponent_DebounceTimeout.Text
+            DisplayMode: =InputFieldGalleryComponent_DisplayMode.Selected.Value
+            Height: =Self.ContentHeight
+            Hint: =InputFieldGalleryComponent_Hint.Text
+            Info: =InputFieldGalleryComponent_Info.Text
+            InputType: =InputFieldGalleryComponent_InputType.Selected.Value
+            Label: =InputFieldGalleryComponent_Label.Text
+            OnChange: =Set(InputField_EventsJSON, JSON(Self.Events));
+            OnResize: =Set(InputField_EventsJSON, JSON(Self.Events));
+            OnSelect: |
+                =Set(InputField_EventsJSON, JSON(Self.Events));
+            OnValueChange: |-
+                =Patch(InputFieldGallery_Items, ThisItem, { Value: Self.Value})
+            Orientation: =InputFieldGalleryComponent_Orientation.Selected.Value
+            Placeholder: =InputFieldGalleryComponent_Placeholder.Text
+            Required: =InputFieldGalleryComponent_Required.Value
+            Size: =InputFieldGalleryComponent_Size.Selected.Value
+            ValidationMessage: =InputFieldGalleryComponent_ValidationMessage.Text
+            ValidationState: =InputFieldGalleryComponent_ValidationState.Selected.Value
+            Value: =InputFieldGalleryComponent_Value.Text
+            Width: =117
+            X: =53
+            Y: =0
+            ZIndex: =7
+
+        InputFieldGalleryComponent_RemoveRow As icon.Cancel:
+            Height: =25
+            Icon: =Icon.Cancel
+            OnSelect: =Remove(InputFieldGallery_Items, ThisItem)
+            Width: =22
+            X: =13
+            Y: =13
+            ZIndex: =8
+
+    InputFieldGalleryComponent_AddRow As button:
+        OnSelect: |-
+            =Collect(InputFieldGallery_Items, {ID: GUID(), Value: ""})
+        Text: ="Add Row"
+        X: =22
+        Y: =521
+        ZIndex: =21
+

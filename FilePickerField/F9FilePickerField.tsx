@@ -23,15 +23,8 @@ import {
 } from '@fluentui/react-components';
 import { saveAs } from 'file-saver';
 
-export const F9FilePickerDefaultColumns = [
-    { name: "File", displayName: "File", dataType: "string" },
-    { name: "Description", displayName: "Description", dataType: "string" },
-    { name: "Props", displayName: "Props", dataType: "object" }
-]
-
 export type F9FilePickerOnChangeEventHandler = (ev: React.FormEvent<HTMLDivElement | HTMLButtonElement>, newFiles: F9FilePickerFile[]) => void;
-export type F9FilePickerFile = {
-    file: ComponentFramework.FileObject;
+export interface F9FilePickerFile extends ComponentFramework.FileObject {
     description?: string;
     props?: CompoundButtonProps;
 }
@@ -158,23 +151,23 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
     const onRemove = (ev: React.FormEvent<HTMLDivElement>, selectedFile: F9FilePickerFile) => {
         if (isRead || isControlDisabled) return;
         const newFiles = files?.filter((currentFile) => {
-            return currentFile.file.fileName !== selectedFile.file.fileName
+            return currentFile.fileName !== selectedFile.fileName
         }) || [];
         onChange?.(ev, newFiles);
     }
 
     const onDownload = (ev: React.FormEvent<HTMLDivElement>, file: F9FilePickerFile) => {
-        saveAs(file.file.fileContent, file.file.fileName);
+        saveAs(`data:${file.mimeType ?? 'text/plain'};base64,${file.fileContent}`, file.fileName);
     }
 
     const onAdd = async (ev: React.FormEvent<HTMLButtonElement>) => {
         if (isRead || isControlDisabled) return;
         const fileObjs = await pickFile();
         if (fileObjs) {
-            const files: F9FilePickerFile[] = fileObjs.map((file) => ({ file }));
-            const existingFiles = files.filter((oldfile)=>!files.find((newFile)=>newFile.file.fileName === oldfile.file.fileName));
-            const newFiles = existingFiles ? [...existingFiles, ...files] : files;
-            onChange?.(ev, newFiles);
+            const newFiles: F9FilePickerFile[] = fileObjs;
+            const existingFiles = files?.filter((oldfile)=>!newFiles.find((newFile)=>newFile.fileName === oldfile.fileName));
+            const updatedFiles = existingFiles ? [...existingFiles, ...newFiles] : newFiles;
+            onChange?.(ev, updatedFiles);
         }
 
     }
@@ -183,7 +176,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
     const iconStyles = useIconStyles();
 
     const renderFileItem = React.useCallback((file: F9FilePickerFile)=>{
-        const parsedName = parseFileName(file.file.fileName);
+        const parsedName = parseFileName(file.fileName);
         if (!parsedName) return;
         
         const fileTypeAltText = parsedName.extension && parsedName.extension !== ""
@@ -207,19 +200,19 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
                     <MenuItem onClick={(ev) => onRemove(ev, file)}>
                         {removeFileLabel ?? "Remove File"}
                     </MenuItem>,
-                file.file.fileContent && 
+                file.fileContent && 
                     <MenuItem onClick={(ev) => onDownload(ev, file)}>
                         {downloadFileLabel ?? "Download File"}
                     </MenuItem>
             ].filter(item => item);
 
         
-        return <li key={file.file.fileName}>
+        return <li key={file.fileName}>
             {
                 menuItems.length == 0
 
                 ? <CompoundButton
-                    secondaryContent={formatFileSize(file.file.fileSize)}
+                    secondaryContent={formatFileSize(file.fileSize)}
                     icon={<FileTypeIcon />}
                     size={fieldProps.size}
                     disabled={isControlDisabled}
@@ -235,7 +228,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
                                     children: (_: React.ElementType, props: SplitButtonProps) => {
                                         return <CompoundButton
                                             {...props as CompoundButtonProps}
-                                            secondaryContent={formatFileSize(file.file.fileSize)}
+                                            secondaryContent={formatFileSize(file.fileSize)}
                                             icon={<FileTypeIcon />}
                                         >
                                             {parsedName.baseName}
@@ -252,7 +245,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
                     <MenuPopover>
                         <MenuList>
                             { !isRead && !isControlDisabled && <MenuItem onClick={(ev) => onRemove(ev, file)}>{removeFileLabel ?? "Remove File"}</MenuItem> }
-                            { file.file.fileContent && <MenuItem onClick={(ev) => onDownload(ev, file)}>{downloadFileLabel ?? "Download File"}</MenuItem> }
+                            { file.fileContent && <MenuItem onClick={(ev) => onDownload(ev, file)}>{downloadFileLabel ?? "Download File"}</MenuItem> }
                         </MenuList>
                     </MenuPopover>
                 </Menu>
@@ -269,7 +262,7 @@ export const F9FilePickerField: React.FunctionComponent<F9FilePickerFieldProps> 
         >
             <ul className={mergeClasses(styles.files)}>
                 {
-                    files?.filter((file) => !!file.file.fileName)
+                    files?.filter((file) => !!file.fileName)
                         .map((file) => renderFileItem(file))
                 }
             </ul>

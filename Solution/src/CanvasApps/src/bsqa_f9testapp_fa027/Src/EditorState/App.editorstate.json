@@ -27,6 +27,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "App",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [

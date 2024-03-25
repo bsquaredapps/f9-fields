@@ -287,6 +287,12 @@
   <data name="Value_Desc_Key" xml:space="preserve">
     <value>Current value of the control</value>
   </data>
+  <data name="OnValueChange_Disp_Key" xml:space="preserve">
+    <value>On Value Change</value>
+  </data>
+  <data name="OnValueChange_Desc_Key" xml:space="preserve">
+    <value>Executes when the value of the control changes.</value>
+  </data>
   <data name="Placeholder_Display_Key" xml:space="preserve">
     <value>Placeholder</value>
   </data>

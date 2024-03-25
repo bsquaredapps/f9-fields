@@ -40,7 +40,7 @@
     "Name": "PowerApps_CoreControls_ButtonCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Button",
-    "Version": "0.0.17"
+    "Version": "0.0.27"
   },
   "ChoiceGroup Field": {
     "CustomGroupControlTemplateName": "",
@@ -112,43 +112,17 @@
             }
           ]
         },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
-          "Kind": "Record",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
       "Events": {
         "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
         "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
       }
     },
     "TemplateDisplayName": "ChoiceGroup Field",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
   },
   "Combobox": {
     "CustomGroupControlTemplateName": "",
@@ -163,7 +137,7 @@
     "Name": "PowerApps_CoreControls_ComboboxCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Combobox",
-    "Version": "0.0.13"
+    "Version": "0.0.24"
   },
   "Combobox Field": {
     "CustomGroupControlTemplateName": "",
@@ -180,98 +154,16 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "value",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "Combobox Field",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
   },
   "Dialog": {
     "CustomGroupControlTemplateName": "",
@@ -286,7 +178,7 @@
     "Name": "bsqa_F9Fields.Dialog",
     "OverridableProperties": {},
     "TemplateDisplayName": "Dialog",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
   },
   "dropdown": {
     "CustomGroupControlTemplateName": "",
@@ -315,7 +207,7 @@
     "Name": "PowerApps_CoreControls_DropdownCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Dropdown",
-    "Version": "0.0.16"
+    "Version": "0.0.26"
   },
   "Field": {
     "CustomGroupControlTemplateName": "",
@@ -332,98 +224,16 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "value",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "Field",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
   },
   "File Picker Field": {
     "CustomGroupControlTemplateName": "",
@@ -495,133 +305,45 @@
             }
           ]
         },
-        "Version": "1.334"
-      },
-      "SelectedFile": {
-        "Type": {
-          "EnumString": "",
-          "Kind": "Record",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "File",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileContent",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "Number",
-                  "Name": "fileSize",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "mimeType",
-                  "Type": []
-                }
-              ]
-            }
-          ]
-        },
-        "Version": "1.334"
-      },
-      "SelectedFiles": {
-        "Type": {
-          "EnumString": "",
-          "Kind": "Table",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "File",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileContent",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "fileName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "Number",
-                  "Name": "fileSize",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "mimeType",
-                  "Type": []
-                }
-              ]
-            }
-          ]
-        },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
-          "Kind": "Record",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
       "Events": {
         "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
         "PCFSkipValidation": false
-      },
-      "SelectedFile": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"File\":{\"type\":\"object\",\"properties\":{\"fileContent\":{\"type\":\"string\"},\"fileName\":{\"type\":\"string\"},\"fileSize\":{\"type\":\"number\"},\"mimeType\":{\"type\":\"string\"}}}}}",
-        "PCFSkipValidation": false
-      },
-      "SelectedFiles": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"File\":{\"type\":\"object\",\"properties\":{\"fileContent\":{\"type\":\"string\"},\"fileName\":{\"type\":\"string\"},\"fileSize\":{\"type\":\"number\"},\"mimeType\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
       }
     },
     "TemplateDisplayName": "File Picker Field",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
+  },
+  "gallery": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/gallery",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "gallery",
+    "OverridableProperties": {},
+    "Version": "2.14.0"
+  },
+  "galleryTemplate": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/galleryTemplate",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": false,
+    "LastModifiedTimestamp": "0",
+    "Name": "galleryTemplate",
+    "OverridableProperties": {},
+    "Version": "1.0"
   },
   "groupContainer": {
     "CustomGroupControlTemplateName": "",
@@ -636,6 +358,20 @@
     "Name": "groupContainer",
     "OverridableProperties": {},
     "Version": "1.3.0"
+  },
+  "icon": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/icon",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "icon",
+    "OverridableProperties": {},
+    "Version": "2.5.0"
   },
   "Input Field": {
     "CustomGroupControlTemplateName": "",
@@ -707,43 +443,17 @@
             }
           ]
         },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
-          "Kind": "Record",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
       "Events": {
         "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
         "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
       }
     },
     "TemplateDisplayName": "Input Field",
-    "Version": "0.0.32"
+    "Version": "0.0.41"
   },
   "label": {
     "CustomGroupControlTemplateName": "",
@@ -786,7 +496,21 @@
     "Name": "PowerApps_CoreControls_RadioGroupCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Radio",
-    "Version": "0.0.8"
+    "Version": "0.0.16"
+  },
+  "rectangle": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/shapes/rectangle",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "rectangle",
+    "OverridableProperties": {},
+    "Version": "2.3.0"
   },
   "screen": {
     "CustomGroupControlTemplateName": "",
@@ -829,7 +553,7 @@
     "Name": "PowerApps_CoreControls_TextInputCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Text input",
-    "Version": "0.0.14"
+    "Version": "0.0.24"
   },
   "Textarea Field": {
     "CustomGroupControlTemplateName": "",
@@ -846,98 +570,16 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Table",
-          "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "Record",
-              "Name": "target",
-              "Type": [
-                {
-                  "EnumString": "",
-                  "Kind": "Table",
-                  "Name": "classList",
-                  "Type": [
-                    {
-                      "EnumString": "",
-                      "Kind": "String",
-                      "Name": "Value",
-                      "Type": []
-                    }
-                  ]
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "name",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "tagName",
-                  "Type": []
-                },
-                {
-                  "EnumString": "",
-                  "Kind": "String",
-                  "Name": "value",
-                  "Type": []
-                }
-              ]
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "type",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "value",
-              "Type": []
-            }
-          ]
-        },
-        "Version": "1.334"
-      },
-      "Validation": {
-        "Type": {
-          "EnumString": "",
           "Kind": "Record",
           "Name": "Root",
-          "Type": [
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "Message",
-              "Type": []
-            },
-            {
-              "EnumString": "",
-              "Kind": "String",
-              "Name": "State",
-              "Type": []
-            }
-          ]
+          "Type": []
         },
-        "Version": "1.334"
+        "Version": "1.336"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {
-      "Events": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
-        "PCFSkipValidation": false
-      },
-      "Validation": {
-        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"Message\":{\"type\":\"string\"},\"State\":{\"type\":\"string\"}}}",
-        "PCFSkipValidation": false
-      }
-    },
+    "PCFDynamicSchemaForIRRetrieval": {},
     "TemplateDisplayName": "Textarea Field",
-    "Version": "0.0.29"
+    "Version": "0.0.41"
   },
   "toggleSwitch": {
     "CustomGroupControlTemplateName": "",

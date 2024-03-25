@@ -1,9 +1,8 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import { F9Field, F9FieldOnValidateData, F9FieldOnValidateEventHandler, F9FieldProps } from "./F9Field";
+import { F9Field, F9FieldProps } from "./F9Field";
 import { PASourceEvent, PAEventsSchema, PAEventQueue, PASourceTarget } from "../utils/PAEvent";
 import { ScrollSize } from '../utils/useScrollSize';
 import * as React from "react";
-import { ValidationSchema } from "../utils/ValidationSchema";
 
 interface CustomContext<T> extends ComponentFramework.Context<T>{
     events: { [key: string]: () => void};
@@ -21,11 +20,8 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
     private hint: IOutputs["Hint"];
     private info: IOutputs["Info"];
     private required: IOutputs["Required"];
-    private pendingValidation: F9FieldProps["pendingValidation"];
-    private validation: {
-        Message: string;
-        State: string;  
-    };
+    private validationMessage: string;
+    private validationState: IInputs["ValidationState"]["raw"];
     private valueChanged: boolean = false;
     
     private onSelect(event: React.MouseEvent<any>) {
@@ -48,20 +44,6 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         this.eventQueue.add(event, "OnResize");
         this.notifyOutputChanged();
     }
-
-    private onValidate(targetRef: React.RefObject<HTMLElement>, validationData: F9FieldOnValidateData){
-        this.validation = {
-            Message: validationData.validationMessage ?? "",
-            State: validationData.validationState ?? (validationData.validationMessage ? "error" : "none")
-        };
-        const event = {
-            type: "validate",
-            target: targetRef,
-            value: JSON.stringify(this.validation)
-        };
-        this.eventQueue.add(event, "OnValidate");
-        this.notifyOutputChanged();
-    }
     /**
      * Empty constructor.
      */
@@ -80,21 +62,14 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        this.pendingValidation = { 
-            validationMessage: context.parameters.ValidationMessage.raw || undefined,
-            validationState: context.parameters.ValidationState.raw || "none"
-        };
-        this.validation = {
-            Message: "",
-            State: "none"
-        };
-        context.mode.trackContainerResize(true);
+        this.validationMessage = context.parameters.ValidationMessage.raw || "";
+        this.validationState = context.parameters.ValidationState.raw || "none";
         this.contentHeight = context.mode.allocatedHeight ?? 0;
         this.contentWidth = context.mode.allocatedWidth ?? 0;
         this.eventQueue = new PAEventQueue();
-        this.onValidate = this.onValidate.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.onResize = this.onResize.bind(this);
+        context.mode.trackContainerResize(true);
     }
 
     /**
@@ -107,12 +82,10 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         this.eventQueue.execute(context);
 
         const {
-            parameters, mode, updatedProperties
+            parameters, mode
         } = context;
         
         const {
-            isRead,
-            isControlDisabled,
             allocatedHeight,
             allocatedWidth
         } =  mode;
@@ -122,8 +95,6 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             Hint,
             Info,
             Required,
-            ValueChanged,
-            Validate,
             ValidationMessage,
             ValidationState,
             Orientation,
@@ -131,30 +102,14 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
         } =  parameters;
         
         //grab raw props
-        this.label = Label.raw || undefined;
-        this.hint = Hint.raw || undefined;
-        this.info = Info.raw || undefined;
+        this.label = Label.raw || '';
+        this.hint = Hint.raw || '';
+        this.info = Info.raw || '';
         this.required = Required.raw;
-        this.valueChanged = ValueChanged.raw;
+        this.validationMessage = ValidationMessage.raw || '';
+        this.validationState = ValidationState.raw || "none";
 
         //update validation
-        if(
-            updatedProperties.includes("ValidationMessage") 
-            || updatedProperties.includes("ValidationState")
-        ){
-           const pendingValidation = { 
-                validationMessage: ValidationMessage.raw ?? '',
-                validationState: 
-                    ValidationState.raw 
-                    ?? (ValidationMessage.raw ? "error" : "none"),
-            };
-            if(
-                this.pendingValidation.validationMessage != pendingValidation.validationMessage
-                || this.pendingValidation.validationState != pendingValidation.validationState
-            ){
-                this.pendingValidation = pendingValidation;
-            }
-        }
         
         const fieldProps: F9FieldProps = { 
             /* field props */
@@ -164,12 +119,10 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
             required: this.required,
             orientation: Orientation.raw,
             size: Size.raw || "medium",
-            validate: Validate.raw,
+            validationMessage: this.validationMessage,
+            validationState: this.validationState,
             onResize: this.onResize,
             onClick: this.onSelect,
-            onValidate: this.onValidate,
-            valueChanged: ValueChanged.raw,
-            pendingValidation: this.pendingValidation,
             style: {
                 height: allocatedHeight,
                 width: allocatedWidth
@@ -187,7 +140,8 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
      */
     public getOutputs(): IOutputs {
         return { 
-            Validation: {...this.validation},
+            ValidationMessage: this.validationMessage,
+            ValidationState: this.validationState,
             ContentHeight: this.contentHeight,
             ContentWidth: this.contentWidth,
             Events: this.eventQueue.getOutput(),
@@ -206,8 +160,7 @@ export class Field implements ComponentFramework.ReactControl<IInputs, IOutputs>
      */
     public async getOutputSchema(context: ComponentFramework.Context<IInputs>): Promise<Record<string, unknown>> {
         return Promise.resolve({
-            Events: PAEventsSchema,
-            Validation: ValidationSchema
+            Events: PAEventsSchema
         });
     }
 

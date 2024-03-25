@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { F9Field, F9FieldProps } from '../Field/F9Field';
-import { F9Option } from '../components/options';
+import { F9SimpleOption } from '../components/options/simpleOption';
 import { 
     RadioGroup,
     RadioGroupProps,
@@ -25,7 +25,7 @@ export interface F9ChoiceGroupFieldProps extends Omit<RadioGroupProps, "onClick"
     isRead?: boolean;
     isControlDisabled?: boolean;
     multiselect?: boolean;
-    options?: F9Option<CheckboxProps & RadioProps>[];
+    options?: F9SimpleOption<CheckboxProps & RadioProps>[];
     selectedOptions?: string[];
     onChange?: F9ChoiceGroupFieldOnChangeEventHandler;
 }
@@ -67,8 +67,6 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
             ev.preventDefault();
             setSelectedOptions(selectedOptions);
         } else {
-            
-            const event = { type: ev.type, target: {...ev.currentTarget}};
             const newSelectedOptions = 
                 multiselect 
                 ?
@@ -101,14 +99,14 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                             options?.map((option) =>{
                                 return <Checkbox 
                                 required={false} 
-                                key={option.value}
-                                value={option.value}
-                                label={option.text ?? option.value}
+                                key={option.Value}
+                                value={option.Value}
+                                label={option.Text ?? option.Value}
                                 size={fieldProps.size == "large" ? "large" : "medium"}
-                                checked={selectedOptions?.includes(option.value)}
-                                onChange={(ev)=>{onSelectionChange(ev, option.value)}}
+                                checked={selectedOptions?.includes(option.Value)}
+                                onChange={(ev)=>{onSelectionChange(ev, option.Value)}}
                                 disabled={isControlDisabled}
-                                {...option.props} />
+                                {...option.Props} />
                             })
                         }
                     </div>
@@ -125,11 +123,11 @@ export const F9ChoiceGroupField: React.FunctionComponent<F9ChoiceGroupFieldProps
                     {   
                         options?.map((option) => {
                             return <Radio 
-                                key={option.value}
-                                value={option.value} 
-                                label={option.text ?? option.value}
+                                key={option.Value}
+                                value={option.Value} 
+                                label={option.Text ?? option.Value}
                                 className={mergeClasses()}
-                                {...option.props}
+                                {...option.Props}
                                 />
                         })
                     }

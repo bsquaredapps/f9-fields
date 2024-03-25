@@ -1,7 +1,15 @@
 Home As screen:
 
     btnChoiceGroup As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate('ChoiceGroupField Test Harness')
         Text: ="Choice Group Field"
@@ -11,7 +19,15 @@ Home As screen:
         ZIndex: =1
 
     btnCombobox As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =28
         OnSelect: =Navigate('ComboboxField Test Harness')
         Text: ="Combobox Field"
@@ -21,12 +37,20 @@ Home As screen:
         ZIndex: =2
 
     Label5 As label:
-        Text: ="v28"
+        Text: ="v29"
         X: =305
         ZIndex: =3
 
     btnInput As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =28
         OnSelect: =Navigate('InputField Test Harness')
         Text: ="Input Field"
@@ -36,7 +60,15 @@ Home As screen:
         ZIndex: =4
 
     btnInput_1 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =28
         OnSelect: =Navigate('Textarea Test Harness')
         Text: ="Textarea Field"
@@ -46,7 +78,15 @@ Home As screen:
         ZIndex: =5
 
     btnInput_2 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =28
         OnSelect: =Navigate('FilePickerField Test Harness')
         Text: ="FilePicker Field"
@@ -56,7 +96,15 @@ Home As screen:
         ZIndex: =6
 
     btnInput_3 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =28
         OnSelect: =Navigate('Field Test Harness')
         Text: ="Field"
@@ -118,13 +166,10 @@ Home As screen:
         ZIndex: =9
 
     "ChoiceGroupField1_2 As 'ChoiceGroup Field'.pcfdataset":
-        DefaultSelectedItems: =_Supervisor_Acknowledgement
         DisplayMode: =
         Height: =Self.ContentHeight
         Hint: =
         Info: =
-        Items: |-
-            =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
         Label: =
         Layout: =
         Multiselect: =true

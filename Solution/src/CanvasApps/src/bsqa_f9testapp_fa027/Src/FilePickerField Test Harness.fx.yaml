@@ -106,8 +106,7 @@
             Display Mode: {FilePickerField1.DisplayMode}
             Event Type: {CountRows(FilePickerField1.Events)}
             Required: {FilePickerField1.Required}
-            Selected Value: {FilePickerField1.SelectedFile.File.fileName}
-            Selected Values: {Concat(FilePickerField1.SelectedFiles,File.fileName, ",")}
+            Selected Values: {Concat(FilePicker_Items,fileName, ",")}
             Label: {FilePickerField1.Visible}"
         Width: =643
         X: =723
@@ -139,7 +138,15 @@
         ZIndex: =19
 
     FilePicker_ButtonHome As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -186,19 +193,18 @@
         Height: =Self.ContentHeight
         Hint: =FilePicker_Hint.Text
         Info: =FilePicker_Info.Text
-        Items: =FilePicker_Items
         Label: =FilePicker_Label.Text
         Layout: =FilePicker_Layout.Selected.Value
         MaxFileSize: =FilePicker_MaxFileSize.Text
-        OnChange: =ClearCollect(FilePicker_Items, Self.SelectedFiles)
+        OnChange: =
         OnError: =Notify("File error");
         OnResize: =Notify("File resize");
         OnSelect: =Notify("Files Selected");
-        OnValidate: =Notify("Validated");
+        OnValueChange: |-
+            =ClearCollect(FilePicker_Items, ForAll(ParseJSON(Self.Files) As File, {fileName: Text(File.fileName), mimeType: Text(File.mimeType), fileContent: Text(File.fileContext), fileSize: Value(File.fileSize)}))
         Orientation: =FilePicker_Orientation.Selected.Value
         Required: =FilePicker_Required.Value
         Size: =FilePicker_Size.Selected.Value
-        Validate: =FilePicker_Validate.Selected.Value
         ValidationMessage: =FilePicker_ValidationMessage
         ValidationState: =FilePicker_ValidationState.Selected.Value
         Width: =260

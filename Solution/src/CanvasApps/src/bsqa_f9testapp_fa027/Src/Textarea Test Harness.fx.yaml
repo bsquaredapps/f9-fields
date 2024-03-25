@@ -14,7 +14,7 @@
             Content Height: {TextareaField1.ContentHeight}
             Content Width: {TextareaField1.ContentWidth}
             Display Mode: {TextareaField1.DisplayMode}
-            Events: {Input_EventsJSON}
+            Events: {InputField_EventsJSON}
             Events Count: {CountRows(TextareaField1.Events)}
             Required: {TextareaField1.Required}
             Value: {TextareaField1.Value}
@@ -129,7 +129,15 @@
         ZIndex: =15
 
     ButtonCanvas4_3 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -212,7 +220,6 @@
         "TextareaField1 As 'Textarea Field'":
             AllowResize: =Textarea_Resize.Selected.Value
             Appearance: =Textarea_Appearance.Selected.Value
-            DefaultValue: =Textarea_DefaultValue.Text
             DelayOutput: =Textarea_DelayOutput.Selected.Value
             DelayTimeout: =Textarea_DebounceTimeout.Text
             DisplayMode: =Textarea_DisplayMode.Selected.Value
@@ -228,13 +235,11 @@
                 =Notify($"Resized: {Self.ContentWidth} x {Self.ContentHeight} Event(s): {Concat(Filter(Self.Events, type = "resize"),JSON(ThisRecord), Char(10))}")
             OnSelect: |-
                 =Notify($"Selected Event(s): {Concat(Filter(Self.Events, type = "click"),JSON(ThisRecord), Char(10))}")
-            OnValidate: |-
-                =Notify($"Validated: {JSON(Self.Validation)} Event(s): {Concat(Filter(Self.Events, type = "validate"),JSON(ThisRecord), Char(10))}")
+            OnValueChange: =false
             Orientation: =Textarea_Orientation.Selected.Value
             Placeholder: =Textarea_Placeholder.Text
             Required: =Textarea_Required.Value
             Size: =Textarea_Size.Selected.Value
-            Validate: =Textarea_Validate.Selected.Value
             ValidationMessage: =Textarea_ValidationMessage.Text
             ValidationState: =Textarea_ValidationState.Selected.Value
             Value: =Textarea_Value.Text

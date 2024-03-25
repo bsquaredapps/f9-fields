@@ -323,4 +323,22 @@
   <data name="Events_Schema_Desc_Key" xml:space="preserve">
     <value>Events_Schema_Desc_Key</value>
   </data>
+  <data name="OnValueChange_Disp_Key" xml:space="preserve">
+    <value>On Value Change</value>
+  </data>
+  <data name="OnValueChange_Desc_Key" xml:space="preserve">
+    <value>Executes when the value of the control changes.</value>
+  </data>
+  <data name="Options_Disp_Key" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Options_Desc_Key" xml:space="preserve">
+    <value>JSON Table of Avaialble Options</value>
+  </data>
+  <data name="SelectedOptions_Disp_Key" xml:space="preserve">
+    <value>Selected Options</value>
+  </data>
+  <data name="SelectedOptions_Desc_Key" xml:space="preserve">
+    <value>JSON Table of Selected Options</value>
+  </data>
 </root>

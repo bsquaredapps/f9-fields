@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.23075.208" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.23122.208" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <UniqueName>F9_Fields</UniqueName>
     <LocalizedNames>
       <LocalizedName description="F9 Fields" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>0.0.32</Version>
+    <Version>0.0.42</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>bsqa</UniqueName>

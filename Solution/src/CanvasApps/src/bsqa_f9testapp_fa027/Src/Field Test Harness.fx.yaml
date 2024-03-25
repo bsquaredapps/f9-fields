@@ -97,7 +97,7 @@
             Content Height: {Field1.ContentHeight}
             Content Width: {Field1.ContentWidth}
             Display Mode: {Field1.DisplayMode}
-            Events: {Input_EventsJSON}
+            Events: {InputField_EventsJSON}
             Events Count: {CountRows(Field1.Events)}
             Required: {Field1.Required}
             ValueChanged: {Field1.ValueChanged}
@@ -107,7 +107,15 @@
         ZIndex: =16
 
     ButtonCanvas4_4 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -141,10 +149,10 @@
         OnResize: =Set(Field_EventsJSON, JSON(Self.Events));
         OnSelect: =Set(Field_EventsJSON, JSON(Self.Events));
         OnValidate: =Set(Field_EventsJSON, JSON(Self.Events));
+        OnValueChange: =false
         Orientation: =Field_Orientation.Selected.Value
         Required: =Field_Required.Value
         Size: =Field_Size.Selected.Value
-        Validate: =Field_Validate.Selected.Value
         ValidationMessage: =Field_ValidationMessage.Text
         ValidationState: =Field_ValidationState.Selected.Value
         ValueChanged: =Field_ValueChanged.Value

@@ -111,16 +111,16 @@
             Label: {ComboboxField1.Label}
             Hint: {ComboboxField1.Hint}
             Info: {ComboboxField1.Info}
-            Validation Message: {ComboboxField1.Validation.Message}
-            Validation State: {ComboboxField1.Validation.State}
+            Validation Message: {ComboboxField1.ValidationMessage}
+            Validation State: {ComboboxField1.ValidationState}
             Content Height: {ComboboxField1.ContentHeight}
             Content Width: {ComboboxField1.ContentWidth}
             Display Mode: {ComboboxField1.DisplayMode}
             Event Type: {CountRows(ComboboxField1.Events)}
             Required: {ComboboxField1.Required}
-            Selected Value: {ComboboxField1.Selected.Value}
-            Selected Values: {Concat(ComboboxField1.SelectedItems, Value, ",")}
-            Label: {ComboboxField1.Visible}"
+            Selected Options: {ComboboxField1.SelectedOptions}
+            Label: {ComboboxField1.Visible}
+            SupervisorJSON: {JSON(_selectedPeople, JSONFormat.IgnoreBinaryData)}"
         Width: =643
         X: =723
         ZIndex: =16
@@ -152,7 +152,15 @@
         ZIndex: =19
 
     CB_ButtonCanvas4_1 As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         OnSelect: =Navigate(Home)
         Text: ="Home"
@@ -195,9 +203,16 @@
     ComboboxCanvas1 As Combobox.pcfdataset:
         DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
         DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
         Height: =32
         Items: |-
             =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
+        ValidationState: ="None"
         Width: =320
         X: =27
         Y: =272
@@ -206,24 +221,21 @@
     "ComboboxField1 As 'Combobox Field'.pcfdataset":
         AllowSearch: =CB_AllowSearch
         Appearance: =CB_Appearance.Selected.Value
-        DefaultSearchText: =
-        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
         DelayOutput: =CB_DelayOutput.Selected.Value
         DelayTimeout: =CB_DebounceTimeout.Text
         DisplayMode: =CB_DisplayMode.Selected.Value
         Height: =200
         Hint: =CB_Hint.Text
         Info: =CB_Info.Text
-        Items: |-
-            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
         Label: =CB_Label.Text
         Multiselect: =CB_Multiselect.Value
         OnChange: |-
-            =Set(_selectedOption, First(Self.SelectedItems));
+            =
+            /*Set(_selectedOption, First(Self.SelectedItems));
             ClearCollect(_selectedPeople, Self.SelectedItems);
             Set(_selectedPeopleJson, JSON(Self.SelectedItems));
             Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
-            /*
+            
             Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
             Set(_Supervisor, First(Self.SelectedItems));
             ClearCollect(_selectedPeople, Self.SelectedItems);
@@ -236,9 +248,43 @@
             Set(_SupervisorJSON, JSON(Patch(_Supervisor, { _SupervisorEmail: _SupervisorEmail, _SupervisorName: _SupervisorName}), JSONFormat.IgnoreBinaryData));
             
             */
+        OnValueChange: |-
+            =//If(
+            //    "change" in ForAll(Self.Events, type),
+                /*With(
+                    {
+                        SelectedOption: First(ParseJSON(Self.SelectedOptions))
+                    },
+                    Set(
+                        _Supervisor, 
+                        {
+                            Text: Text(SelectedOption.Text),
+                            Value: Text(SelectedOption.Value),
+                            Mail: Text(SelectedOption.Mail),
+                            DisplayName: Text(SelectedOption.DisplayName)
+                        }
+                    );
+                    Notify(JSON(_Supervisor, JSONFormat.IgnoreBinaryData));
+                );*/
+            //)
+            ClearCollect(
+                _selectedPeople,
+                ForAll(
+                    ParseJSON(Self.SelectedOptions) As SelectedOption,
+                    {
+                        Text: Text(SelectedOption.Text),
+                        Value: Text(SelectedOption.Value),
+                        Mail: Text(SelectedOption.Mail),
+                        DisplayName: Text(SelectedOption.DisplayName)
+                    }
+                )
+            )
+        Options: |-
+            =JSON(AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired: false, top: 20}).value, "Value", Mail, "Text", $"{DisplayName} ({Mail})"), JSONFormat.IgnoreBinaryData)
         Orientation: =CB_Orientation.Selected.Value
         Placeholder: =CB_Placeholder.Text
         Required: =CB_Required.Value
+        SelectedOptions: =JSON(_selectedPeople, JSONFormat.IgnoreBinaryData)
         Size: =CB_Size.Selected.Value
         ValidationMessage: =CB_ValidationMessage.Text
         ValidationState: =CB_ValidationState.Selected.Value

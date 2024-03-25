@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="TextareaField" version="0.0.32" display-name-key="TextareaField_Display_Key" description-key="TextareaField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="TextareaField" version="0.0.42" display-name-key="TextareaField_Display_Key" description-key="TextareaField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -19,7 +19,6 @@
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <!-- props specific to this input -->
-    <property name="DefaultValue" display-name-key="DefaultValue_Display_Key" description-key="DefaultValue_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="Value" display-name-key="Value_Display_Key" description-key="Value_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Placeholder" display-name-key="Placeholder_Display_Key" description-key="Placeholder_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="AllowResize" display-name-key="AllowResize_Display_Key" description-key="AllowResize_Desc_Key" of-type="Enum" usage="input" required="false" default-value="none">
@@ -39,17 +38,12 @@
     <property name="Hint" display-name-key="Hint_Display_Key" description-key="Hint_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Info" display-name-key="Info_Display_Key" description-key="Info_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="Required" display-name-key="Required_Display_Key" description-key="Required_Desc_Key" of-type="TwoOptions" usage="bound" required="false" default-value="false" />
-    <property name="ValidationMessage" display-name-key="ValidationMessage_Display_Key" description-key="ValidationMessage_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="input" required="false" default-value="error">
+    <property name="ValidationMessage" display-name-key="ValidationMessage_Display_Key" description-key="ValidationMessage_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="ValidationState" display-name-key="ValidationState_Display_Key" description-key="ValidationState_Desc_Key" of-type="Enum" usage="bound" required="false" default-value="none">
       <value name="None" display-name-key="ValidationState_None_Display_Key">none</value>
       <value name="Success" display-name-key="ValidationState_Success_Display_Key">success</value>
       <value name="Warning" display-name-key="ValidationState_Warning_Display_Key">warning</value>
       <value name="Error" display-name-key="ValidationState_Error_Display_Key">error</value>
-    </property>
-    <property name="Validate" display-name-key="Validate_Display_Key" description-key="Validate_Desc_Key" of-type="Enum" usage="bound" required="false" default-value="onchange">
-      <value name="OnChange" display-name-key="Validate_OnChange_Display_Key">onchange</value>
-      <value name="Always" display-name-key="Validate_Always_Display_Key">always</value>
-      <value name="Never" display-name-key="Validate_Never_Display_Key">never</value>
     </property>
     <property name="Orientation" display-name-key="Orientation_Display_Key" description-key="Orientation_Desc_Key" of-type="Enum" usage="input" required="false" default-value="vertical">
       <value name="Horizontal" display-name-key="Orientation_Horizontal_Display_Key">horizontal</value>
@@ -69,14 +63,11 @@
     <property name="ContentWidth" display-name-key="Content_Width_Disp_Key" description-key="Content_Width_Desc_Key" of-type="Decimal" usage="output" />
     <!-- A hidden property used by Canvas to get the output object schema -->
     <property name="EventsSchema" display-name-key="Events_Schema_Disp_Key" description-key="Events_Schema_Desc_Key" of-type="SingleLine.Text" usage="input" hidden="true" />
-    <property name="ValidationSchema" display-name-key="ValidationSchema_Disp_Key" description-key="ValidationSchema_Desc_Key" of-type="SingleLine.Text" usage="input" hidden="true" />
     <!-- The object type output property -->
     <property name="Events" display-name-key="Events_Disp_Key" description-key="Events_Desc_Key" of-type="Object" usage="output" hidden="false" />
-    <property name="Validation" display-name-key="Validation_Disp_Key" description-key="Validation_Desc_Key" of-type="Object" usage="output" hidden="false" />
     <property-dependencies>
       <!-- Define the dependency between schema and the object type property -->
       <property-dependency input="EventsSchema" output="Events" required-for="schema" />
-      <property-dependency input="ValidationSchema" output="Validation" required-for="schema" />
     </property-dependencies>
     <!--
       Property node's of-type attribute can be of-type-group attribute.
@@ -89,10 +80,9 @@
       </type-group>
       <property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type-group="numbers" usage="bound" required="true" />
     -->
-    <common-event name="OnChange" />
     <common-event name="OnSelect" />
     <event name="OnResize" display-name-key="OnResize_Disp_Key" description-key="OnResize_Desc_Key" />
-    <event name="OnValidate" display-name-key="OnValidate_Disp_Key" description-key="OnValidate_Desc_Key" />
+    <event name="OnValueChange" display-name-key="OnValueChange_Disp_Key" description-key="OnValueChange_Desc_Key" />
     <resources>
       <code path="index.ts" order="1" />
       <platform-library name="React" version="16.8.6" />
