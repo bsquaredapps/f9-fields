@@ -7,44 +7,52 @@
         ClearCollect(
             CG_DefaultItems, 
             {Value: "false", Text: "No"}
-        )
+        );
+        UpdateContext({
+            _FieldHeight: 100,
+            _FieldWidth: 200,
+            _ControlWidth: 200,
+            _ControlHeight: 100,
+            _LabelWidth: 100
+        })
 
     CG_ItemsJSON As text:
         Default: |-
             ="[{""Value"":""1"",""Text"":""Option 1""},{""Value"":""2"",""Text"":""Option 2""},{""Value"":""3"",""Text"":""Option 3""}]"
-        Height: =115
+        Height: =57
         Mode: =TextMode.MultiLine
         OnChange: |-
             =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(CG_Items), ClearCollect(CG_Items, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))))
-        X: =367
+        X: =25
+        Y: =297
         ZIndex: =3
 
     CG_Layout As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
         Items: =['F9Fields.ChoiceGroupField.Layout'.Horizontal,'F9Fields.ChoiceGroupField.Layout'.Vertical,'F9Fields.ChoiceGroupField.Layout'.HorizontalStacked]
-        X: =367
-        Y: =232
+        X: =17
+        Y: =503
         ZIndex: =4
 
     CG_Hint As text:
         Default: =""
         HintText: ="Hint"
         X: =367
-        Y: =324
+        Y: =460
         ZIndex: =5
 
     CG_Info As text:
         Default: =""
         HintText: ="Info"
         X: =367
-        Y: =370
+        Y: =501
         ZIndex: =6
 
     CG_Label As text:
         Default: =""
         HintText: ="Label"
         X: =367
-        Y: =278
+        Y: =420
         ZIndex: =7
 
     CG_Multiselect As toggleSwitch:
@@ -52,8 +60,7 @@
         Height: =25
         TrueText: ="Multiselect"
         Width: =173
-        X: =367
-        Y: =447
+        Y: =472
         ZIndex: =8
 
     CG_Required As toggleSwitch:
@@ -61,36 +68,36 @@
         Height: =25
         TrueText: ="Required"
         Width: =173
-        X: =367
-        Y: =416
+        X: =178
+        Y: =470
         ZIndex: =9
 
     CG_ValidationMessage As text:
         Default: =""
         HintText: ="Validation Message"
         X: =367
-        Y: =478
+        Y: =568
         ZIndex: =10
 
     CG_ValidationState As dropdown:
         Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
         Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
         X: =367
-        Y: =524
+        Y: =608
         ZIndex: =11
 
     CG_Orientation As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
         Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
         X: =367
-        Y: =616
+        Y: =648
         ZIndex: =12
 
     CG_Size As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Size'.Medium
         Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
         X: =367
-        Y: =671
+        Y: =688
         ZIndex: =13
 
     CG_DisplayMode As dropdown:
@@ -102,7 +109,7 @@
 
     CG_DefaultItemsJSON As text:
         Default: =JSON(CG_DefaultItems)
-        Height: =105
+        Height: =38
         Mode: =TextMode.MultiLine
         OnChange: |-
             =IfError(
@@ -115,8 +122,8 @@
                 ),
                 Clear(CG_DefaultItems)
             )
-        X: =367
-        Y: =121
+        X: =25
+        Y: =361
         ZIndex: =15
 
     Label4 As label:
@@ -141,26 +148,28 @@
         ZIndex: =16
 
     Button2 As button:
-        OnSelect: =Set(CG_Value, "");
+        OnSelect: =Set(CG_Value, Blank());
         Text: |-
             ="Clear
             "
-        X: =80
-        Y: =541
+        Width: =118
+        Y: =409
         ZIndex: =17
 
     Button3 As button:
-        OnSelect: =Set(CG_Value, "1")
+        OnSelect: =Set(CG_Value, "true")
         Text: ="Set Yes"
-        X: =80
-        Y: =593
+        Width: =100
+        X: =135
+        Y: =409
         ZIndex: =18
 
     Button4 As button:
-        OnSelect: =Set(CG_Value, "0")
+        OnSelect: =Set(CG_Value, "false")
         Text: ="Set No"
-        X: =80
-        Y: =653
+        Width: =96
+        X: =249
+        Y: =409
         ZIndex: =19
 
     ButtonCanvas4 As Button:
@@ -181,81 +190,190 @@
         Y: =0
         ZIndex: =20
 
-    CG_Validate As dropdown:
-        Default: ='F9Fields.ChoiceGroupField.Validate'.OnChange
-        Items: =//['F9Fields.ChoiceGroupField.Validate'.OnChange,'F9Fields.ChoiceGroupField.Validate'.Always,'F9Fields.ChoiceGroupField.Validate'.Never]
-        X: =367
-        Y: =570
-        ZIndex: =22
-
-    RadioGroupCanvas1 As Radio.pcfdataset:
-        DefaultSelectedItems: =_Supervisor_Acknowledgement
-        DisplayMode: =DisplayMode.Edit
-        Font: =""
-        FontItalic: =false
-        FontSize: =0
-        FontStrikethrough: =false
-        FontUnderline: =false
-        FontWeight: =""
-        Height: =96
-        Items: |-
-            =Table({Value: "true", Text: "I acknowledge that I have reviewed and understand this information"})
-        Layout: ='RadioGroupCanvas.Layout'.Vertical
-        Width: =320
-        X: =47
-        Y: =250
-        ZIndex: =26
-
     "ChoiceGroupField1 As 'ChoiceGroup Field'.pcfdataset":
+        AutoControlHeight: =CG_AutoControlHeight.Value
+        AutoControlWidth: =CG_AutoControlWidth.Value
+        AutoLabelWidth: =CG_AutoLabelWidth.Value
+        ControlHeight: =_ControlHeight
+        ControlWidth: =_ControlWidth
         DisplayMode: =CG_DisplayMode.Selected.Value
-        Height: =200
+        Height: =If(CG_AutoFieldHeight.Value, Self.ContentHeight, _FieldHeight)
         Hint: =CG_Hint.Text
         Info: =CG_Info.Text
         Label: =CG_Label.Text
+        LabelAlign: =CG_LabelAlign.Selected.Value
+        LabelFont: =CG_LabelFont.Text
+        LabelFontColor: =CG_LabelColor.Text
+        LabelFontSize: =CG_LabelFontSize.Text
+        LabelFontWeight: =CG_LabelWeight.Selected.Value
+        LabelWidth: =_LabelWidth
+        LabelWrap: =CG_LabelWrap.Selected.Value
         Layout: =CG_Layout.Selected.Value
         Multiselect: =CG_Multiselect.Value
         OnChange: |-
             =ClearCollect(CG_DefaultItems, ForAll(ParseJSON(Self.SelectedOptions) As Option, {Value: Text(Option.Value), Text: Text(Option.Text)}))//Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
         OnResize: |-
-            =Notify($"Content Height: {Self.ContentHeight}")
+            =
+            UpdateContext({
+                _FieldHeight: Self.ContentHeight,
+                //_FieldWidth: Self.ContentWidth,
+                _ControlWidth: Self.ControlWidth,
+                _ControlHeight: Self.ControlHeight,
+                _LabelWidth: Self.LabelWidth
+            })
         Options: =JSON(CG_Items)
         Orientation: =CG_Orientation.Selected.Value
         Required: =CG_Required.Value
-        SelectedOptions: =JSON(CG_DefaultItems)
+        SelectedOptions: =JSON(CG_Value)
         Size: =CG_Size.Selected.Value
         ValidationMessage: =CG_ValidationMessage.Text
         ValidationState: =CG_ValidationState.Selected.Value
-        Width: =187
+        Width: =_FieldWidth
+        X: =43
+        Y: =75
+        ZIndex: =29
+
+    CG_LabelAlign As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelAlign'.Start,'F9Fields.Field.LabelAlign'.Center, 'F9Fields.Field.LabelAlign'.End, 'F9Fields.Field.LabelAlign'.Justify]
+        X: =370
+        Y: =75
+        ZIndex: =30
+
+    CG_Width As text:
+        Default: =_FieldWidth
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _FieldWidth: Value(Self.Text)})
+        Width: =105
+        X: =367
+        Y: =32
+        ZIndex: =31
+
+    CG_Height As text:
+        Default: =_FieldHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _FieldHeight: Value(Self.Text)})
+        Width: =99
+        X: =472
+        Y: =32
+        ZIndex: =32
+
+    CG_LabelWrap As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelWrap'.Wrap,'F9Fields.Field.LabelWrap'.NoWrap, 'F9Fields.Field.LabelWrap'.Balance, 'F9Fields.Field.LabelWrap'.Pretty]
+        X: =370
+        Y: =122
+        ZIndex: =33
+
+    CG_LabelWidth As text:
+        Default: =_LabelWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Label Width"
+        OnChange: |-
+            =UpdateContext({ _LabelWidth: Value(Self.Text)})
+        Width: =151
+        X: =367
+        Y: =216
+        ZIndex: =34
+
+    CG_LabelWeight As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelFontWeight'.Normal,'F9Fields.Field.LabelFontWeight'.Lighter, 'F9Fields.Field.LabelFontWeight'.'Semi-Bold', 'F9Fields.Field.LabelFontWeight'.Bold]
+        X: =367
+        Y: =257
+        ZIndex: =35
+
+    CG_LabelFont As text:
+        Default: =""
+        HintText: ="Label Font"
+        Width: =178
+        X: =367
+        Y: =300
+        ZIndex: =36
+
+    CG_LabelColor As text:
+        Default: =""
+        HintText: ="Label Color"
+        X: =367
+        Y: =340
+        ZIndex: =37
+
+    CG_LabelFontSize As text:
+        Default: ="14px"
+        Height: =39
+        HintText: ="Label Font Size"
+        Width: =125
+        X: =547
+        Y: =301
+        ZIndex: =38
+
+    CG_AutoLabelWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =540
+        Y: =211
+        ZIndex: =39
+
+    CG_AutoControlWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =31
+        Y: =643
+        ZIndex: =40
+
+    CG_AutoControlHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =199
+        Y: =645
+        ZIndex: =41
+
+    CG_ControlWidth As text:
+        Default: =_ControlWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _ControlWidth: Value(Self.Text)})
+        Width: =151
         X: =23
-        Y: =55
-        ZIndex: =27
+        Y: =596
+        ZIndex: =42
 
-    RadioGroupCanvas3 As Radio.pcfdataset:
-        AccessibleLabel: ="Test label"
-        BasePaletteColor: =RGBA(0, 124, 186, 1)
-        DefaultSelectedItems: =CG_DefaultItems
-        DisplayMode: =DisplayMode.Edit
-        Height: =100
-        Items: =CG_Items
-        OnChange: =ClearCollect(CG_DefaultItems, Self.SelectedItems)
-        Width: =320
-        X: =23
-        Y: =372
-        ZIndex: =28
+    CG_ControlHeight As text:
+        Default: =_ControlHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _ControlHeight: Value(Self.Text)})
+        Width: =151
+        X: =184
+        Y: =595
+        ZIndex: =43
 
-        TextInput2 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Text"
-            FieldName: ="Text"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =1
-            ZIndex: =1
-
-        Value1 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Value"
-            FieldName: ="Value"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =2
-            ZIndex: =2
+    CG_AutoFieldHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =587
+        Y: =38
+        ZIndex: =44
 

@@ -84,7 +84,7 @@ InputFieldGallery_Component As CanvasComponent:
         Height: =768
         Overflow: =Overflow.Scroll
         Text: |-
-            =$"Version: 3,
+            =$"Version: 3, 
             Label: {InputFieldGalleryComponent_InputField.Label}
             Hint: {InputFieldGalleryComponent_InputField.Hint}
             Info: {InputFieldGalleryComponent_InputField.Info}

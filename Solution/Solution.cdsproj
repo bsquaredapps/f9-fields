@@ -15,11 +15,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <SolutionRootPath>src</SolutionRootPath>
   </PropertyGroup>
-
+<!--
   <PropertyGroup>
     <SolutionPackageType>Both</SolutionPackageType>
   </PropertyGroup>
-
+-->
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerApps.MSBuild.Solution" Version="1.*" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
@@ -35,7 +35,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\f9-fields.pcfproj" />
+    <ProjectReference Include="..\CheckboxField/CheckboxField.pcfproj" />
+    <ProjectReference Include="..\ChoiceGroupField/ChoiceGroupField.pcfproj" />
+    <ProjectReference Include="..\ComboboxField/ComboboxField.pcfproj" />
+    <ProjectReference Include="..\Dialog/Dialog.pcfproj" />
+    <ProjectReference Include="..\Field/Field.pcfproj" />
+    <ProjectReference Include="..\FilePickerField/FilePickerField.pcfproj" />
+    <ProjectReference Include="..\InputField/InputField.pcfproj" />
+    <ProjectReference Include="..\TextareaField/TextareaField.pcfproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)\**" Exclude="@(ExcludeDirectories)" />

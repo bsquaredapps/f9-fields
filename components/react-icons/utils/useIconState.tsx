@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FluentIconsProps } from "./FluentIconsProps.types";
 import { makeStyles, mergeClasses } from "@fluentui/react-components";
 

@@ -16,12 +16,3 @@ Screen1 As screen:
         Y: =40
         ZIndex: =1
 
-    Label1_1 As label:
-        Height: =469
-        OnSelect: =Copy(Self.Text)
-        Text: =_SupervisorJSON
-        Width: =255
-        X: =325
-        Y: =90
-        ZIndex: =2
-

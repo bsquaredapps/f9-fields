@@ -1,43 +1,54 @@
 "'FilePickerField Test Harness' As screen":
     OnVisible: |-
-        =With({ parsedJson: ParseJSON(FilePicker_ItemsJSON.Text)}, IfError(parsedJson, Clear(FilePicker_Items), ClearCollect(FilePicker_Items, ForAll(parsedJson As Item, {File: {fileName: Text(Item.File.fileName)}, Description: Text(Item.Description)}))))
+        =With({ parsedJson: ParseJSON(FilePicker_ItemsJSON.Text)}, IfError(parsedJson, Clear(FilePicker_Items), ClearCollect(FilePicker_Items, ForAll(parsedJson As Item, {File: {fileName: Text(Item.File.fileName)}, Description: Text(Item.Description)}))));
+        
+        
+        UpdateContext({
+            _FieldHeight: 100,
+            _FieldWidth: 200,
+            _ControlWidth: 200,
+            _ControlHeight: 100,
+            _LabelWidth: 100
+        })
 
     FilePicker_ItemsJSON As text:
         Default: |-
-            ="[{""File"":{""fileName"": ""file1.txt"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 1""},{""File"":{""fileName"": ""file2.xlsx"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 2""},{""File"":{""fileName"": ""file3.pptx"", ""fileContent"":"""",""fileSize"":0, ""mimeType"":""""},""Description"":""Desc 3""}]"
+            ="[{""fileName"": ""file1.txt"", ""fileContent"":"""",""url"":""https://fda.sharepoint.com/:x:/r/sites/OC-OO-AppSolutions/Shared%20Documents/Untitled%20form%201.xlsx"",""fileSize"":0, ""mimeType"":""""}]"
         Height: =115
         Mode: =TextMode.MultiLine
-        OnChange: |-
-            =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(FilePicker_Items), ClearCollect(FilePicker_Items, ForAll(parsedJson As Item, {File: {fileName: Text(Item.File.fileName)}, Description: Text(Item.Description)}))))
-        X: =367
+        OnChange: |+
+            =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(FilePicker_Items), ClearCollect(FilePicker_Items, ForAll(parsedJson As File, {fileName: Text(File.fileName), mimeType: Text(File.mimeType), fileContent: Text(File.fileContent), fileSize: Value(File.fileSize), url: Text(File.url)}))))
+            
+        X: =12
+        Y: =329
         ZIndex: =3
 
     FilePicker_Layout As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
         Items: =['F9Fields.ChoiceGroupField.Layout'.Horizontal,'F9Fields.ChoiceGroupField.Layout'.Vertical,'F9Fields.ChoiceGroupField.Layout'.HorizontalStacked]
-        X: =367
-        Y: =232
+        X: =12
+        Y: =564
         ZIndex: =4
 
     FilePicker_Hint As text:
         Default: =""
         HintText: ="Hint"
         X: =367
-        Y: =324
+        Y: =403
         ZIndex: =5
 
     FilePicker_Info As text:
         Default: =""
         HintText: ="Info"
         X: =367
-        Y: =370
+        Y: =449
         ZIndex: =6
 
     FilePicker_Label As text:
         Default: =""
         HintText: ="Label"
         X: =367
-        Y: =278
+        Y: =357
         ZIndex: =7
 
     FilePicker_AllowMultiple As toggleSwitch:
@@ -45,8 +56,8 @@
         Height: =25
         TrueText: ="Allow Multiple"
         Width: =173
-        X: =367
-        Y: =447
+        X: =12
+        Y: =616
         ZIndex: =8
 
     FilePicker_Required As toggleSwitch:
@@ -55,21 +66,21 @@
         TrueText: ="Required"
         Width: =173
         X: =367
-        Y: =416
+        Y: =495
         ZIndex: =9
 
     FilePicker_ValidationMessage As text:
         Default: =""
         HintText: ="Validation Message"
         X: =367
-        Y: =478
+        Y: =524
         ZIndex: =10
 
     FilePicker_ValidationState As dropdown:
         Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
         Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
         X: =367
-        Y: =524
+        Y: =570
         ZIndex: =11
 
     FilePicker_Orientation As dropdown:
@@ -107,7 +118,8 @@
             Event Type: {CountRows(FilePickerField1.Events)}
             Required: {FilePickerField1.Required}
             Selected Values: {Concat(FilePicker_Items,fileName, ",")}
-            Label: {FilePickerField1.Visible}"
+            Label: {FilePickerField1.Visible}
+            Selected Files: {JSON(FilePicker_Items)}"
         Width: =643
         X: =723
         ZIndex: =16
@@ -117,24 +129,24 @@
         Text: |-
             ="Clear
             "
-        X: =80
-        Y: =541
+        X: =12
+        Y: =220
         ZIndex: =17
 
     FilePicker_ButtonSetYes As button:
         OnSelect: |-
             =ClearCollect(FilePicker_Items, {File: {fileName: "Set File Name 1.docx"}, Description: "Another"})
         Text: ="Set FIle Name 1.docx"
-        X: =80
-        Y: =593
+        X: =172
+        Y: =265
         ZIndex: =18
 
     FilePicker_ButtonSetNo As button:
         OnSelect: |-
             =ClearCollect(FilePicker_Items, {File: {fileName: "Set File Name 2.pdf"}})
         Text: ="Set File Name 2.pdf"
-        X: =80
-        Y: =653
+        X: =12
+        Y: =265
         ZIndex: =19
 
     FilePicker_ButtonHome As Button:
@@ -155,60 +167,253 @@
         Y: =0
         ZIndex: =20
 
-    FilePicker_Validate As dropdown:
-        Default: ='F9Fields.ChoiceGroupField.Validate'.OnChange
-        Items: =['F9Fields.ChoiceGroupField.Validate'.OnChange,'F9Fields.ChoiceGroupField.Validate'.Always,'F9Fields.ChoiceGroupField.Validate'.Never]
-        X: =367
-        Y: =570
-        ZIndex: =22
-
     FilePicker_MaxFileSize As text:
         Default: =10458760
         Format: =TextFormat.Number
         HintText: ="Max File Size"
-        X: =367
-        Y: =120
+        X: =12
+        Y: =444
         ZIndex: =24
 
     FilePicker_AcceptedTypes As text:
         Default: =
         Format: =TextFormat.Number
         HintText: ="Accepts Types"
-        X: =367
-        Y: =160
+        X: =12
+        Y: =484
         ZIndex: =25
 
     FilePicker_Appearance As dropdown:
         Default: ='F9Fields.FilePickerField.Appearance'.Default
         Items: =['F9Fields.FilePickerField.Appearance'.Default,'F9Fields.FilePickerField.Appearance'.Primary, 'F9Fields.FilePickerField.Appearance'.Outline, 'F9Fields.FilePickerField.Appearance'.Transparent,'F9Fields.FilePickerField.Appearance'.Subtle]
-        X: =367
-        Y: =192
+        X: =12
+        Y: =524
         ZIndex: =26
+
+    FilePicker_TrackChanges As toggleSwitch:
+        FalseText: ="No Changes"
+        Height: =25
+        TrueText: ="Track Changes"
+        Width: =173
+        X: =185
+        Y: =618
+        ZIndex: =28
 
     "FilePickerField1 As 'File Picker Field'.pcfdataset":
         AcceptedTypes: =FilePicker_AcceptedTypes.Text
-        AllowMultipleFiles: =FilePicker_AllowMultiple
+        AllowMultipleFiles: =FilePicker_AllowMultiple.Value
         Appearance: =FilePicker_Appearance.Selected.Value
+        AutoControlHeight: =FilePicker_AutoControlHeight.Value
+        AutoControlWidth: =FilePicker_AutoControlWidth.Value
+        AutoLabelWidth: =FilePicker_AutoLabelWidth.Value
+        ControlHeight: =_ControlHeight
+        ControlWidth: =_ControlWidth
         DisplayMode: =FilePicker_DisplayMode.Selected.Value
-        Height: =Self.ContentHeight
+        Files: =JSON(FilePicker_Items)
+        Height: =If(FilePicker_AutoFieldHeight.Value, Self.ContentHeight, _FieldHeight)
         Hint: =FilePicker_Hint.Text
         Info: =FilePicker_Info.Text
         Label: =FilePicker_Label.Text
+        LabelAlign: =FilePicker_LabelAlign.Selected.Value
+        LabelFont: =FilePicker_LabelFont.Text
+        LabelFontColor: =FilePicker_LabelColor.Text
+        LabelFontSize: =FilePicker_LabelFontSize.Text
+        LabelFontWeight: =FilePicker_LabelWeight.Selected.Value
+        LabelWidth: =_LabelWidth
+        LabelWrap: =FilePicker_LabelWrap.Selected.Value
         Layout: =FilePicker_Layout.Selected.Value
         MaxFileSize: =FilePicker_MaxFileSize.Text
         OnChange: =
         OnError: =Notify("File error");
-        OnResize: =Notify("File resize");
+        OnResize: |-
+            =
+            UpdateContext({
+                _FieldHeight: Self.ContentHeight,
+                //_FieldWidth: Self.ContentWidth,
+                _ControlWidth: Self.ControlWidth,
+                _ControlHeight: Self.ControlHeight,
+                _LabelWidth: Self.LabelWidth
+            })
         OnSelect: =Notify("Files Selected");
         OnValueChange: |-
-            =ClearCollect(FilePicker_Items, ForAll(ParseJSON(Self.Files) As File, {fileName: Text(File.fileName), mimeType: Text(File.mimeType), fileContent: Text(File.fileContext), fileSize: Value(File.fileSize)}))
+            =ClearCollect(
+                FilePicker_Items, 
+                ForAll(
+                    ParseJSON(Self.Files) As File, 
+                    {
+                        fileName: Text(File.fileName), 
+                        mimeType: Text(File.mimeType), 
+                        fileContent: Text(File.fileContent), 
+                        fileSize: Value(File.fileSize), 
+                        url: Text(File.url),
+                        state: Text(File.state),
+                        previousVersion: If(
+                            Not(IsBlank(File.previousVersion.fileName)),
+                            {
+                                fileName: Text(File.previousVersion.fileName), 
+                                mimeType: Text(File.previousVersion.mimeType), 
+                                fileContent: Text(File.previousVersion.fileContent), 
+                                fileSize: Value(File.previousVersion.fileSize), 
+                                url: Text(File.previousVersion.url),
+                                state: Text(File.previousVersion.state)
+                            }
+                        )
+                    }
+                )
+            )
         Orientation: =FilePicker_Orientation.Selected.Value
         Required: =FilePicker_Required.Value
         Size: =FilePicker_Size.Selected.Value
-        ValidationMessage: =FilePicker_ValidationMessage
+        TrackChanges: =FilePicker_TrackChanges.Value
+        ValidationMessage: =FilePicker_ValidationMessage.Text
         ValidationState: =FilePicker_ValidationState.Selected.Value
-        Width: =260
-        X: =40
-        Y: =40
-        ZIndex: =27
+        Width: =_FieldWidth
+        X: =25
+        Y: =105
+        ZIndex: =29
+
+    FilePicker_LabelAlign As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelAlign'.Start,'F9Fields.Field.LabelAlign'.Center, 'F9Fields.Field.LabelAlign'.End, 'F9Fields.Field.LabelAlign'.Justify]
+        X: =367
+        Y: =109
+        ZIndex: =30
+
+    FilePicker_Width As text:
+        Default: =_FieldWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _FieldWidth: Value(Self.Text)})
+        Width: =79
+        X: =367
+        Y: =72
+        ZIndex: =31
+
+    FilePicker_Height As text:
+        Default: =_FieldHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _FieldHeight: Value(Self.Text)})
+        Width: =90
+        X: =446
+        Y: =72
+        ZIndex: =32
+
+    FilePicker_LabelWrap As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelWrap'.Wrap,'F9Fields.Field.LabelWrap'.NoWrap, 'F9Fields.Field.LabelWrap'.Balance, 'F9Fields.Field.LabelWrap'.Pretty]
+        X: =367
+        Y: =149
+        ZIndex: =33
+
+    FilePicker_LabelWidth As text:
+        Default: =_LabelWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Label Width"
+        OnChange: |-
+            =UpdateContext({ _LabelWidth: Value(Self.Text)})
+        Width: =151
+        X: =367
+        Y: =193
+        ZIndex: =34
+
+    FilePicker_LabelWeight As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelFontWeight'.Normal,'F9Fields.Field.LabelFontWeight'.Lighter, 'F9Fields.Field.LabelFontWeight'.'Semi-Bold', 'F9Fields.Field.LabelFontWeight'.Bold]
+        X: =367
+        Y: =234
+        ZIndex: =35
+
+    FilePicker_LabelFont As text:
+        Default: =""
+        HintText: ="Label Font"
+        Width: =220
+        X: =367
+        Y: =277
+        ZIndex: =36
+
+    FilePicker_LabelColor As text:
+        Default: =""
+        HintText: ="Label Color"
+        X: =367
+        Y: =317
+        ZIndex: =37
+
+    FilePicker_LabelFontSize As text:
+        Default: ="14px"
+        Height: =42
+        HintText: ="Label Font Size"
+        Width: =101
+        X: =586
+        Y: =275
+        ZIndex: =38
+
+    FilePicker_AutoLabelWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =536
+        Y: =199
+        ZIndex: =39
+
+    FilePicker_AutoControlWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =20
+        Y: =725
+        ZIndex: =40
+
+    FilePicker_AutoControlHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =188
+        Y: =727
+        ZIndex: =41
+
+    FilePicker_ControlWidth As text:
+        Default: =_ControlWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _ControlWidth: Value(Self.Text)})
+        Width: =151
+        X: =12
+        Y: =678
+        ZIndex: =42
+
+    FilePicker_ControlHeight As text:
+        Default: =_ControlHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _ControlHeight: Value(Self.Text)})
+        Width: =151
+        X: =173
+        Y: =677
+        ZIndex: =43
+
+    FilePicker_AutoFieldHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =560
+        Y: =78
+        ZIndex: =44
 

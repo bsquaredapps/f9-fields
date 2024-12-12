@@ -213,7 +213,7 @@
             ZIndex: =1
 
     "ComboboxField1_2 As 'Combobox Field'.pcfdataset":
-        AllowSearch: =CB_AllowSearch_1
+        AllowSearch: =CB_AllowSearch_1.Value
         Appearance: =CB_Appearance_1.Selected.Value
         DelayOutput: =CB_DelayOutput_1.Selected.Value
         DelayTimeout: =CB_DebounceTimeout_1.Text
@@ -224,10 +224,10 @@
         Label: =CB_Label_1.Text
         Multiselect: =CB_Multiselect_1.Value
         OnChange: |-
-            =Set(_selectedOption, First(Self.SelectedItems));
-            ClearCollect(_selectedPeople, Self.SelectedItems);
-            Set(_selectedPeopleJson, JSON(Self.SelectedItems));
-            Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
+            =//Set(_selectedOption, First(Self.SelectedItems));
+            //ClearCollect(_selectedPeople, Self.SelectedItems);
+            Set(_selectedPeopleJson, JSON(Self.SelectedOptions));
+            Notify(JSON(Self.SelectedOptions, JSONFormat.IgnoreBinaryData));
             /*
             Notify(JSON(Self.SelectedItems, JSONFormat.IgnoreBinaryData));
             Set(_Supervisor, First(Self.SelectedItems));

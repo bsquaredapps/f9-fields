@@ -37,7 +37,7 @@ Home As screen:
         ZIndex: =2
 
     Label5 As label:
-        Text: ="v29"
+        Text: ="v52"
         X: =305
         ZIndex: =3
 
@@ -113,74 +113,21 @@ Home As screen:
         Y: =276
         ZIndex: =7
 
-    Dialog1 As Dialog.pcfdataset:
-        Content: |-
-            ="This si the content <a href=""#"">a link</a>"
+    btnCheckbox As Button:
+        BasePaletteColor: =
         DisplayMode: =DisplayMode.Edit
-        Height: =200
-        IsOpen: =_OpenDialog
-        Items: |-
-            =Table({Key: "OK", Text:"OK", Appearance: "primary"}, {Key:"Cancel", Text:"Cancel", Appearance: "outline"})
-        ModalType: ='F9Fields.Dialog.ModalType'.Modal
-        OnChange: |-
-            =Notify("This changed: " & Self.Selected.Key);
-        OnSelect: |-
-            =Notify("Item Selected: " & Self.Selected.Key);
-        Title: ="This is the title"
-        Width: =200
-        X: =401
-        Y: =124
-        ZIndex: =8
-
-        Key1 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Key"
-            FieldName: ="Key"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =1
-            ZIndex: =1
-
-        TextInput1 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Text"
-            FieldName: ="Text"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =2
-            ZIndex: =2
-
-        Appearance1 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Appearance"
-            FieldName: ="Appearance"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =3
-            ZIndex: =3
-
-    Button1 As button:
-        OnSelect: |-
-            =Set(_OpenDialog, false);
-            Set(_OpenDialog, true);
-        Text: ="Button"
-        X: =962
-        Y: =89
-        ZIndex: =9
-
-    "ChoiceGroupField1_2 As 'ChoiceGroup Field'.pcfdataset":
-        DisplayMode: =
-        Height: =Self.ContentHeight
-        Hint: =
-        Info: =
-        Label: =
-        Layout: =
-        Multiselect: =true
-        OnChange: =Set(_Supervisor_Acknowledgement, If("true" in Self.SelectedItems.Value, _Boolean.Yes, Blank()))
-        Orientation: =
-        Required: =
-        Size: =
-        ValidationMessage: =If(IsBlank(_Supervisor_Acknowledgement), "You need a value", "")
-        ValidationState: ="error"
-        Width: =187
-        X: =708
-        Y: =344
-        ZIndex: =11
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
+        Height: =28
+        OnSelect: =Navigate('CheckboxField Test Harness')
+        Text: ="Checkbox Field"
+        Width: =159
+        X: =40
+        Y: =324
+        ZIndex: =12
 

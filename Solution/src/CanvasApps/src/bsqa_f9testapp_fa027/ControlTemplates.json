@@ -40,7 +40,103 @@
     "Name": "PowerApps_CoreControls_ButtonCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Button",
-    "Version": "0.0.27"
+    "Version": "0.0.29"
+  },
+  "checkbox": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": true,
+    "Id": "http://microsoft.com/appmagic/checkbox",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": false,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": true,
+    "LastModifiedTimestamp": "0",
+    "Name": "checkbox",
+    "OverridableProperties": {},
+    "Version": "2.1.0"
+  },
+  "Checkbox Field": {
+    "CustomGroupControlTemplateName": "",
+    "FirstParty": false,
+    "Id": "http://microsoft.com/appmagic/powercontrol/bsqa_F9Fields.CheckboxField",
+    "IsComponentTemplate": false,
+    "IsCustomGroupControlTemplate": false,
+    "IsPcfControl": true,
+    "IsPremiumPcfControl": false,
+    "IsWidgetTemplate": false,
+    "LastModifiedTimestamp": "0",
+    "Name": "bsqa_F9Fields.CheckboxField",
+    "OverridableProperties": {
+      "Events": {
+        "Type": {
+          "EnumString": "",
+          "Kind": "Table",
+          "Name": "Root",
+          "Type": [
+            {
+              "EnumString": "",
+              "Kind": "Record",
+              "Name": "target",
+              "Type": [
+                {
+                  "EnumString": "",
+                  "Kind": "Table",
+                  "Name": "classList",
+                  "Type": [
+                    {
+                      "EnumString": "",
+                      "Kind": "String",
+                      "Name": "Value",
+                      "Type": []
+                    }
+                  ]
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "name",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "tagName",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "value",
+                  "Type": []
+                }
+              ]
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "type",
+              "Type": []
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "value",
+              "Type": []
+            }
+          ]
+        },
+        "Version": "1.339"
+      }
+    },
+    "PCFDynamicSchemaForIRRetrieval": {
+      "Events": {
+        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
+        "PCFSkipValidation": false
+      }
+    },
+    "TemplateDisplayName": "Checkbox Field",
+    "Version": "0.0.59"
   },
   "ChoiceGroup Field": {
     "CustomGroupControlTemplateName": "",
@@ -112,7 +208,7 @@
             }
           ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
@@ -122,7 +218,7 @@
       }
     },
     "TemplateDisplayName": "ChoiceGroup Field",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "Combobox": {
     "CustomGroupControlTemplateName": "",
@@ -137,7 +233,7 @@
     "Name": "PowerApps_CoreControls_ComboboxCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Combobox",
-    "Version": "0.0.24"
+    "Version": "0.0.27"
   },
   "Combobox Field": {
     "CustomGroupControlTemplateName": "",
@@ -154,31 +250,72 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Record",
+          "Kind": "Table",
           "Name": "Root",
-          "Type": []
+          "Type": [
+            {
+              "EnumString": "",
+              "Kind": "Record",
+              "Name": "target",
+              "Type": [
+                {
+                  "EnumString": "",
+                  "Kind": "Table",
+                  "Name": "classList",
+                  "Type": [
+                    {
+                      "EnumString": "",
+                      "Kind": "String",
+                      "Name": "Value",
+                      "Type": []
+                    }
+                  ]
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "name",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "tagName",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "value",
+                  "Type": []
+                }
+              ]
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "type",
+              "Type": []
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "value",
+              "Type": []
+            }
+          ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {},
+    "PCFDynamicSchemaForIRRetrieval": {
+      "Events": {
+        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
+        "PCFSkipValidation": false
+      }
+    },
     "TemplateDisplayName": "Combobox Field",
-    "Version": "0.0.41"
-  },
-  "Dialog": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": false,
-    "Id": "http://microsoft.com/appmagic/powercontrol/bsqa_F9Fields.Dialog",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "bsqa_F9Fields.Dialog",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Dialog",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "dropdown": {
     "CustomGroupControlTemplateName": "",
@@ -207,7 +344,7 @@
     "Name": "PowerApps_CoreControls_DropdownCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Dropdown",
-    "Version": "0.0.26"
+    "Version": "0.0.29"
   },
   "Field": {
     "CustomGroupControlTemplateName": "",
@@ -224,16 +361,72 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Record",
+          "Kind": "Table",
           "Name": "Root",
-          "Type": []
+          "Type": [
+            {
+              "EnumString": "",
+              "Kind": "Record",
+              "Name": "target",
+              "Type": [
+                {
+                  "EnumString": "",
+                  "Kind": "Table",
+                  "Name": "classList",
+                  "Type": [
+                    {
+                      "EnumString": "",
+                      "Kind": "String",
+                      "Name": "Value",
+                      "Type": []
+                    }
+                  ]
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "name",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "tagName",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "value",
+                  "Type": []
+                }
+              ]
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "type",
+              "Type": []
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "value",
+              "Type": []
+            }
+          ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {},
+    "PCFDynamicSchemaForIRRetrieval": {
+      "Events": {
+        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
+        "PCFSkipValidation": false
+      }
+    },
     "TemplateDisplayName": "Field",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "File Picker Field": {
     "CustomGroupControlTemplateName": "",
@@ -305,7 +498,7 @@
             }
           ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
@@ -315,7 +508,7 @@
       }
     },
     "TemplateDisplayName": "File Picker Field",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "gallery": {
     "CustomGroupControlTemplateName": "",
@@ -329,7 +522,7 @@
     "LastModifiedTimestamp": "0",
     "Name": "gallery",
     "OverridableProperties": {},
-    "Version": "2.14.0"
+    "Version": "2.14.1"
   },
   "galleryTemplate": {
     "CustomGroupControlTemplateName": "",
@@ -443,7 +636,7 @@
             }
           ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
     "PCFDynamicSchemaForIRRetrieval": {
@@ -453,7 +646,7 @@
       }
     },
     "TemplateDisplayName": "Input Field",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "label": {
     "CustomGroupControlTemplateName": "",
@@ -482,21 +675,6 @@
     "Name": "pcfDataField",
     "OverridableProperties": {},
     "Version": "1.4.0"
-  },
-  "Radio": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/PowerApps_CoreControls_RadioGroupCanvas",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "PowerApps_CoreControls_RadioGroupCanvas",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Radio",
-    "Version": "0.0.16"
   },
   "rectangle": {
     "CustomGroupControlTemplateName": "",
@@ -553,7 +731,7 @@
     "Name": "PowerApps_CoreControls_TextInputCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Text input",
-    "Version": "0.0.24"
+    "Version": "0.0.26"
   },
   "Textarea Field": {
     "CustomGroupControlTemplateName": "",
@@ -570,16 +748,72 @@
       "Events": {
         "Type": {
           "EnumString": "",
-          "Kind": "Record",
+          "Kind": "Table",
           "Name": "Root",
-          "Type": []
+          "Type": [
+            {
+              "EnumString": "",
+              "Kind": "Record",
+              "Name": "target",
+              "Type": [
+                {
+                  "EnumString": "",
+                  "Kind": "Table",
+                  "Name": "classList",
+                  "Type": [
+                    {
+                      "EnumString": "",
+                      "Kind": "String",
+                      "Name": "Value",
+                      "Type": []
+                    }
+                  ]
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "name",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "tagName",
+                  "Type": []
+                },
+                {
+                  "EnumString": "",
+                  "Kind": "String",
+                  "Name": "value",
+                  "Type": []
+                }
+              ]
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "type",
+              "Type": []
+            },
+            {
+              "EnumString": "",
+              "Kind": "String",
+              "Name": "value",
+              "Type": []
+            }
+          ]
         },
-        "Version": "1.336"
+        "Version": "1.339"
       }
     },
-    "PCFDynamicSchemaForIRRetrieval": {},
+    "PCFDynamicSchemaForIRRetrieval": {
+      "Events": {
+        "DynamicSchema": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"},\"target\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"tagName\":{\"type\":\"string\"},\"classList\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"attributes\":{\"type\":\"array\",\"items\":{\"name\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"value\":{\"type\":\"string\"}}}}}}",
+        "PCFSkipValidation": false
+      }
+    },
     "TemplateDisplayName": "Textarea Field",
-    "Version": "0.0.41"
+    "Version": "0.0.59"
   },
   "toggleSwitch": {
     "CustomGroupControlTemplateName": "",

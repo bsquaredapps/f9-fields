@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <control namespace="F9Fields" constructor="Dialog" version="0.0.59" display-name-key="Dialog_Display_Key" description-key="DialogField_Desc_Key" control-type="virtual">
+    <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
+    If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
+    Example1:
+      <external-service-usage enabled="true">
+        <domain>www.Microsoft.com</domain>
+      </external-service-usage>
+    Example2:
+      <external-service-usage enabled="false">
+      </external-service-usage>
+    -->
+    <external-service-usage enabled="false">
+      <!--UNCOMMENT TO ADD EXTERNAL DOMAINS
+      <domain></domain>
+      <domain></domain>
+      -->
+    </external-service-usage>
+    <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
+    <!-- props specific to this input -->
+    <data-set name="Actions" display-name-key="Actions_Disp_Key" description-key="Actions_Desc_Key" cds-data-set-options="">
+      <property-set name="Key" display-name-key="Actions_Key_Display_Key" of-type="SingleLine.Text" usage="bound" />
+      <property-set name="Text" display-name-key="Actions_Text_Display_Key" of-type="SingleLine.Text" usage="bound" />
+      <property-set name="Appearance" display-name-key="Actions_Appearance_Display_Key" of-type="SingleLine.Text" usage="input" />
+    </data-set>
+    <property name="Title" display-name-key="DialogTitle_Display_Key" description-key="DialogTitle_Desc_Key" of-type="SingleLine.Text" usage="bound" required="true" default-value="false" />
+    <property name="Content" display-name-key="DialogContent_Display_Key" description-key="DialogContent_Desc_Key" of-type="Multiple" usage="bound" required="true" default-value="false" />
+    <property name="ModalType" display-name-key="ModalType_Display_Key" description-key="ModalType_Desc_Key" of-type="Enum" usage="input" required="true" default-value="modal">
+      <value name="Modal" display-name-key="ModalType_Modal_Display_Key">modal</value>
+      <value name="NonModal" display-name-key="ModalType_NonModal_Display_Key">non-modal</value>
+      <value name="Alert" display-name-key="ModalType_Alert_Display_Key">alert</value>
+    </property>
+    <property name="ActionsPosition" display-name-key="ActionsPosition_Display_Key" description-key="ActionsPosition_Desc_Key" of-type="Enum" usage="input" required="true" default-value="offset-right">
+      <value name="OffsetLeft" display-name-key="ActionsPosition_OffsetLeft_Display_Key">offset-left</value>
+      <value name="OffsetRight" display-name-key="ActionsPosition_OffsetRight_Display_Key">offset-right</value>
+      <value name="InsetCenter" display-name-key="ActionsPosition_InsetCenter_Display_Key">inset-center</value>
+      <value name="FluidLeft" display-name-key="ActionsPosition_FluidLeft_Display_Key">fluid-left</value>
+      <value name="FluidRight" display-name-key="ActionsPosition_FluidRight_Display_Key">fluid-right</value>
+      <value name="FluidCenter" display-name-key="ActionsPosition_FluidCenter_Display_Key">fluid-center</value>
+    </property>
+    <property name="IsOpen" display-name-key="IsOpen_Display_Key" description-key="IsOpen_Desc_Key" of-type="TwoOptions" usage="bound" required="true" default-value="false" />
+    <!-- A hidden property used by Canvas to get the output object schema -->
+    <!-- <property name="EventsSchema" display-name-key="Events_Schema_Disp_Key" description-key="Events_Schema_Desc_Key" of-type="SingleLine.Text" usage="input" hidden="true" /> -->
+    <!-- The object type output property -->
+    <!-- <property name="Events" display-name-key="Events_Disp_Key" description-key="Events_Desc_Key" of-type="Object" usage="output" hidden="false" default-value="" /> -->
+    <!-- <property-dependencies> -->
+    <!-- Define the dependency between schema and the object type property -->
+    <!-- <property-dependency input="EventsSchema" output="Events" required-for="schema" /> -->
+    <!-- </property-dependencies> -->
+    <!--
+      Property node's of-type attribute can be of-type-group attribute.
+      Example:
+      <type-group name="numbers">
+        <type>Whole.None</type>
+        <type>Currency</type>
+        <type>FP</type>
+        <type>Decimal</type>
+      </type-group>
+      <property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type-group="numbers" usage="bound" required="true" />
+    -->
+    <resources>
+      <code path="index.ts" order="1" />
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.19.1" />
+      <resx path="strings/Dialog.1033.resx" version="1.0.0" />
+      <!-- UNCOMMENT TO ADD MORE RESOURCES
+      <css path="css/TextareaField.css" order="1" />
+      <resx path="strings/TextareaField.1033.resx" version="1.0.0" />
+      -->
+    </resources>
+    <!-- UNCOMMENT TO ENABLE THE SPECIFIED API
+    <feature-usage>
+      <uses-feature name="Device.captureAudio" required="true" />
+      <uses-feature name="Device.captureImage" required="true" />
+      <uses-feature name="Device.captureVideo" required="true" />
+      <uses-feature name="Device.getBarcodeValue" required="true" />
+      <uses-feature name="Device.getCurrentPosition" required="true" />
+      <uses-feature name="Device.pickFile" required="true" />
+      <uses-feature name="Utility" required="true" />
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+    -->
+  </control>
+</manifest>

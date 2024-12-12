@@ -1,42 +1,51 @@
 "'ComboboxField Test Harness' As screen":
-    OnVisible: =
+    OnVisible: |-
+        =
+        UpdateContext({
+            _FieldHeight: 100,
+            _FieldWidth: 200,
+            _ControlWidth: 200,
+            _ControlHeight: 100,
+            _LabelWidth: 100
+        })
 
     CB_ItemsJSON As text:
         Default: |-
             ="[{""Value"":""1"",""Text"":""Option 1""},{""Value"":""2"",""Text"":""Option 2""},{""Value"":""3"",""Text"":""Option 3""}]"
-        Height: =93
+        Height: =54
         Mode: =TextMode.MultiLine
         OnChange: |-
             =With({ parsedJson: ParseJSON(Self.Text)}, IfError(parsedJson, Clear(CG_Items), ClearCollect(CG_Items, ForAll(parsedJson As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))))
-        X: =367
+        X: =10
+        Y: =314
         ZIndex: =3
 
     CB_Appearance As dropdown:
         Default: ='F9Fields.ComboboxField.Appearance'.Outline
         Items: =['F9Fields.ComboboxField.Appearance'.Outline,'F9Fields.ComboboxField.Appearance'.FilledDarker,'F9Fields.ComboboxField.Appearance'.FilledLighter]
-        X: =367
-        Y: =178
+        X: =10
+        Y: =481
         ZIndex: =4
 
     CB_Hint As text:
         Default: =""
         HintText: ="Hint"
         X: =367
-        Y: =297
+        Y: =325
         ZIndex: =5
 
     CB_Info As text:
         Default: =""
         HintText: ="Info"
         X: =367
-        Y: =336
+        Y: =364
         ZIndex: =6
 
     CB_Label As text:
         Default: =""
         HintText: ="Label"
         X: =367
-        Y: =219
+        Y: =285
         ZIndex: =7
 
     CB_Multiselect As toggleSwitch:
@@ -44,8 +53,8 @@
         Height: =25
         TrueText: ="Multiselect"
         Width: =173
-        X: =367
-        Y: =489
+        X: =10
+        Y: =609
         ZIndex: =8
 
     CB_Required As toggleSwitch:
@@ -54,53 +63,53 @@
         TrueText: ="Required"
         Width: =173
         X: =367
-        Y: =465
+        Y: =409
         ZIndex: =9
 
     CB_ValidationMessage As text:
         Default: =""
         HintText: ="Validation Message"
         X: =367
-        Y: =518
+        Y: =440
         ZIndex: =10
 
     CB_ValidationState As dropdown:
         Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
         Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
         X: =367
-        Y: =569
+        Y: =480
         ZIndex: =11
 
     CB_Orientation As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
         Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
         X: =367
-        Y: =620
+        Y: =522
         ZIndex: =12
 
     CB_Size As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Size'.Medium
         Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
         X: =367
-        Y: =671
+        Y: =562
         ZIndex: =13
 
     CB_DisplayMode As dropdown:
         Default: =DisplayMode.Edit
         Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
         X: =367
-        Y: =728
+        Y: =602
         ZIndex: =14
 
     CB_DefaultItemsJSON As text:
         Default: |-
             ="[{""Value"":""1"",""Text"":""Option 1""},{""Value"":""2"",""Text"":""Option 2""}]"
-        Height: =82
+        Height: =47
         Mode: =TextMode.MultiLine
         OnChange: |-
             =ClearCollect(CG_DefaultItems, ForAll(ParseJSON(Self.Text) As Item, {Value: Text(Item.Value), Text: Text(Item.Text)}))
-        X: =367
-        Y: =93
+        X: =10
+        Y: =376
         ZIndex: =15
 
     CB_Label4_1 As label:
@@ -130,25 +139,28 @@
         Text: |-
             ="Clear
             "
-        X: =80
-        Y: =541
+        Width: =116
+        X: =10
+        Y: =251
         ZIndex: =17
 
     CB_Button3_1 As button:
         OnSelect: |-
             =ClearCollect(_selectedPeople, AddColumns(Office365Users.SearchUserV2({searchTerm:"heidi.snyder@fda.hhs.gov", isSearchTermRequired:true, top:1}).value, "Text", DisplayName, "Value", Mail));
-            Set(_selectedOption, {Value: "heidi@fda.gov", Text: "Heidi Snyder"});
+            //Set(_selectedOption, {Value: "heidi@fda.gov", Text: "Heidi Snyder"});
         Text: ="Set Heidi"
-        X: =80
-        Y: =593
+        Width: =102
+        X: =138
+        Y: =251
         ZIndex: =18
 
     CB_Button4_1 As button:
         OnSelect: |-
             =ClearCollect(_selectedPeople, AddColumns(Office365Users.SearchUserV2({searchTerm:"robert.bettinger@fda.hhs.gov", isSearchTermRequired:true, top:1}).value, "Text", DisplayName, "Value", Mail))
         Text: ="Set Bobby"
-        X: =80
-        Y: =653
+        Width: =113
+        X: =248
+        Y: =251
         ZIndex: =19
 
     CB_ButtonCanvas4_1 As Button:
@@ -173,61 +185,74 @@
         FalseText: ="No Search"
         Height: =25
         TrueText: ="Allow Search"
-        Width: =173
-        X: =550
-        Y: =482
+        Width: =140
+        X: =190
+        Y: =606
         ZIndex: =22
 
     CB_Placeholder As text:
         Default: =""
         HintText: ="Placeholder"
-        X: =367
-        Y: =256
+        X: =10
+        Y: =440
         ZIndex: =23
 
     CB_DelayOutput As dropdown:
         Default: ='F9Fields.ComboboxField.Appearance'.Outline
         Items: =['F9Fields.ComboboxField.DelayOutput'.None,'F9Fields.ComboboxField.DelayOutput'.Debounce,'F9Fields.ComboboxField.DelayOutput'.OnBlur]
-        X: =367
-        Y: =375
+        X: =10
+        Y: =520
         ZIndex: =24
 
     CB_DebounceTimeout As text:
         Default: =""
         Format: =TextFormat.Number
         HintText: ="Debounce Timeout"
-        X: =367
-        Y: =420
+        X: =10
+        Y: =562
         ZIndex: =25
 
-    ComboboxCanvas1 As Combobox.pcfdataset:
-        DefaultSelectedItems: =_selectedPeople//_Supervisor//_selectedOption//_selectedPeople
-        DisplayMode: =DisplayMode.Edit
-        Font: =""
-        FontItalic: =false
-        FontSize: =0
-        FontStrikethrough: =false
-        FontUnderline: =false
-        FontWeight: =""
-        Height: =32
-        Items: |-
-            =AddColumns(Office365Users.SearchUserV2({searchTerm: Self.SearchText, isSearchTermRequired:false, top:20}).value, "Text", DisplayName, "Value", Mail)
-        ValidationState: ="None"
-        Width: =320
-        X: =27
-        Y: =272
-        ZIndex: =27
+    CB_ShowTags As toggleSwitch:
+        FalseText: ="No Tags"
+        Height: =25
+        TrueText: ="Show Tags"
+        Width: =125
+        X: =231
+        Y: =636
+        ZIndex: =29
+
+    CB_AllowCustom As toggleSwitch:
+        FalseText: ="No Custom Options"
+        Height: =26
+        TrueText: ="Allow Custom Options"
+        Width: =221
+        X: =10
+        Y: =635
+        ZIndex: =30
 
     "ComboboxField1 As 'Combobox Field'.pcfdataset":
-        AllowSearch: =CB_AllowSearch
+        AllowCustomOptions: =CB_AllowCustom.Value
+        AllowSearch: =CB_AllowSearch.Value
         Appearance: =CB_Appearance.Selected.Value
+        AutoControlHeight: =CB_AutoControlHeight.Value
+        AutoControlWidth: =CB_AutoControlWidth.Value
+        AutoLabelWidth: =CB_AutoLabelWidth.Value
+        ControlHeight: =_ControlHeight
+        ControlWidth: =_ControlWidth
         DelayOutput: =CB_DelayOutput.Selected.Value
         DelayTimeout: =CB_DebounceTimeout.Text
         DisplayMode: =CB_DisplayMode.Selected.Value
-        Height: =200
+        Height: =If(CB_AutoFieldHeight.Value, Self.ContentHeight, _FieldHeight)
         Hint: =CB_Hint.Text
         Info: =CB_Info.Text
         Label: =CB_Label.Text
+        LabelAlign: =CB_LabelAlign.Selected.Value
+        LabelFont: =CB_LabelFont.Text
+        LabelFontColor: =CB_LabelColor.Text
+        LabelFontSize: =CB_LabelFontSize.Text
+        LabelFontWeight: =CB_LabelWeight.Selected.Value
+        LabelWidth: =_LabelWidth
+        LabelWrap: =CB_LabelWrap.Selected.Value
         Multiselect: =CB_Multiselect.Value
         OnChange: |-
             =
@@ -248,6 +273,15 @@
             Set(_SupervisorJSON, JSON(Patch(_Supervisor, { _SupervisorEmail: _SupervisorEmail, _SupervisorName: _SupervisorName}), JSONFormat.IgnoreBinaryData));
             
             */
+        OnResize: |-
+            =
+            UpdateContext({
+                _FieldHeight: Self.ContentHeight,
+                //_FieldWidth: Self.ContentWidth,
+                _ControlWidth: Self.ControlWidth,
+                _ControlHeight: Self.ControlHeight,
+                _LabelWidth: Self.LabelWidth
+            })
         OnValueChange: |-
             =//If(
             //    "change" in ForAll(Self.Events, type),
@@ -285,11 +319,154 @@
         Placeholder: =CB_Placeholder.Text
         Required: =CB_Required.Value
         SelectedOptions: =JSON(_selectedPeople, JSONFormat.IgnoreBinaryData)
+        ShowTags: =CB_ShowTags.Value
         Size: =CB_Size.Selected.Value
         ValidationMessage: =CB_ValidationMessage.Text
         ValidationState: =CB_ValidationState.Selected.Value
-        Width: =200
-        X: =60
-        Y: =104
-        ZIndex: =28
+        Width: =_FieldWidth
+        X: =19
+        Y: =156
+        ZIndex: =32
+
+    CB_LabelAlign As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelAlign'.Start,'F9Fields.Field.LabelAlign'.Center, 'F9Fields.Field.LabelAlign'.End, 'F9Fields.Field.LabelAlign'.Justify]
+        X: =367
+        Y: =37
+        ZIndex: =33
+
+    CB_Width As text:
+        Default: =_FieldWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({_FieldWidth: Value(Self.Text)})
+        Width: =83
+        X: =367
+        ZIndex: =34
+
+    CB_Height As text:
+        Default: =_FieldHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({_FieldHeight: Value(Self.Text)})
+        Width: =79
+        X: =450
+        ZIndex: =35
+
+    CB_LabelWrap As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelWrap'.Wrap,'F9Fields.Field.LabelWrap'.NoWrap, 'F9Fields.Field.LabelWrap'.Balance, 'F9Fields.Field.LabelWrap'.Pretty]
+        X: =367
+        Y: =77
+        ZIndex: =36
+
+    CB_LabelWidth As text:
+        Default: =_LabelWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Label Width"
+        OnChange: |-
+            =UpdateContext({_LabelWidth: Value(Self.Text)})
+        Width: =151
+        X: =367
+        Y: =121
+        ZIndex: =37
+
+    CB_LabelWeight As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelFontWeight'.Normal,'F9Fields.Field.LabelFontWeight'.Lighter, 'F9Fields.Field.LabelFontWeight'.'Semi-Bold', 'F9Fields.Field.LabelFontWeight'.Bold]
+        X: =367
+        Y: =162
+        ZIndex: =38
+
+    CB_LabelFont As text:
+        Default: =""
+        HintText: ="Label Font"
+        Width: =202
+        X: =367
+        Y: =205
+        ZIndex: =39
+
+    CB_LabelColor As text:
+        Default: =""
+        HintText: ="Label Color"
+        X: =367
+        Y: =245
+        ZIndex: =40
+
+    CB_LabelFontSize As text:
+        Default: ="14px"
+        HintText: ="Label Font Size"
+        Width: =115
+        X: =572
+        Y: =205
+        ZIndex: =41
+
+    CB_ControlWidth As text:
+        Default: =_ControlWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _ControlWidth: Value(Self.Text)})
+        Width: =151
+        X: =10
+        Y: =672
+        ZIndex: =42
+
+    CB_ControlHeight As text:
+        Default: =_ControlHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _ControlHeight: Value(Self.Text)})
+        Width: =151
+        X: =171
+        Y: =671
+        ZIndex: =43
+
+    CB_AutoLabelWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =540
+        Y: =128
+        ZIndex: =44
+
+    CB_AutoControlWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =10
+        Y: =721
+        ZIndex: =45
+
+    CB_AutoControlHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =178
+        Y: =723
+        ZIndex: =46
+
+    CB_AutoFieldHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =540
+        Y: =6
+        ZIndex: =47
 

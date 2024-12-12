@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing"
+    mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework
+    object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Common Field Strings -->
+  <data name="Label_Display_Key" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="Label_Desc_Key" xml:space="preserve">
+    <value>Label for the field.</value>
+  </data>
+  <data name="LabelFont_Disp_Key" xml:space="preserve">
+    <value>Label Font</value>
+  </data>
+  <data name="LabelFont_Desc_Key" xml:space="preserve">
+    <value>Override the default theme font for the field label.</value>
+  </data>
+  <data name="LabelFontSize_Disp_Key" xml:space="preserve">
+    <value>Label Font Size</value>
+  </data>
+  <data name="LabelFontSize_Desc_Key" xml:space="preserve">
+    <value>Override the default theme font size for the field label.</value>
+  </data>
+  <data name="LabelFontWeight_Disp_Key" xml:space="preserve">
+    <value>Label Font Weight</value>
+  </data>
+  <data name="LabelFontWeight_Desc_Key" xml:space="preserve">
+    <value>Override the default theme font weight for the field label.</value>
+  </data>
+  <data name="FontWeight_Lighter_Disp_Key" xml:space="preserve">
+    <value>Lighter</value>
+  </data>
+  <data name="FontWeight_Normal_Disp_Key" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="FontWeight_SemiBold_Disp_Key" xml:space="preserve">
+    <value>Semi-Bold</value>
+  </data>
+  <data name="FontWeight_Bold_Disp_Key" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="LabelWidth_Disp_Key" xml:space="preserve">
+    <value>Label Width</value>
+  </data>
+  <data name="LabelWidth_Desc_Key" xml:space="preserve">
+    <value>Overrides the default width of the label.</value>
+  </data>
+  <data name="LabelAlign_Disp_Key" xml:space="preserve">
+    <value>Label Alignment</value>
+  </data>
+  <data name="LabelAlign_Desc_Key" xml:space="preserve">
+    <value>Determines the alignment of the label.</value>
+  </data>
+  <data name="LabelAlign_Start_Disp_Key" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="LabelAlign_Center_Disp_Key" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="LabelAlign_End_Disp_Key" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="LabelAlign_Justify_Disp_Key" xml:space="preserve">
+    <value>Justify</value>
+  </data>
+  <data name="LabelWrap_Disp_Key" xml:space="preserve">
+    <value>Label Wrap</value>
+  </data>
+  <data name="LabelWrap_Desc_Key" xml:space="preserve">
+    <value>Determines whether the label will wrap if the label exceeds the available space.</value>
+  </data>
+  <data name="LabelWrap_Wrap_Disp_Key" xml:space="preserve">
+    <value>Wrap</value>
+  </data>
+  <data name="LabelWrap_NoWrap_Disp_Key" xml:space="preserve">
+    <value>No Wrap</value>
+  </data>
+  <data name="LabelWrap_Balance_Disp_Key" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="LabelWrap_Pretty_Disp_Key" xml:space="preserve">
+    <value>Pretty</value>
+  </data>
+  <data name="LabelFontColor_Disp_Key" xml:space="preserve">
+    <value>Label Font Color</value>
+  </data>
+  <data name="LabelFontColor_Desc_Key" xml:space="preserve">
+    <value>Override the default theme font color for the field label.</value>
+  </data>
+  <data name="LabelPosition_Disp_Key" xml:space="preserve">
+    <value>Label Position</value>
+  </data>
+  <data name="LabelPosition_Desc_Key" xml:space="preserve">
+    <value>Position the label before or after the checkbox control.</value>
+  </data>
+  <data name="LabelPosition_Before_Disp_Key" xml:space="preserve">
+    <value>Before</value>
+  </data>
+  <data name="LabelPosition_After_Disp_Key" xml:space="preserve">
+    <value>After</value>
+  </data>
+  <data name="Hint_Display_Key" xml:space="preserve">
+    <value>Hint</value>
+  </data>
+  <data name="Hint_Desc_Key" xml:space="preserve">
+    <value>Hint Text to display below the field.</value>
+  </data>
+  <data name="Info_Display_Key" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Info_Desc_Key" xml:space="preserve">
+    <value>If set, an info button will appear that will reveal the info content when clicked.</value>
+  </data>
+  <data name="Required_Display_Key" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="Required_Desc_Key" xml:space="preserve">
+    <value>Shows an asterisk if the field is required.</value>
+  </data>
+  <data name="ValidationMessage_Display_Key" xml:space="preserve">
+    <value>Validation Message</value>
+  </data>
+  <data name="ValidationMessage_Desc_Key" xml:space="preserve">
+    <value>Validation message to display.  Message style can be changed by using the Validation State.</value>
+  </data>
+  <data name="ValidationState_Display_Key" xml:space="preserve">
+    <value>Validation State</value>
+  </data>
+  <data name="ValidationState_Desc_Key" xml:space="preserve">
+    <value>Changes the appearance of the Validation Message</value>
+  </data>
+  <data name="ValidationState_None_Display_Key" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ValidationState_Success_Display_Key" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ValidationState_Warning_Display_Key" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ValidationState_Error_Display_Key" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Orientation_Display_Key" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="Orientation_Desc_Key" xml:space="preserve">
+    <value>Select whether the label should be oriented vertically or horizontally.</value>
+  </data>
+  <data name="Orientation_Horizontal_Display_Key" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Orientation_Vertical_Display_Key" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="Size_Display_Key" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Size_Desc_Key" xml:space="preserve">
+    <value>Choose the size for the label and control if supported.</value>
+  </data>
+  <data name="Size_Small_Display_Key" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="Size_Medium_Display_Key" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Size_Large_Display_Key" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="Content_Height_Disp_Key" xml:space="preserve">
+    <value>Content Height</value>
+  </data>
+  <data name="Content_Height_Desc_Key" xml:space="preserve">
+    <value>Actual height required by the field.</value>
+  </data>
+  <data name="Content_Width_Disp_Key" xml:space="preserve">
+    <value>Content Width</value>
+  </data>
+  <data name="Content_Width_Desc_Key" xml:space="preserve">
+    <value>Actual width required by the field.</value>
+  </data>
+  <data name="OnResize_Disp_Key" xml:space="preserve">
+    <value>On Resize</value>
+  </data>
+  <data name="OnResize_Desc_Key" xml:space="preserve">
+    <value>Executes when the internal content area of the control changes.</value>
+  </data>
+  <data name="ValidationSchema_Disp_Key" xml:space="preserve">
+    <value>ValidationSchema</value>
+  </data>
+  <data name="ValidationSchema_Desc_Key" xml:space="preserve">
+    <value>JSON Schema for the Validaton Output Object</value>
+  </data>
+  <data name="Events_Disp_Key" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Events_Desc_Key" xml:space="preserve">
+    <value>List of events that executed since the last component output refresh.</value>
+  </data>
+  <data name="Events_Schema_Disp_Key" xml:space="preserve">
+    <value>Events_Schema_Disp_Key</value>
+  </data>
+  <data name="Events_Schema_Desc_Key" xml:space="preserve">
+    <value>Events_Schema_Desc_Key</value>
+  </data>
+  <data name="OnValidate_Disp_Key" xml:space="preserve">
+    <value>On Validate</value>
+  </data>
+  <data name="OnValidate_Desc_Key" xml:space="preserve">
+    <value>Executed when validation output changes</value>
+  </data>
+  <!-- Control Specific Strings -->
+  <data name="DefaultValue_Display_Key" xml:space="preserve">
+    <value>Default Value</value>
+  </data>
+  <data name="DefaultValue_Desc_Key" xml:space="preserve">
+    <value>Initial value for the control.  The value will be reset if the default value changes.</value>
+  </data>
+  <data name="Value_Display_Key" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Value_Desc_Key" xml:space="preserve">
+    <value>Current value of the control</value>
+  </data>
+  <data name="OnValueChange_Disp_Key" xml:space="preserve">
+    <value>On Value Change</value>
+  </data>
+  <data name="OnValueChange_Desc_Key" xml:space="preserve">
+    <value>Executes when the value of the control changes.</value>
+  </data>
+  <data name="DelayOutput_Display_Key" xml:space="preserve">
+    <value>Delay Output</value>
+  </data>
+  <data name="DelayOutput_Desc_Key" xml:space="preserve">
+    <value>Choose to delay output.  Can be helpful in galleries or to reduce the number of search queries in search fields.</value>
+  </data>
+  <data name="DelayOutput_None_Display_Key" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="DelayOutput_Debounce_Display_Key" xml:space="preserve">
+    <value>Debounce</value>
+  </data>
+  <data name="DelayOutput_OnBlur_Display_Key" xml:space="preserve">
+    <value>On Blur</value>
+  </data>
+  <data name="DelayTimeout_Display_Key" xml:space="preserve">
+    <value>Delay Timeout</value>
+  </data>
+  <data name="DelayTimeout_Desc_Key" xml:space="preserve">
+    <value>Number of millisecond to delay before triggering a change event when Delay Output set to Debounce</value>
+  </data>
+  <data name="CheckboxField_Display_Key" xml:space="preserve">
+    <value>Checkbox Field</value>
+  </data>
+  <data name="CheckboxField_Desc_Key" xml:space="preserve">
+    <value>A checkbox for true/false values</value>
+  </data>
+  <data name="Events_Schema_Disp_Key" xml:space="preserve">
+    <value>Events_Schema_Disp_Key</value>
+  </data>
+  <data name="Events_Schema_Desc_Key" xml:space="preserve">
+    <value>Events_Schema_Desc_Key</value>
+  </data>
+  <data name="ControlHeight_Disp_Key" xml:space="preserve">
+    <value>Control Height</value>
+  </data>
+  <data name="ControlHeight_Desc_Key" xml:space="preserve">
+    <value>Height of the user interactive control</value>
+  </data>
+  <data name="ControlWidth_Disp_Key" xml:space="preserve">
+    <value>Control Width</value>
+  </data>
+  <data name="ControlWidth_Desc_Key" xml:space="preserve">
+    <value>Width of the user interactive control</value>
+  </data>
+  <data name="AutoControlHeight_Disp_Key" xml:space="preserve">
+    <value>Auto Control Height</value>
+  </data>
+  <data name="AutoControlHeight_Desc_Key" xml:space="preserve">
+    <value>Allow the control to determine the height</value>
+  </data>
+  <data name="AutoControlWidth_Disp_Key" xml:space="preserve">
+    <value>Auto Control Width</value>
+  </data>
+  <data name="AutoControlWidth_Desc_Key" xml:space="preserve">
+    <value>Allow the control to determine the width</value>
+  </data>
+  <data name="AutoLabelWidth_Disp_Key" xml:space="preserve">
+    <value>Auto Label Width</value>
+  </data>
+  <data name="AutoLabelWidth_Desc_Key" xml:space="preserve">
+    <value>Use the default label width.</value>
+  </data>
+</root>

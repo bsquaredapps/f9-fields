@@ -9,8 +9,8 @@
             Label: {TextareaField1.Label}
             Hint: {TextareaField1.Hint}
             Info: {TextareaField1.Info}
-            Validation Message: {TextareaField1.Validation.Message}
-            Validation State: {TextareaField1.Validation.State}
+            Validation Message: {TextareaField1.ValidationMessage}
+            Validation State: {TextareaField1.ValidationState}
             Content Height: {TextareaField1.ContentHeight}
             Content Width: {TextareaField1.ContentWidth}
             Display Mode: {TextareaField1.DisplayMode}
@@ -23,50 +23,42 @@
         X: =723
         ZIndex: =1
 
-    Textarea_DefaultValue As text:
-        Default: =""
-        HintText: ="Default Value"
-        OnChange: =Set(_InputValue, Self.Text);
-        X: =23
-        Y: =282
-        ZIndex: =2
-
     Textarea_Appearance As dropdown:
         Default: ='F9Fields.ComboboxField.Appearance'.Outline
         Items: =['F9Fields.ComboboxField.Appearance'.Outline,'F9Fields.ComboboxField.Appearance'.FilledDarker,'F9Fields.ComboboxField.Appearance'.FilledLighter]
         X: =367
-        Y: =589
-        ZIndex: =3
+        Y: =575
+        ZIndex: =2
 
     Textarea_Hint As text:
         Default: =""
         HintText: ="Hint"
         X: =367
-        Y: =297
-        ZIndex: =4
+        Y: =369
+        ZIndex: =3
 
     Textarea_Info As text:
         Default: =""
         HintText: ="Info"
         X: =367
-        Y: =336
-        ZIndex: =5
+        Y: =408
+        ZIndex: =4
 
     Textarea_Label As text:
         Default: =""
         HintText: ="Label"
         X: =367
-        Y: =215
-        ZIndex: =6
+        Y: =202
+        ZIndex: =5
 
     Textarea_Required As toggleSwitch:
         FalseText: ="Not Required"
         Height: =25
         TrueText: ="Required"
         Width: =173
-        X: =367
-        Y: =465
-        ZIndex: =7
+        X: =368
+        Y: =455
+        ZIndex: =6
 
     Textarea_ValidationMessage As text:
         Default: =""
@@ -74,7 +66,7 @@
         OnChange: =Set(_InputValidationMessage, Self.Text)
         X: =368
         Y: =480
-        ZIndex: =8
+        ZIndex: =7
 
     Textarea_ValidationState As dropdown:
         Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
@@ -82,51 +74,28 @@
         OnChange: =Set(_InputValidationState, Self.Selected.Value);
         X: =368
         Y: =531
-        ZIndex: =9
+        ZIndex: =8
 
     Textarea_Orientation As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
         Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
         X: =367
         Y: =620
-        ZIndex: =10
+        ZIndex: =9
 
     Textarea_Size As dropdown:
         Default: ='F9Fields.ChoiceGroupField.Size'.Medium
         Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
         X: =367
         Y: =671
-        ZIndex: =11
+        ZIndex: =10
 
     Textarea_DisplayMode As dropdown:
         Default: =DisplayMode.Edit
         Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
         X: =367
         Y: =728
-        ZIndex: =12
-
-    Button2_3 As button:
-        OnSelect: =Set(CG_Value, "");
-        Text: |-
-            ="Clear
-            "
-        X: =80
-        Y: =541
-        ZIndex: =13
-
-    Button3_3 As button:
-        OnSelect: =Set(CG_Value, "1")
-        Text: ="Set Yes"
-        X: =80
-        Y: =593
-        ZIndex: =14
-
-    Button4_3 As button:
-        OnSelect: =Set(CG_Value, "0")
-        Text: ="Set No"
-        X: =80
-        Y: =653
-        ZIndex: =15
+        ZIndex: =11
 
     ButtonCanvas4_3 As Button:
         BasePaletteColor: =
@@ -144,107 +113,236 @@
         Width: =96
         X: =40
         Y: =40
-        ZIndex: =16
+        ZIndex: =12
 
     Textarea_Placeholder As text:
         Default: =""
         HintText: ="Placeholder"
-        X: =367
-        Y: =256
-        ZIndex: =17
+        X: =23
+        Y: =373
+        ZIndex: =13
 
     Textarea_DelayOutput As dropdown:
         Default: ='F9Fields.ComboboxField.Appearance'.Outline
         Items: =['F9Fields.ComboboxField.DelayOutput'.None,'F9Fields.ComboboxField.DelayOutput'.Debounce,'F9Fields.ComboboxField.DelayOutput'.OnBlur]
-        X: =367
-        Y: =375
-        ZIndex: =18
+        X: =23
+        Y: =420
+        ZIndex: =14
 
     Textarea_DebounceTimeout As text:
         Default: =""
         Format: =TextFormat.Number
         HintText: ="Debounce Timeout"
-        X: =367
-        Y: =420
-        ZIndex: =19
-
-    Textarea_InputType As dropdown:
-        Default: ='F9Fields.InputField.InputType'.Text
-        Items: =['F9Fields.InputField.InputType'.Text,'F9Fields.InputField.InputType'.Date, 'F9Fields.InputField.InputType'.DateTime, 'F9Fields.InputField.InputType'.Email, 'F9Fields.InputField.InputType'.Month, 'F9Fields.InputField.InputType'.Number, 'F9Fields.InputField.InputType'.Password, 'F9Fields.InputField.InputType'.Search, 'F9Fields.InputField.InputType'.Telephone,'F9Fields.InputField.InputType'.Time, 'F9Fields.InputField.InputType'.Url, 'F9Fields.InputField.InputType'.Week]
-        X: =367
-        Y: =47
-        ZIndex: =20
-
-    Textarea_Before As text:
-        Default: =""
-        HintText: ="Before"
-        X: =367
-        Y: =87
-        ZIndex: =21
-
-    Textarea_After As text:
-        Default: =""
-        HintText: ="After"
-        X: =367
-        Y: =124
-        ZIndex: =22
-
-    Textarea_Validate As dropdown:
-        Default: ='F9Fields.InputField.Validate'.OnChange
-        Items: =['F9Fields.InputField.Validate'.OnChange,'F9Fields.InputField.Validate'.Always,'F9Fields.InputField.Validate'.Never]
-        X: =370
-        Y: =559
-        ZIndex: =23
+        X: =23
+        Y: =465
+        ZIndex: =15
 
     Textarea_Value As text:
         Default: =""
         HintText: ="Value"
         X: =23
-        Y: =224
-        ZIndex: =24
+        Y: =281
+        ZIndex: =16
 
     Textarea_Resize As dropdown:
         Default: ='F9Fields.TextareaField.AllowResize'.Both
         Items: =['F9Fields.TextareaField.AllowResize'.Both,'F9Fields.TextareaField.AllowResize'.Horizontal, 'F9Fields.TextareaField.AllowResize'.Vertical, 'F9Fields.TextareaField.AllowResize'.None]
-        X: =370
-        Y: =169
+        X: =23
+        Y: =326
+        ZIndex: =17
+
+    TextareaField_LabelAlign As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelAlign'.Start,'F9Fields.Field.LabelAlign'.Center, 'F9Fields.Field.LabelAlign'.End, 'F9Fields.Field.LabelAlign'.Justify]
+        X: =368
+        Y: =61
+        ZIndex: =18
+
+    TextareaField_Width As text:
+        Default: ="200"
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        Width: =72
+        X: =368
+        Y: =24
+        ZIndex: =19
+
+    TextareaField_Height As text:
+        Default: ="100"
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        Width: =74
+        X: =445
+        Y: =24
+        ZIndex: =20
+
+    TextareaField_LabelWrap As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelWrap'.Wrap,'F9Fields.Field.LabelWrap'.NoWrap, 'F9Fields.Field.LabelWrap'.Balance, 'F9Fields.Field.LabelWrap'.Pretty]
+        X: =368
+        Y: =101
+        ZIndex: =21
+
+    TextareaField_LabelWidth As text:
+        Default: =_LabelWidth
+        Height: =37
+        HintText: ="Label Width"
+        OnChange: |-
+            =UpdateContext({_LabelWidth: Value(Self.Text)})
+        Width: =151
+        X: =368
+        Y: =165
+        ZIndex: =22
+
+    TextareaField_LabelWeight As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelFontWeight'.Normal,'F9Fields.Field.LabelFontWeight'.Lighter, 'F9Fields.Field.LabelFontWeight'.'Semi-Bold', 'F9Fields.Field.LabelFontWeight'.Bold]
+        X: =367
+        Y: =286
+        ZIndex: =23
+
+    TextareaField_LabelFont As text:
+        Default: =""
+        Height: =44
+        HintText: ="Label Font"
+        Width: =194
+        X: =367
+        Y: =242
+        ZIndex: =24
+
+    TextareaField_LabelColor As text:
+        Default: =""
+        HintText: ="Label Color"
+        X: =367
+        Y: =326
+        ZIndex: =25
+
+    TextareaField_LabelFontSize As text:
+        Default: ="14px"
+        Height: =39
+        HintText: ="Label Font Size"
+        Width: =121
+        X: =560
+        Y: =243
         ZIndex: =26
 
-    Container1 As groupContainer.verticalAutoLayoutContainer:
-        LayoutDirection: =LayoutDirection.Vertical
-        LayoutMode: =LayoutMode.Auto
-        X: =100
-        Y: =100
-        ZIndex: =27
+    "TextareaField1 As 'Textarea Field'":
+        AllowResize: =Textarea_Resize.Selected.Value
+        Appearance: =Textarea_Appearance.Selected.Value
+        AutoControlHeight: =Textarea_AutoControlHeight.Value
+        AutoControlWidth: =Textarea_AutoControlWidth.Value
+        AutoLabelWidth: =Textarea_AutoLabelWidth.Value
+        ControlHeight: =_ControlHeight
+        ControlWidth: =_ControlWidth
+        DelayOutput: =Textarea_DelayOutput.Selected.Value
+        DelayTimeout: =Textarea_DebounceTimeout.Text
+        DisplayMode: =Textarea_DisplayMode.Selected.Value
+        Height: =Self.ContentHeight
+        Hint: =Textarea_Hint.Text
+        Info: =Textarea_Info.Text
+        Label: =Textarea_Label.Text
+        LabelAlign: =TextareaField_LabelAlign.Selected.Value
+        LabelFont: =TextareaField_LabelFont.Text
+        LabelFontColor: =TextareaField_LabelColor.Text
+        LabelFontSize: =TextareaField_LabelFontSize.Text
+        LabelFontWeight: =TextareaField_LabelWeight.Selected.Value
+        LabelWidth: =TextareaField_LabelWidth.Text
+        LabelWrap: =TextareaField_LabelWrap.Selected.Value
+        OnChange: |-
+            =/*Notify($"Changed: {JSON(Self.Value)} Event(s): {Concat(Filter(Self.Events, type = "change"),"TargetValue: " & target.value & "Event: " & JSON(ThisRecord), Char(10))}")*/
+        OnResize: |-
+            =/*Notify($"Resized: {Self.ContentWidth} x {Self.ContentHeight} ControlSize: {Self.ControlWidth} x {Self.ControlHeight} Event(s): {Concat(Filter(Self.Events, type = "resize"),JSON(ThisRecord), Char(10))}");
+            UpdateContext({
+                _ControlHeight: Self.ControlHeight,
+                _ControlWidth: Self.ControlWidth
+            });*/
+            
+            
+            UpdateContext({
+                _FieldHeight: Self.ContentHeight,
+                //_FieldWidth: Self.ContentWidth,
+                _ControlWidth: Self.ControlWidth,
+                _ControlHeight: Self.ControlHeight,
+                _LabelWidth: Self.LabelWidth
+            })
+        OnSelect: |-
+            =Notify($"Selected Event(s): {Concat(Filter(Self.Events, type = "click"),JSON(ThisRecord), Char(10))}")
+        OnValueChange: =false
+        Orientation: =Textarea_Orientation.Selected.Value
+        Placeholder: =Textarea_Placeholder.Text
+        Required: =Textarea_Required.Value
+        Size: =Textarea_Size.Selected.Value
+        ValidationMessage: =Textarea_ValidationMessage.Text
+        ValidationState: =Textarea_ValidationState.Selected.Value
+        Value: =Textarea_Value.Text
+        Width: =If(Textarea_Resize.Selected.Value in ["both","horizontal"], Max(Self.ContentWidth,Value(TextareaField_Width.Text)),Value(TextareaField_Width.Text))
+        X: =23
+        Y: =117
+        ZIndex: =28
 
-        "TextareaField1 As 'Textarea Field'":
-            AllowResize: =Textarea_Resize.Selected.Value
-            Appearance: =Textarea_Appearance.Selected.Value
-            DelayOutput: =Textarea_DelayOutput.Selected.Value
-            DelayTimeout: =Textarea_DebounceTimeout.Text
-            DisplayMode: =Textarea_DisplayMode.Selected.Value
-            Height: =Self.ContentHeight
-            Hint: =Textarea_Hint.Text
-            Info: =Textarea_Info.Text
-            Label: =Textarea_Label.Text
-            LayoutMinHeight: =200
-            LayoutMinWidth: =200
-            OnChange: |-
-                =Notify($"Changed: {JSON(Self.Value)} Event(s): {Concat(Filter(Self.Events, type = "change"),"TargetValue: " & target.value & "Event: " & JSON(ThisRecord), Char(10))}")
-            OnResize: |-
-                =Notify($"Resized: {Self.ContentWidth} x {Self.ContentHeight} Event(s): {Concat(Filter(Self.Events, type = "resize"),JSON(ThisRecord), Char(10))}")
-            OnSelect: |-
-                =Notify($"Selected Event(s): {Concat(Filter(Self.Events, type = "click"),JSON(ThisRecord), Char(10))}")
-            OnValueChange: =false
-            Orientation: =Textarea_Orientation.Selected.Value
-            Placeholder: =Textarea_Placeholder.Text
-            Required: =Textarea_Required.Value
-            Size: =Textarea_Size.Selected.Value
-            ValidationMessage: =Textarea_ValidationMessage.Text
-            ValidationState: =Textarea_ValidationState.Selected.Value
-            Value: =Textarea_Value.Text
-            Width: =283
-            X: =60
-            Y: =111
-            ZIndex: =1
+    TextareaField_ControlWidth As text:
+        Default: =_ControlWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _ControlWidth: Value(Self.Text)})
+        Width: =151
+        X: =31
+        Y: =529
+        ZIndex: =29
+
+    TextareaField_ControlHeight As text:
+        Default: =_ControlHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _ControlHeight: Value(Self.Text)})
+        Width: =151
+        X: =192
+        Y: =528
+        ZIndex: =30
+
+    Textarea_AutoLabelWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =526
+        Y: =171
+        ZIndex: =31
+
+    Textarea_AutoControlWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =31
+        Y: =581
+        ZIndex: =32
+
+    Textarea_AutoControlHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =199
+        Y: =583
+        ZIndex: =33
+
+    CG_AutoFieldHeight_1 As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =526
+        Y: =30
+        ZIndex: =34
 

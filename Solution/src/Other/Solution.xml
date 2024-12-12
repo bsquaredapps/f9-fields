@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.23122.208" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.24031.198" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <UniqueName>F9_Fields</UniqueName>
     <LocalizedNames>
       <LocalizedName description="F9 Fields" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>0.0.42</Version>
+    <Version>0.0.59</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>bsqa</UniqueName>
@@ -81,6 +81,7 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="300" schemaName="bsqa_f9testapp_fa027" behavior="0" />
+      <RootComponent type="66" schemaName="bsqa_F9Fields.CheckboxField" behavior="0" />
       <RootComponent type="66" schemaName="bsqa_F9Fields.ChoiceGroupField" behavior="0" />
       <RootComponent type="66" schemaName="bsqa_F9Fields.ComboboxField" behavior="0" />
       <RootComponent type="66" schemaName="bsqa_F9Fields.Dialog" behavior="0" />
