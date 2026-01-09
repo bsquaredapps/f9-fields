@@ -10,7 +10,7 @@ import {
     Label,
     mergeClasses
 } from '@fluentui/react-components';
-import * as DOMPurify from 'dompurify';
+import * as DOMPurify from 'isomorphic-dompurify';
 
 export type F9CheckboxFieldOnChangeEventHandler = (targetRef: React.RefObject<HTMLInputElement>, data?: CheckboxOnChangeData) => void;
 export interface F9CheckboxFieldProps extends Omit<CheckboxProps, "onClick" | "onChange"> {

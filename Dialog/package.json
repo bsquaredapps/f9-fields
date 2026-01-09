@@ -16,6 +16,7 @@
   "dependencies": {
     "@fluentui/react-components": "9.46.2",
     "dompurify": "^3.0.2",
+    "isomorphic-dompurify": "^2.33.0",
     "react": "16.14.0",
     "react-dom": "16.14.0"
   },
@@ -33,8 +34,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-react": "^7.31.8",
-    "pcf-scripts": "^1",
-    "pcf-start": "^1",
+    "pcf-scripts": "^1.50.1",
+    "pcf-start": "^1.50.1",
     "react": "16.14.0",
     "typescript": "^4.9.5"
   }

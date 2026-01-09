@@ -3,7 +3,7 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import { F9Dialog, F9DialogAction, F9DialogActionDefaultColumns } from "./F9Dialog";
 import { DialogOpenChangeData, DialogOpenChangeEvent, DialogProps } from "@fluentui/react-components";
-import * as DOMPurify from "dompurify";
+import * as DOMPurify from "isomorphic-dompurify";
 
 const getActionsFromDataSet = <T>(dataSet: ComponentFramework.PropertyTypes.DataSet, columns?: ComponentFramework.PropertyHelper.DataSetApi.Column[]) => {
     const actions: F9DialogAction[] = [];

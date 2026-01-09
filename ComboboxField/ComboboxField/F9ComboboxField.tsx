@@ -195,7 +195,9 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
             if(isRead)
                 return;
             // remove selected option
-            setSelectedOptions(selectedOptions.filter((o) => o !== option));
+            const newSelectedOptions = selectedOptions.filter((o) => o !== option);
+            setSelectedOptions(newSelectedOptions);
+            onChange?.(inputRef, {optionValue: option, selectedOptions: newSelectedOptions});
     
             // focus previous or next option, defaulting to focusing back to the combo input
             const indexToFocus = index === 0 ? 1 : index - 1;

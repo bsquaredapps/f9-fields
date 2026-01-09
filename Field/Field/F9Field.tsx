@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, FieldProps, InfoLabel, Label, LabelProps, PopoverSurface, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
-import * as DOMPurify from 'dompurify';
+import * as DOMPurify from 'isomorphic-dompurify';
 import useScrollSize, { ScrollSize } from '../../Utilities/useScrollSize';
 
 export interface F9FieldProps extends Omit<FieldProps, "hint" | "label" | "info" | "validationMessage"> {
