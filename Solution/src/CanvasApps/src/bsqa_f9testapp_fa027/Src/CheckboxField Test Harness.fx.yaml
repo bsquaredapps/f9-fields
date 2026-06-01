@@ -1,0 +1,332 @@
+"'CheckboxField Test Harness' As screen":
+    OnVisible: =
+
+    CheckboxField_Hint As text:
+        Default: =""
+        HintText: ="Hint"
+        X: =367
+        Y: =327
+        ZIndex: =5
+
+    CheckboxField_Info As text:
+        Default: =""
+        HintText: ="Info"
+        X: =367
+        Y: =366
+        ZIndex: =6
+
+    CheckboxField_Label As text:
+        Default: =""
+        HintText: ="Label"
+        X: =367
+        Y: =285
+        ZIndex: =7
+
+    CheckboxField_Required As toggleSwitch:
+        FalseText: ="Not Required"
+        Height: =25
+        TrueText: ="Required"
+        Width: =173
+        X: =368
+        Y: =412
+        ZIndex: =9
+
+    CheckboxField_ValidationMessage As text:
+        Default: =""
+        HintText: ="Validation Message"
+        OnChange: =Set(_InputValidationMessage, Self.Text)
+        X: =367
+        Y: =518
+        ZIndex: =10
+
+    CheckboxField_ValidationState As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.ValidationState'.Error
+        Items: =['F9Fields.ChoiceGroupField.ValidationState'.Error,'F9Fields.ChoiceGroupField.ValidationState'.None,'F9Fields.ChoiceGroupField.ValidationState'.Success,'F9Fields.ChoiceGroupField.ValidationState'.Warning]
+        OnChange: =Set(_InputValidationState, Self.Selected.Value);
+        X: =367
+        Y: =569
+        ZIndex: =11
+
+    CheckboxField_Orientation As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Layout'.Vertical
+        Items: =['F9Fields.ChoiceGroupField.Orientation'.Horizontal,'F9Fields.ChoiceGroupField.Orientation'.Vertical]
+        X: =367
+        Y: =620
+        ZIndex: =12
+
+    CheckboxField_Size As dropdown:
+        Default: ='F9Fields.ChoiceGroupField.Size'.Medium
+        Items: =['F9Fields.ChoiceGroupField.Size'.Small,'F9Fields.ChoiceGroupField.Size'.Medium, 'F9Fields.ChoiceGroupField.Size'.Large]
+        X: =367
+        Y: =671
+        ZIndex: =13
+
+    CheckboxField_DisplayMode As dropdown:
+        Default: =DisplayMode.Edit
+        Items: =[DisplayMode.View, DisplayMode.Edit, DisplayMode.Disabled]
+        X: =367
+        Y: =728
+        ZIndex: =14
+
+    Label4_4 As label:
+        Height: =768
+        Overflow: =Overflow.Scroll
+        Text: |-
+            =$"Version: 3,
+            Label: {Checkbox_Field.Label}
+            Hint: {Checkbox_Field.Hint}
+            Info: {Checkbox_Field.Info}
+            Validation Message: {Checkbox_Field.ValidationMessage}
+            Validation State: {Checkbox_Field.ValidationState}
+            Content Height: {Checkbox_Field.ContentHeight}
+            Content Width: {Checkbox_Field.ContentWidth}
+            Display Mode: {Checkbox_Field.DisplayMode}
+            Events: {InputField_EventsJSON}
+            Events Count: {CountRows(Checkbox_Field.Events)}
+            Required: {Checkbox_Field.Required}
+            Value: {Checkbox_Field.Value}
+            Visible: {Checkbox_Field.Visible}"
+        Width: =643
+        X: =723
+        ZIndex: =16
+
+    ButtonCanvas4_5 As Button:
+        BasePaletteColor: =
+        DisplayMode: =DisplayMode.Edit
+        Font: =""
+        FontColor: =
+        FontItalic: =false
+        FontSize: =0
+        FontStrikethrough: =false
+        FontUnderline: =false
+        FontWeight: =""
+        Height: =32
+        OnSelect: =Navigate(Home)
+        Text: ="Home"
+        Width: =96
+        X: =40
+        Y: =40
+        ZIndex: =21
+
+    CheckboxField_DelayOutput As dropdown:
+        Default: ='F9Fields.ComboboxField.Appearance'.Outline
+        Items: =['F9Fields.ComboboxField.DelayOutput'.None,'F9Fields.ComboboxField.DelayOutput'.Debounce,'F9Fields.ComboboxField.DelayOutput'.OnBlur]
+        X: =13
+        Y: =352
+        ZIndex: =24
+
+    CheckboxField_DebounceTimeout As text:
+        Default: =""
+        Format: =TextFormat.Number
+        HintText: ="Debounce Timeout"
+        X: =13
+        Y: =397
+        ZIndex: =25
+
+    CheckboxField_Value As checkbox:
+        Default: =_CF_Value
+        OnCheck: =Set(_CF_Value, true);
+        OnUncheck: =Set(_CF_Value, false)
+        Text: ="Value"
+        X: =40
+        Y: =229
+        ZIndex: =36
+
+    CheckboxField_LabelPosition As dropdown:
+        Default: ='F9Fields.ComboboxField.Appearance'.Outline
+        Items: =['F9Fields.CheckboxField.LabelPosition'.Before,'F9Fields.CheckboxField.LabelPosition'.After]
+        X: =13
+        Y: =311
+        ZIndex: =37
+
+    "TextInputCanvas1 As 'Text input'":
+        Align: ='TextInputCanvas.Align'.Justify
+        BasePaletteColor: =RGBA(0, 124, 186, 1)
+        DisplayMode: =DisplayMode.Edit
+        Font: =Font.'Open Sans'
+        FontColor: =
+        FontItalic: =true
+        FontSize: =20
+        FontStrikethrough: =true
+        FontUnderline: =true
+        FontWeight: =FontWeight.Semibold
+        Height: =32
+        Width: =320
+        X: =955
+        Y: =458
+        ZIndex: =38
+
+    "Checkbox_Field As 'Checkbox Field'":
+        AutoControlHeight: =Checkbox_AutoControlHeight.Value
+        AutoControlWidth: =Checkbox_AutoControlWidth.Value
+        ControlHeight: =Value(Checkbox_ControlHeight.Text)
+        ControlWidth: =Value(Checkbox_ControlWidth.Text)
+        DelayOutput: =CheckboxField_DelayOutput.Selected.Value
+        DelayTimeout: =Value(CheckboxField_DebounceTimeout.Text)
+        DisplayMode: =CheckboxField_DisplayMode.Selected.Value
+        Height: =Self.ContentHeight
+        Hint: =CheckboxField_Hint.Text
+        Info: =CheckboxField_Info.Text
+        Label: =CheckboxField_Label.Text
+        LabelAlign: =Checkbox_LabelAlign.Selected.Value
+        LabelFont: =Checkbox_LabelFont.Text
+        LabelFontColor: =Checkbox_LabelColor.Text
+        LabelFontSize: =Checkbox_LabelFontSize.Text
+        LabelFontWeight: =Checkbox_LabelWeight.Selected.Value
+        LabelPosition: =CheckboxField_LabelPosition.Selected.Value
+        LabelWrap: =Checkbox_LabelWrap.Selected.Value
+        OnResize: =false
+        OnValueChange: =Notify("Changed");Set(_CF_Value, Self.Value);
+        Orientation: =CheckboxField_Orientation.Selected.Value
+        Required: =CheckboxField_Required.Value
+        Size: =CheckboxField_Size.Selected.Value
+        ValidationMessage: =CheckboxField_ValidationMessage.Text
+        ValidationState: =CheckboxField_ValidationState.Selected.Value
+        Value: =_CF_Value
+        Width: =Value(Checkbox_Width.Text)
+        X: =60
+        Y: =142
+        ZIndex: =39
+
+    Checkbox_LabelAlign As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelAlign'.Start,'F9Fields.Field.LabelAlign'.Center, 'F9Fields.Field.LabelAlign'.End, 'F9Fields.Field.LabelAlign'.Justify]
+        X: =368
+        Y: =37
+        ZIndex: =40
+
+    Checkbox_Width As text:
+        Default: =_FieldWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({_FieldWidth: Value(Self.Text)})
+        Width: =79
+        X: =368
+        ZIndex: =41
+
+    Checkbox_Height As text:
+        Default: =_FieldHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({_FieldHeight: Value(Self.Text)})
+        Width: =85
+        X: =447
+        ZIndex: =42
+
+    Checkbox_LabelWrap As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelWrap'.Wrap,'F9Fields.Field.LabelWrap'.NoWrap, 'F9Fields.Field.LabelWrap'.Balance, 'F9Fields.Field.LabelWrap'.Pretty]
+        X: =368
+        Y: =77
+        ZIndex: =43
+
+    Checkbox_LabelWidth As text:
+        Default: =_LabelWidth
+        Height: =37
+        HintText: ="Label Width"
+        OnChange: |-
+            =UpdateContext({_LabelWidth: Value(Self.Text)})
+        Width: =151
+        X: =368
+        Y: =121
+        ZIndex: =44
+
+    Checkbox_LabelWeight As dropdown:
+        Default: ='F9Fields.InputField.InputType'.Text
+        Items: =['F9Fields.Field.LabelFontWeight'.Normal,'F9Fields.Field.LabelFontWeight'.Lighter, 'F9Fields.Field.LabelFontWeight'.'Semi-Bold', 'F9Fields.Field.LabelFontWeight'.Bold]
+        X: =368
+        Y: =162
+        ZIndex: =45
+
+    Checkbox_LabelFont As text:
+        Default: =""
+        HintText: ="Label Font"
+        Width: =151
+        X: =368
+        Y: =205
+        ZIndex: =46
+
+    Checkbox_LabelColor As text:
+        Default: =""
+        HintText: ="Label Color"
+        X: =368
+        Y: =245
+        ZIndex: =47
+
+    Checkbox_LabelFontSize As text:
+        Default: ="14px"
+        Height: =37
+        HintText: ="Label Font Size"
+        Width: =151
+        X: =532
+        Y: =206
+        ZIndex: =48
+
+    Checkbox_AutoLabelWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =537
+        Y: =126
+        ZIndex: =49
+
+    Checkbox_AutoControlWidth As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =31
+        Y: =643
+        ZIndex: =50
+
+    Checkbox_AutoControlHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =199
+        Y: =645
+        ZIndex: =51
+
+    Checkbox_ControlWidth As text:
+        Default: =_ControlWidth
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Width"
+        OnChange: |-
+            =UpdateContext({ _ControlWidth: Value(Self.Text)})
+        Width: =151
+        X: =29
+        Y: =596
+        ZIndex: =52
+
+    Checkbox_ControlHeight As text:
+        Default: =_ControlHeight
+        Format: =TextFormat.Number
+        Height: =37
+        HintText: ="Height"
+        OnChange: |-
+            =UpdateContext({ _ControlHeight: Value(Self.Text)})
+        Width: =151
+        X: =190
+        Y: =595
+        ZIndex: =53
+
+    Checkbox_AutoFieldHeight As toggleSwitch:
+        Default: =true
+        FalseText: ="Manual"
+        Height: =25
+        TrueText: ="Auto"
+        Width: =120
+        X: =547
+        Y: =6
+        ZIndex: =54
+
