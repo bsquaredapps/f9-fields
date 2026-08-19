@@ -2,7 +2,6 @@ import * as React from 'react';
 import { F9Field, F9FieldProps, renderSlotAsHtml } from '../../Field/Field/F9Field'
 import { 
     Text,
-    TextProps, 
     InputOnChangeData, 
     Input, 
     InputProps,
@@ -60,17 +59,9 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
 
     const styles = useStyles();
 
-    const readInputSlot = React.useMemo(()=>({
-        children: (Component: React.ElementType, inputControlProps: React.ComponentProps<'input'>)=>{
-            return <Text {...(inputControlProps as TextProps)} >{value}</Text>;
-        }
-    }), [isRead, value, controlWidth, controlHeight]);
-
     const inputSlot = React.useMemo(()=>(
-        isRead ?
-        { } :
         { className: styles.root }
-    ), [isRead, value, controlWidth, controlHeight]);
+    ), [styles.root]);
 
     const contentBeforeSlot = React.useMemo(()=>renderSlotAsHtml(contentBefore, 'span'),[contentBefore]);
     const contentAfterSlot = React.useMemo(()=>renderSlotAsHtml(contentAfter, 'span'),[contentAfter]);
@@ -96,10 +87,13 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
 
     return <F9Field 
         {...fieldProps}
-    ><Input
+    >{
+        isRead
+        ? <Text style={{...controlStyle, ...style}} className={mergeClasses(styles.root, className)}>{value}</Text>
+        : <Input
             {...restProps}
             className={mergeClasses(styles.root, className)}
-            input={isRead ? <Text>{value}</Text> : inputSlot}
+            input={inputSlot}
             onChange={onInputChange}
             onBlur={onBlur}
             value={value}
@@ -110,5 +104,6 @@ export const F9InputField: React.FunctionComponent<F9InputFieldProps> = (props)=
             ref={inputRef}
             style={{...controlStyle, ...style}}
         ></Input>
+    }
     </F9Field>
 }

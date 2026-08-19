@@ -95,6 +95,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
         onBlur,
         onChange,
         onSearch,
+        onOpenChange: onOpenChangeProp,
         controlHeight,
         controlWidth,
         style,
@@ -104,6 +105,7 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     
     const inputRef = React.useRef<HTMLInputElement>(null);
 
+    const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>(props.selectedOptions ?? [])
     React.useEffect(()=>{
         setSelectedOptions(props.selectedOptions ?? []);
@@ -138,6 +140,30 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
             onSearch?.(inputRef, { value })
         }
     }
+
+    const onOpenChange: ComboboxProps['onOpenChange'] = React.useCallback((event, data) => {
+        setIsOpen(data.open);
+        onOpenChangeProp?.(event, data);
+    }, [onOpenChangeProp]);
+
+    const selectedLabel = React.useMemo(() =>
+        options?.filter((option) => selectedOptions?.includes(option.Value))
+            .map((option) => option.Text ?? option.Value)
+            .join(', ') ?? '',
+        [options, selectedOptions]
+    );
+
+    const comboboxValue = React.useMemo(() => {
+        if (showTags && selectedOptions.length > 0) {
+            return searchText ?? '';
+        }
+
+        if (allowSearch) {
+            return isOpen ? (searchText ?? '') : selectedLabel;
+        }
+
+        return selectedLabel;
+    }, [showTags, selectedOptions.length, allowSearch, isOpen, searchText, selectedLabel]);
 
     const groupedOptions = React.useMemo(() => {
         const groups: { [key: string]: F9SimpleOption<OptionProps>[] } = {};
@@ -299,13 +325,9 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
                                 {...fieldControlProps}
                                 aria-labelledby={ariaLabelledBy}
                                 className={styles.root}
-                                value={
-                                    allowSearch
-                                        ? searchText
-                                        : options?.filter(option => selectedOptions?.includes(option.Value))
-                                            .map(option => option.Text ?? option.Value)
-                                            .join(', ')
-                                }
+                                open={isOpen}
+                                onOpenChange={onOpenChange}
+                                value={comboboxValue}
                                 selectedOptions={selectedOptions}
                                 placeholder={placeholder}
                                 freeform={allowSearch}

@@ -6,7 +6,7 @@
       <LocalizedName description="F9 Fields" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>0.0.62</Version>
+    <Version>0.0.64</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>bsqa</UniqueName>
@@ -135,7 +135,7 @@
       <RootComponent type="66" schemaName="bsqa_F9Fields.Field" behavior="0" />
       <RootComponent type="66" schemaName="bsqa_F9Fields.FilePickerField" behavior="0" />
       <RootComponent type="66" schemaName="bsqa_F9Fields.InputField" behavior="0" />
-      <RootComponent type="66" schemaName="bsqa_F9Fields.Scroller" behavior="0" />
+
       <RootComponent type="66" schemaName="bsqa_F9Fields.TextareaField" behavior="0" />
     </RootComponents>
     <MissingDependencies />
