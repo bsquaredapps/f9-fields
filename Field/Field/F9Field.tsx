@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Field, FieldProps, InfoLabel, Label, LabelProps, PopoverSurface, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
+import { Field, FieldProps, InfoLabel, Label, LabelProps, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import * as DOMPurify from 'isomorphic-dompurify';
 import useScrollSize, { ScrollSize } from '../../Utilities/useScrollSize';
 
@@ -113,8 +113,8 @@ export const F9Field: React.FunctionComponent<F9FieldProps> = (props)=>{
                     return <InfoLabel 
                         {...labelProps} 
                         label={{style: labelStyles}} 
-                        infoButton={{style: labelStyles}}
-                        info={<PopoverSurface><div dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(info)}}/></PopoverSurface>}
+                        infoButton={{style: labelStyles, inline: false}}
+                        info={<div dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(info)}}/>}
                     >{label}</InfoLabel>
                 } else if (label) {
                     return <Label 

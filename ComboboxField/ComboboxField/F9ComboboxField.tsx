@@ -124,13 +124,9 @@ export const F9ComboboxField: React.FunctionComponent<F9ComboboxFieldProps> = (p
     },[props.options]);
 
     const onOptionSelect: ComboboxProps["onOptionSelect"] = React.useCallback((ev, data) => {
-        const { optionValue } = data;
-
-        if (optionValue) {
-            setSelectedOptions(data.selectedOptions);
-            setSearchText("");
-            onChange?.(inputRef, data);
-        }
+        setSelectedOptions(data.selectedOptions);
+        setSearchText("");
+        onChange?.(inputRef, data);
     },[setSelectedOptions, setSearchText, onChange, inputRef]);
 
     const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

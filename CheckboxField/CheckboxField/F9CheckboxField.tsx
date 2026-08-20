@@ -90,7 +90,7 @@ export const F9CheckboxField: React.FunctionComponent<F9CheckboxFieldProps> = (p
                     return <InfoLabel 
                         {...labelProps} 
                         label={{style: labelStyles}} 
-                        infoButton={{style: labelStyles}}
+                        infoButton={{style: labelStyles, inline: false}}
                         className={mergeClasses(labelProps.className, styles.label)}
                         info={<div dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(info)}}/>}>
                         {label}
@@ -107,7 +107,7 @@ export const F9CheckboxField: React.FunctionComponent<F9CheckboxFieldProps> = (p
     },[label, info, labelStyles]);
 
     const inputRef = React.useRef<HTMLInputElement>(null);
-    
+
     const [checked, setChecked] = React.useState(props.checked);
     
     React.useEffect(()=>{

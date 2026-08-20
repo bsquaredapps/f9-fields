@@ -437,6 +437,12 @@
   <data name="ShowTags_Desc_Key" xml:space="preserve">
     <value>Show selected values as tags above the combobox control</value>
   </data>
+  <data name="AllowClear_Disp_Key" xml:space="preserve">
+    <value>Allow Clear</value>
+  </data>
+  <data name="AllowClear_Desc_Key" xml:space="preserve">
+    <value>Show a clear button inside the combobox to remove the current selection.</value>
+  </data>
   <data name="AllowCustomOptions_Disp_Key" xml:space="preserve">
     <value>Allow Custom Options</value>
   </data>

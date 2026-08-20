@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="F9Fields" constructor="ComboboxField" version="0.0.64" display-name-key="ComboboxField_Disp_Key" description-key="ComboboxField_Desc_Key" control-type="virtual">
+  <control namespace="F9Fields" constructor="ComboboxField" version="0.0.69" display-name-key="ComboboxField_Disp_Key" description-key="ComboboxField_Desc_Key" control-type="virtual">
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -27,6 +27,7 @@
     <property name="AllowSearch" display-name-key="AllowSearch_Display_Key" description-key="AllowSearch_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
     <property name="SearchText" display-name-key="SearchText_Disp_Key" description-key="SearchText_Desc_Key" of-type="SingleLine.Text" usage="bound" />
     <property name="ShowTags" display-name-key="ShowTags_Disp_Key" description-key="ShowTags_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
+    <property name="AllowClear" display-name-key="AllowClear_Disp_Key" description-key="AllowClear_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
     <property name="AllowCustomOptions" display-name-key="AllowCustomOptions_Disp_Key" description-key="AllowCustomOptions_Desc_Key" of-type="TwoOptions" usage="input" required="false" default-value="false" />
     <property name="AddCustomOptionLabel" display-name-key="AddCustomOptionLabel_Disp_Key" description-key="AddCustomOptionLabel_Desc_Key" of-type="SingleLine.Text" usage="bound" default-value="Add" />
     <property name="Placeholder" display-name-key="Placeholder_Display_Key" description-key="Placeholder_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" />
